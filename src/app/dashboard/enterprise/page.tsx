@@ -75,7 +75,7 @@ export default function EnterpriseDashboardPage() {
         </h1>
         <p className="mt-3 text-[var(--muted-strong)] max-w-2xl leading-relaxed">
           Aggregate oversight of every portfolio company&apos;s relationship
-          graph — without seeing individual contacts. Intro requests flow
+          graph, without seeing individual contacts. Intro requests flow
           through two gates: your governance review, then the contact
           owner&apos;s final approval.
         </p>
@@ -125,7 +125,7 @@ export default function EnterpriseDashboardPage() {
             </h2>
           </div>
           <div className="text-sm text-[var(--muted-strong)]">
-            Aggregate by default — no individual contacts visible.
+            Aggregate by default, no individual contacts visible.
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -344,7 +344,7 @@ export default function EnterpriseDashboardPage() {
               </div>
             </div>
             <div className="font-editorial text-base tracking-tight text-[var(--foreground)] mb-3">
-              These portcos need ecosystem outreach — activity declining 30d+.
+              These portcos need ecosystem outreach: activity declining 30d+.
             </div>
             <ul className="space-y-2">
               {drifting.map((p) => (
@@ -496,7 +496,7 @@ function IntroRequestRow({
     <li className="grid grid-cols-[1.2fr_1.2fr_2fr_auto_auto] gap-3 px-5 py-4 items-center hover:bg-[var(--paper)]/40 transition-colors">
       <div className="min-w-0">
         <div className="font-medium text-[var(--foreground)] truncate">
-          {requester?.name || "—"}
+          {requester?.name || "Unknown"}
         </div>
         <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-wider truncate">
           requesting
@@ -505,7 +505,7 @@ function IntroRequestRow({
       <div className="min-w-0">
         <div className="text-sm text-[var(--foreground)] truncate">
           <span className="text-[var(--muted)]">via</span>{" "}
-          <span className="font-medium">{holder?.name || "—"}</span>
+          <span className="font-medium">{holder?.name || "Unknown"}</span>
         </div>
         <div className="font-mono text-[10px] text-[var(--muted-strong)] truncate">
           → {request.target_company}

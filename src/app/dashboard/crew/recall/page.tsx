@@ -15,8 +15,11 @@ import {
   Sparkles,
   ExternalLink,
   UserSearch,
+  Search,
 } from "lucide-react";
 import { CREW } from "@/lib/fixtures";
+import { recallSearch } from "@/lib/api";
+import type { RecallSearchResponse } from "@/lib/api";
 import { useGensparkPanel } from "@/components/genspark-side-panel";
 
 type Mode = "idle" | "recording" | "processing" | "done" | "error";
@@ -66,6 +69,11 @@ export default function ScribePage() {
   const [uploadedName, setUploadedName] = useState<string | null>(null);
   const [uploadedSize, setUploadedSize] = useState<number | null>(null);
   const [recordingSecs, setRecordingSecs] = useState(0);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState<RecallSearchResponse | null>(null);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const panel = useGensparkPanel();
 
@@ -150,7 +158,7 @@ export default function ScribePage() {
       const rawText = await res.text();
       let json: ScribeResponse;
       if (!rawText) {
-        const msg = `Scribe pipeline took too long (HTTP ${res.status}) — try a shorter audio note (under 30 seconds).`;
+        const msg = `Scribe pipeline took too long (HTTP ${res.status}), try a shorter audio note (under 30 seconds).`;
         console.error("[scribe] empty response body", { status: res.status });
         panel.run({
           crew: "scribe",
@@ -226,6 +234,24 @@ export default function ScribePage() {
     setRecordingSecs(0);
   }
 
+  async function runSearch() {
+    const query = searchQuery.trim();
+    if (!query) return;
+    setSearching(true);
+    setSearchError(null);
+    setSearchResult(null);
+    try {
+      const data = await recallSearch(query);
+      setSearchResult(data);
+    } catch (err) {
+      setSearchError(
+        err instanceof Error ? err.message : "Search failed. Try again.",
+      );
+    } finally {
+      setSearching(false);
+    }
+  }
+
   return (
     <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
       <Link
@@ -251,7 +277,7 @@ export default function ScribePage() {
         </h1>
         <p className="mt-4 text-[var(--muted-strong)] max-w-2xl leading-relaxed text-base md:text-lg">
           Record or upload a voice note about someone you need to follow up
-          with — &ldquo;Met Sofia at Standard Chartered, need to send her
+          with: &ldquo;Met Sofia at Standard Chartered, need to send her
           the deck and propose coffee next week.&rdquo; Scribe finds the
           contact in your graph, drafts the email to them, and stages it in
           Gmail + Morning Connect for your approval.
@@ -261,6 +287,72 @@ export default function ScribePage() {
           not, scan their card first via Scanner.
         </p>
       </header>
+
+      {/* Recall search — ask a question about your network */}
+      <section
+        className="mb-8 rounded-2xl border bg-[var(--surface)] p-5 md:p-6 anim-fade-up"
+        style={{ animationDelay: "0.03s", borderColor: "var(--border)" }}
+      >
+        <div
+          className="font-mono text-[10px] uppercase tracking-widest mb-3"
+          style={{ color: crew.color }}
+        >
+          Ask Recall
+        </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            runSearch();
+          }}
+          className="flex items-center gap-2 flex-wrap"
+        >
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="e.g. who did I meet at TOKEN2049?"
+            className="flex-1 min-w-[220px] rounded-lg border border-[var(--border)] bg-white p-2.5 text-sm focus:outline-none transition-colors"
+            style={{ borderColor: "var(--border)" }}
+          />
+          <button
+            type="submit"
+            disabled={searching || !searchQuery.trim()}
+            className="inline-flex items-center gap-2 rounded-full text-white px-4 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
+            style={{ backgroundColor: crew.color }}
+          >
+            {searching ? (
+              <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
+            ) : (
+              <Search className="h-4 w-4" strokeWidth={2} />
+            )}
+            Search
+          </button>
+        </form>
+
+        {searchError ? (
+          <p className="mt-3 text-sm text-[var(--indigo)]">{searchError}</p>
+        ) : null}
+
+        {searchResult ? (
+          <div className="mt-4 space-y-3">
+            <p className="text-sm leading-relaxed text-[var(--foreground)]">
+              {searchResult.answer}
+            </p>
+            {searchResult.results.length > 0 ? (
+              <ul className="space-y-1.5">
+                {searchResult.results.map((r, i) => (
+                  <li
+                    key={i}
+                    className="font-mono text-[11px] text-[var(--muted-strong)] rounded-lg bg-[var(--paper)]/50 px-3 py-2"
+                  >
+                    {JSON.stringify(r)}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+      </section>
 
       <div
         className="rounded-2xl border bg-[var(--surface)] overflow-hidden min-h-[420px] flex flex-col anim-fade-up"
@@ -292,7 +384,7 @@ export default function ScribePage() {
             </h2>
             <p className="mt-3 text-sm text-[var(--muted-strong)] max-w-md leading-relaxed">
               Name the person, say what you want to send or ask. Claude
-              handles the rest — match, draft, stage in Gmail. Keep notes
+              handles the rest: match, draft, stage in Gmail. Keep notes
               under ~45 seconds for the demo.
             </p>
 
@@ -532,7 +624,7 @@ function ScribeResultView({
             <p className="text-sm text-[var(--muted-strong)] leading-relaxed">
               {why_this_contact} Scan their card via{" "}
               <Link
-                href="/app/scan"
+                href="/dashboard/crew/snap"
                 className="underline underline-offset-2 text-[var(--foreground)]"
               >
                 Scanner
@@ -567,7 +659,7 @@ function ScribeResultView({
                 ) : null}
                 {staged ? (
                   <Link
-                    href="/app/morning-connect"
+                    href="/dashboard"
                     className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-full text-white"
                     style={{ backgroundColor: accentColor }}
                   >

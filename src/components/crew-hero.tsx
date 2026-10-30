@@ -131,9 +131,8 @@ export function CrewHero() {
           style={{ animationDelay: "0.15s" }}
         >
           Never lose a connection again the events you go to, the emails you
-          forget to answer, the WhatsApp chat that trails off, the Telegram
-          group you joined and ghosted. Five AI Crew members look after all of
-          it in the background.
+          forget to answer, the Telegram group you joined and ghosted. Five AI
+          Crew members look after all of it in the background.
         </p>
       </div>
 

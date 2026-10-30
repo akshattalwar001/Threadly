@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
 ArrowLeft,
@@ -7,46 +8,10 @@ BellRing,
 Info,
 Clock3,
 MessageSquare,
-TrendingDown,
-Sparkles,
 } from "lucide-react";
-
-const nudges = [
-{
-name: "Rahul Sharma",
-role: "AI Recruiter",
-days: 68,
-warmth: "-12",
-action: "Quick check-in",
-},
-{
-name: "Aditi Verma",
-role: "Security Engineer",
-days: 42,
-warmth: "-8",
-action: "Share recent project",
-},
-{
-name: "Vikram Patel",
-role: "Founder",
-days: 91,
-warmth: "-19",
-action: "Coffee catch-up",
-},
-];
-
-const drafts = [
-{
-person: "Rahul Sharma",
-draft:
-"Hey Rahul, it's been a while since we last spoke. I'd love to hear what you've been working on lately and catch up.",
-},
-{
-person: "Aditi Verma",
-draft:
-"Hi Aditi, I recently came across an AI security paper that reminded me of our conversation. Thought you'd find it interesting.",
-},
-];
+import { useAuth } from "@/context/AuthContext";
+import { getNudgeSuggestions } from "@/lib/api";
+import type { NudgeSuggestion } from "@/lib/api";
 
 const moments = [
 "Aditi Verma · Work Anniversary · Tomorrow",
@@ -55,6 +20,35 @@ const moments = [
 ];
 
 export default function NudgePage() {
+  const { user, loading } = useAuth();
+  const [suggestions, setSuggestions] = useState<NudgeSuggestion[]>([]);
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getNudgeSuggestions()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setSuggestions(data);
+      })
+      .catch(() => {
+        if (active) {
+          setSuggestions([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
+
   return (
     <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
       {/* Breadcrumb */}
@@ -96,132 +90,64 @@ export default function NudgePage() {
       {/* Metrics */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
         <MetricCard
-          value="23"
+          value={String(suggestions.length)}
           label="Need Attention"
           icon={<BellRing size={18} />}
           color="var(--teal)"
         />
 
         <MetricCard
-          value="7"
-          label="Opportunities At Risk"
-          icon={<TrendingDown size={18} />}
-          color="var(--terracotta)"
-        />
-
-        <MetricCard
-          value="12"
-          label="Drafts Ready"
+          value={String(suggestions.length)}
+          label="Suggestions Ready"
           icon={<MessageSquare size={18} />}
           color="var(--plum)"
-        />
-
-        <MetricCard
-          value="91%"
-          label="Relationship Coverage"
-          icon={<Sparkles size={18} />}
-          color="var(--indigo)"
         />
       </section>
 
       {/* High Priority Nudges */}
       <section className="mt-10">
         <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-4">
-          High Priority Nudges
+          Nudge Suggestions
         </div>
 
-        <div className="rounded-2xl border border-[var(--border)] overflow-hidden bg-white">
-          {nudges.map((nudge, index) => (
-            <div
-              key={nudge.name}
-              className={`grid md:grid-cols-5 gap-4 p-5 ${
-                index !== nudges.length - 1
-                  ? "border-b border-[var(--border)]"
-                  : ""
-              }`}
-            >
-              <div>
-                <div className="font-editorial text-lg">
-                  {nudge.name}
+        {suggestions.length > 0 ? (
+          <div className="rounded-2xl border border-[var(--border)] overflow-hidden bg-white">
+            {suggestions.map((nudge, index) => (
+              <div
+                key={`${nudge.name}-${index}`}
+                className={`grid md:grid-cols-3 gap-4 p-5 ${
+                  index !== suggestions.length - 1
+                    ? "border-b border-[var(--border)]"
+                    : ""
+                }`}
+              >
+                <div>
+                  <div className="font-editorial text-lg">
+                    {nudge.name}
+                  </div>
+
+                  <div className="text-sm text-[var(--muted)]">
+                    {nudge.reason}
+                  </div>
                 </div>
 
-                <div className="text-sm text-[var(--muted)]">
-                  {nudge.role}
+                <div className="md:col-span-2">
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">
+                    Suggested message
+                  </div>
+
+                  <div className="text-sm leading-relaxed">
+                    {nudge.message}
+                  </div>
                 </div>
               </div>
-
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-                  Last Contact
-                </div>
-
-                <div className="mt-1">
-                  {nudge.days} days
-                </div>
-              </div>
-
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-                  Warmth Change
-                </div>
-
-                <div className="mt-1 text-[var(--terracotta)]">
-                  {nudge.warmth}
-                </div>
-              </div>
-
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-                  Suggested Action
-                </div>
-
-                <div className="mt-1">
-                  {nudge.action}
-                </div>
-              </div>
-
-              <div className="flex md:justify-end">
-                <button className="rounded-xl bg-[var(--teal)] text-white px-4 py-2 text-sm">
-                  Review Draft
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Drafts */}
-      <section className="mt-10">
-        <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-4">
-          Suggested Outreach
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-4">
-          {drafts.map((draft) => (
-            <div
-              key={draft.person}
-              className="rounded-2xl border border-[var(--border)] bg-white p-5"
-            >
-              <div className="font-editorial text-xl">
-                {draft.person}
-              </div>
-
-              <div className="mt-4 rounded-xl bg-[var(--paper)] p-4 text-sm leading-relaxed">
-                {draft.draft}
-              </div>
-
-              <div className="mt-4 flex gap-2">
-                <button className="rounded-xl px-4 py-2 bg-[var(--teal)] text-white text-sm">
-                  Approve
-                </button>
-
-                <button className="rounded-xl px-4 py-2 border border-[var(--border)] text-sm">
-                  Edit
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-[var(--border)] p-8 text-center text-sm text-[var(--muted-strong)]">
+            No follow-up suggestions right now.
+          </div>
+        )}
       </section>
 
       {/* Upcoming Moments */}
@@ -291,8 +217,8 @@ export default function NudgePage() {
             </div>
 
             <p className="text-sm leading-relaxed">
-              This demo uses synthetic relationship data.
-              The production version continuously monitors
+              Nudge suggestions above are generated live from your
+              relationship graph, it continuously monitors
               relationship warmth, detects decay, ranks
               relationship importance relative to goals,
               and generates personalized outreach before

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   ArrowUpRight,
   Mail,
@@ -10,12 +10,10 @@ import {
   Thermometer,
   AtSign,
 } from "lucide-react";
-import {
-  fixtureContacts,
-  CREW,
-  type FixtureContact,
-  type Channel,
-} from "@/lib/fixtures";
+import { CREW, type Channel } from "@/lib/fixtures";
+import { useAuth } from "@/context/AuthContext";
+import { getContacts } from "@/lib/api";
+import type { Contact } from "@/lib/api";
 import { WarmthBar } from "@/components/warmth-bar";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +36,6 @@ const CHANNEL_ICON: Record<Channel, typeof Mail> = {
   email: Mail,
   telegram: MessageCircle,
   linkedin: ScanLine, // unused — LinkedIn is not a primary channel
-  whatsapp: MessageCircle,
   card: ScanLine,
   social: AtSign,
 };
@@ -47,7 +44,6 @@ const CHANNEL_LABEL: Record<Channel, string> = {
   email: "Gmail",
   telegram: "Telegram",
   linkedin: "LinkedIn",
-  whatsapp: "WhatsApp",
   card: "Card scan",
   social: "Social",
 };
@@ -60,14 +56,42 @@ function tierFor(score: number): TierKey {
 }
 
 export default function LeadOMeterPage() {
+  const { user, loading } = useAuth();
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [channelFilter, setChannelFilter] = useState<Channel | "all">("all");
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getContacts()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setContacts(data);
+      })
+      .catch(() => {
+        if (active) {
+          setContacts([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
 
   const grouped = useMemo(() => {
     const filtered = channelFilter === "all"
-      ? fixtureContacts
-      : fixtureContacts.filter((c) => c.channel === channelFilter);
+      ? contacts
+      : contacts.filter((c) => c.channel === channelFilter);
 
-    const map: Record<TierKey, FixtureContact[]> = {
+    const map: Record<TierKey, Contact[]> = {
       hot: [],
       warm: [],
       neutral: [],
@@ -78,7 +102,7 @@ export default function LeadOMeterPage() {
       map[k].sort((a, b) => b.warmth - a.warmth);
     }
     return map;
-  }, [channelFilter]);
+  }, [contacts, channelFilter]);
 
   const totals = {
     hot: grouped.hot.length,
@@ -107,7 +131,7 @@ export default function LeadOMeterPage() {
           <span style={{ color: "var(--warmth-hot)" }}>warm</span> they are.
         </h1>
         <p className="mt-4 text-base md:text-lg text-[var(--muted-strong)] leading-relaxed max-w-2xl">
-          A live warmth score per contact — punctuation, timing, emoji,
+          A live warmth score per contact: punctuation, timing, emoji,
           channel, silence. Hot at the top. Cold at the bottom.
         </p>
 
@@ -146,12 +170,12 @@ export default function LeadOMeterPage() {
         </span>
         <ChannelFilterChip
           active={channelFilter === "all"}
-          label={`All · ${fixtureContacts.length}`}
+          label={`All · ${contacts.length}`}
           onClick={() => setChannelFilter("all")}
         />
         {(["telegram", "email", "social"] as Channel[]).map((ch) => {
           const Icon = CHANNEL_ICON[ch];
-          const n = fixtureContacts.filter((c) => c.channel === ch).length;
+          const n = contacts.filter((c) => c.channel === ch).length;
           return (
             <ChannelFilterChip
               key={ch}
@@ -206,7 +230,7 @@ function TierBand({
   isLast,
 }: {
   tier: (typeof TIERS)[number];
-  contacts: FixtureContact[];
+  contacts: Contact[];
   isLast: boolean;
 }) {
   return (
@@ -258,15 +282,19 @@ function LeadCard({
   contact,
   tierColor,
 }: {
-  contact: FixtureContact;
+  contact: Contact;
   tierColor: string;
 }) {
-  const lastCrew = CREW[contact.last_crew];
-  const ChannelIcon = CHANNEL_ICON[contact.channel];
+  const lastCrew = CREW[contact.last_crew as keyof typeof CREW] ?? {
+    name: contact.last_crew,
+    color: "var(--muted-strong)",
+  };
+  const channel = contact.channel as Channel;
+  const ChannelIcon = CHANNEL_ICON[channel] ?? CHANNEL_ICON.email;
 
   return (
     <Link
-      href={`/app/contacts/${contact.id}`}
+      href={`/dashboard/contacts/${contact.id}`}
       className="group relative block rounded-xl border bg-white p-3 md:p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md overflow-hidden"
       style={{
         borderColor: `color-mix(in srgb, ${tierColor} 22%, var(--border))`,
@@ -311,7 +339,7 @@ function LeadCard({
         <div className="flex items-center justify-between gap-2 font-mono text-[10px] text-[var(--muted)]">
           <span className="inline-flex items-center gap-1 shrink-0">
             <ChannelIcon className="h-3 w-3" strokeWidth={2} />
-            <span>{CHANNEL_LABEL[contact.channel]}</span>
+            <span>{CHANNEL_LABEL[channel] ?? contact.channel}</span>
           </span>
           <span>{contact.last_contact} ago</span>
         </div>

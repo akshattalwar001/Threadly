@@ -1,0 +1,121 @@
+- generic [active] [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - complementary [ref=f6e3]:
+      - generic [ref=f6e5]:
+        - img "Threadly" [ref=f6e6]
+        - button [ref=f6e7]
+      - generic [ref=f6e10]:
+        - generic [ref=f6e12]:
+          - button "Personal" [ref=f6e13]
+          - button "Team" [ref=f6e14]
+          - button "Enterprise" [ref=f6e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f6e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f6e18]: Chief
+          - generic [ref=f6e19]: Ask the Graph
+          - generic [ref=f6e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f6e21]:
+          - generic [ref=f6e22]: Workspace
+          - link "Dashboard" [ref=f6e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f6e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f6e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f6e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f6e47]:
+          - generic [ref=f6e48]: Your Crew
+          - link "Snap" [ref=f6e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f6e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f6e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f6e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f6e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f6e81]:
+          - generic [ref=f6e82]: Latest Signal
+          - generic [ref=f6e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f6e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f6e90]:
+        - generic [ref=f6e91]:
+          - generic [ref=f6e92]: U
+          - generic [ref=f6e93]: User
+        - button "Logout" [ref=f6e95]
+    - main [ref=f6e100]:
+      - generic [ref=f6e101]:
+        - generic [ref=f6e102]:
+          - generic [ref=f6e103]: Analytics
+          - heading "How your Crew is working your network." [level=1] [ref=f6e104]
+          - paragraph [ref=f6e105]: Every contact captured, every message classified, every draft shipped. Across every Crew, since you started.
+        - generic [ref=f6e106]:
+          - generic [ref=f6e107]:
+            - generic [ref=f6e108]: New this month
+            - generic [ref=f6e109]:
+              - generic [ref=f6e110]: "0"
+              - generic [ref=f6e111]: contacts
+            - generic [ref=f6e112]: vs 0 last month
+          - generic [ref=f6e113]:
+            - generic [ref=f6e114]: Active conversations
+            - generic [ref=f6e115]:
+              - generic [ref=f6e116]: "0"
+              - generic [ref=f6e117]: people
+            - generic [ref=f6e118]: 0 in cold / dormant tier
+          - generic [ref=f6e119]:
+            - generic [ref=f6e120]: Total in your graph
+            - generic [ref=f6e121]:
+              - generic [ref=f6e122]: "0"
+              - generic [ref=f6e123]: contacts
+            - generic [ref=f6e124]: since you started Connect Crew
+        - generic [ref=f6e126]:
+          - generic [ref=f6e127]:
+            - generic [ref=f6e128]: Growth · last 7 months
+            - heading "Your network over time." [level=2] [ref=f6e129]
+          - generic [ref=f6e130]:
+            - generic [ref=f6e131]: Cumulative
+            - generic [ref=f6e133]: New per month
+        - generic [ref=f6e137]:
+          - generic [ref=f6e138]:
+            - generic [ref=f6e139]:
+              - generic [ref=f6e140]: This month · by Crew
+              - heading "Who did the work." [level=2] [ref=f6e141]
+            - paragraph [ref=f6e142]: No crew activity to break down yet.
+          - generic [ref=f6e143]:
+            - generic [ref=f6e144]:
+              - generic [ref=f6e145]: Where your graph lives · by channel
+              - heading "Channel mix." [level=2] [ref=f6e146]
+            - paragraph [ref=f6e147]: No channel activity yet.
+            - generic [ref=f6e148]:
+              - generic [ref=f6e149]:
+                - generic [ref=f6e150]: "0"
+                - generic [ref=f6e151]: Drafts sent
+              - generic [ref=f6e152]:
+                - generic [ref=f6e153]: "0"
+                - generic [ref=f6e154]: Drafts staged
+              - generic [ref=f6e155]:
+                - generic [ref=f6e156]: "0"
+                - generic [ref=f6e157]: Avg warmth
+        - generic [ref=f6e158]:
+          - generic [ref=f6e160]:
+            - generic [ref=f6e161]:
+              - generic [ref=f6e162]: All contacts · by activity this month
+              - heading "Everyone in your graph, ranked by conversation." [level=2] [ref=f6e163]
+            - generic [ref=f6e164]: Showing 0 of 0
+          - list
+          - generic [ref=f6e166]:
+            - link "Open Lead-O-Meter" [ref=f6e167] [cursor=pointer]:
+              - /url: /app/lead-o-meter
+            - generic [ref=f6e168]: for the warmth-tier view.
+        - paragraph [ref=f6e169]: Analytics · live from your graph.
+  - complementary [aria-hidden] [ref=f6e170]:
+    - generic [ref=f6e171]:
+      - generic [ref=f6e172]:
+        - generic [ref=f6e173]: Genspark · web actions
+        - generic [ref=f6e174]: Crew
+      - button [ref=f6e177]
+    - generic [ref=f6e182]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f6e188] [cursor=pointer]

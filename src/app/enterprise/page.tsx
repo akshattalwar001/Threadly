@@ -71,7 +71,7 @@ export default function EnterprisePage() {
             style={{ animationDelay: "0.12s" }}
           >
             Every portfolio company runs its own Connect Crew in its own private
-            graph. You — the fund — see aggregate metadata only. Master Connect
+            graph. You, the fund, see aggregate metadata only. Master Connect
             answers fund-level questions. Intro requests flow through a two-gate
             governance model: your approval, then the contact owner&apos;s. The
             operating-partner role, productised.
@@ -89,7 +89,7 @@ export default function EnterprisePage() {
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
             <Link
-              href="/app/dashboard/enterprise"
+              href="/dashboard/enterprise"
               className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-[var(--paper)]"
               style={{ borderColor: INDIGO, color: INDIGO }}
             >
@@ -125,7 +125,7 @@ export default function EnterprisePage() {
               Each portco is an independent tenant with its own private graph.
               The parent entity sees only what each portco opts in to publish to
               the ecosystem directory. Master Connect routes fund-level
-              questions through this directory — aggregate metadata, not names.
+              questions through this directory: aggregate metadata, not names.
             </p>
           </div>
           <div
@@ -201,7 +201,7 @@ export default function EnterprisePage() {
             <FeatureTile
               Icon={Network}
               title="Ecosystem Directory"
-              body="Aggregate metadata from every portco — vertical coverage, warm-contact counts, ecosystem health. No individual contacts visible."
+              body="Aggregate metadata from every portco: vertical coverage, warm-contact counts, ecosystem health. No individual contacts visible."
             />
             <FeatureTile
               Icon={ClipboardCheck}
@@ -211,7 +211,7 @@ export default function EnterprisePage() {
             <FeatureTile
               Icon={Lock}
               title="Cross-entity lockdown"
-              body="Sister portcos can't message each other without explicit Gate 1 approval. Isolation is architectural — not policy."
+              body="Sister portcos can't message each other without explicit Gate 1 approval. Isolation is architectural, not policy."
             />
             <FeatureTile
               Icon={TrendingUp}
@@ -342,7 +342,7 @@ export default function EnterprisePage() {
               <ArrowRight className="h-5 w-5" strokeWidth={2} />
             </Link>
             <Link
-              href="/app/dashboard/enterprise"
+              href="/dashboard/enterprise"
               className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-[var(--paper)]"
               style={{ borderColor: INDIGO, color: INDIGO }}
             >
@@ -694,7 +694,7 @@ function VisibilityPyramid() {
     {
       label: "Directory metadata",
       note: "opt-in per relationship class",
-      detail: "\u201cPortco X has 5 warm contacts at company Y\u201d — no names.",
+      detail: "\u201cPortco X has 5 warm contacts at company Y\u201d, no names.",
       color: "var(--warmth-warm)",
       width: "md:w-[82%]",
       Icon: ShieldAlert,

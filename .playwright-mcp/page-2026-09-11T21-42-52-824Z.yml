@@ -1,0 +1,166 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - complementary [ref=f4e3]:
+      - generic [ref=f4e5]:
+        - img "Threadly" [ref=f4e6]
+        - button [ref=f4e7]
+      - generic [ref=f4e10]:
+        - generic [ref=f4e12]:
+          - button "Personal" [ref=f4e13]
+          - button "Team" [ref=f4e14]
+          - button "Enterprise" [ref=f4e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f4e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f4e18]: Chief
+          - generic [ref=f4e19]: Ask the Graph
+          - generic [ref=f4e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f4e21]:
+          - generic [ref=f4e22]: Workspace
+          - link "Dashboard" [ref=f4e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f4e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f4e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f4e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f4e47]:
+          - generic [ref=f4e48]: Your Crew
+          - link "Snap" [ref=f4e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f4e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f4e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f4e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f4e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f4e81]:
+          - generic [ref=f4e82]: Latest Signal
+          - generic [ref=f4e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f4e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f4e90]:
+        - generic [ref=f4e91]:
+          - generic [ref=f4e92]: A
+          - generic [ref=f4e93]:
+            - generic [ref=f4e94]: Akshat The Second
+            - generic [ref=f4e192]: uniquedimension1@gmail.com
+        - button "Logout" [ref=f4e95]
+    - main [ref=f4e100]:
+      - generic [ref=f4e101]:
+        - generic [ref=f4e102]:
+          - generic [ref=f4e103]: Analytics
+          - heading "How your Crew is working your network." [level=1] [ref=f4e104]
+          - paragraph [ref=f4e105]: Every contact captured, every message classified, every draft shipped. Across every Crew, since you started.
+        - generic [ref=f4e106]:
+          - generic [ref=f4e107]:
+            - generic [ref=f4e108]: New this month
+            - generic [ref=f4e109]:
+              - generic [ref=f4e110]: "0"
+              - generic [ref=f4e111]: contacts
+            - generic [ref=f4e112]: vs 0 last month
+          - generic [ref=f4e113]:
+            - generic [ref=f4e114]: Active conversations
+            - generic [ref=f4e115]:
+              - generic [ref=f4e116]: "3"
+              - generic [ref=f4e117]: people
+            - generic [ref=f4e118]: 0 in cold / dormant tier
+          - generic [ref=f4e119]:
+            - generic [ref=f4e120]: Total in your graph
+            - generic [ref=f4e121]:
+              - generic [ref=f4e122]: "3"
+              - generic [ref=f4e123]: contacts
+            - generic [ref=f4e124]: since you started Connect Crew
+        - generic [ref=f4e125]:
+          - generic [ref=f4e126]:
+            - generic [ref=f4e127]:
+              - generic [ref=f4e128]: Growth · last 7 months
+              - heading "Your network over time." [level=2] [ref=f4e129]
+            - generic [ref=f4e130]:
+              - generic [ref=f4e131]: Cumulative
+              - generic [ref=f4e133]: New per month
+          - application [ref=f4e194]
+        - generic [ref=f4e137]:
+          - generic [ref=f4e138]:
+            - generic [ref=f4e139]:
+              - generic [ref=f4e140]: This month · by Crew
+              - heading "Who did the work." [level=2] [ref=f4e141]
+            - list [ref=f4e199]:
+              - listitem [ref=f4e200]:
+                - generic [ref=f4e201]:
+                  - generic [ref=f4e202]: telegram_sync
+                  - generic [ref=f4e205]: "3"
+          - generic [ref=f4e143]:
+            - generic [ref=f4e144]:
+              - generic [ref=f4e145]: Where your graph lives · by channel
+              - heading "Channel mix." [level=2] [ref=f4e146]
+            - list [ref=f4e208]:
+              - listitem [ref=f4e209]:
+                - generic [ref=f4e210]:
+                  - generic [ref=f4e211]: Telegram
+                  - generic [ref=f4e215]:
+                    - generic [ref=f4e216]: "3"
+                    - generic [ref=f4e217]: 100%
+            - generic [ref=f4e148]:
+              - generic [ref=f4e149]:
+                - generic [ref=f4e150]: "0"
+                - generic [ref=f4e151]: Drafts sent
+              - generic [ref=f4e152]:
+                - generic [ref=f4e153]: "0"
+                - generic [ref=f4e154]: Drafts staged
+              - generic [ref=f4e155]:
+                - generic [ref=f4e156]: "67"
+                - generic [ref=f4e157]: Avg warmth
+        - generic [ref=f4e158]:
+          - generic [ref=f4e160]:
+            - generic [ref=f4e161]:
+              - generic [ref=f4e162]: All contacts · by activity this month
+              - heading "Everyone in your graph, ranked by conversation." [level=2] [ref=f4e163]
+            - generic [ref=f4e164]: Showing 3 of 3
+          - list [ref=f4e220]:
+            - listitem [ref=f4e221]:
+              - link "1 DV Drishti Verma 70 · warm Telegram" [ref=f4e222] [cursor=pointer]:
+                - /url: /app/contacts/tg-7773931933
+                - generic [ref=f4e223]: "1"
+                - generic [ref=f4e224]: DV
+                - generic [ref=f4e225]: Drishti Verma
+                - generic [ref=f4e231]:
+                  - generic [ref=f4e232]: "70"
+                  - generic [ref=f4e233]: · warm
+                - generic [ref=f4e234]: Telegram
+            - listitem [ref=f4e238]:
+              - link "2 WA Waqar Akhtar 70 · warm Telegram" [ref=f4e239] [cursor=pointer]:
+                - /url: /app/contacts/tg-1829656834
+                - generic [ref=f4e240]: "2"
+                - generic [ref=f4e241]: WA
+                - generic [ref=f4e242]: Waqar Akhtar
+                - generic [ref=f4e248]:
+                  - generic [ref=f4e249]: "70"
+                  - generic [ref=f4e250]: · warm
+                - generic [ref=f4e251]: Telegram
+            - listitem [ref=f4e255]:
+              - link "3 R Rîy@ 62 · warm Telegram" [ref=f4e256] [cursor=pointer]:
+                - /url: /app/contacts/tg-1171105858
+                - generic [ref=f4e257]: "3"
+                - generic [ref=f4e258]: R
+                - generic [ref=f4e259]: Rîy@
+                - generic [ref=f4e265]:
+                  - generic [ref=f4e266]: "62"
+                  - generic [ref=f4e267]: · warm
+                - generic [ref=f4e268]: Telegram
+          - generic [ref=f4e166]:
+            - link "Open Lead-O-Meter" [ref=f4e167] [cursor=pointer]:
+              - /url: /app/lead-o-meter
+            - generic [ref=f4e168]: for the warmth-tier view.
+        - paragraph [ref=f4e169]: Analytics · live from your graph.
+  - complementary [aria-hidden] [ref=f4e170]:
+    - generic [ref=f4e171]:
+      - generic [ref=f4e172]:
+        - generic [ref=f4e173]: Genspark · web actions
+        - generic [ref=f4e174]: Crew
+      - button [ref=f4e177]
+    - generic [ref=f4e182]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f4e188] [cursor=pointer]
+  - alert [ref=f4e272]

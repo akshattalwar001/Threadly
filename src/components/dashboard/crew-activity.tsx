@@ -1,39 +1,75 @@
 "use client";
 
-const activity = [
-  {
-    crew: "Chief",
-    value: "3 recommendations",
-    color: "var(--plum)",
-  },
-  {
-    crew: "Snap",
-    value: "8 contacts enriched",
-    color: "var(--coral)",
-  },
-  {
-    crew: "Nudge",
-    value: "4 follow-ups scheduled",
-    color: "var(--teal)",
-  },
-  {
-    crew: "Gatekeeper",
-    value: "17 emails processed",
-    color: "var(--copper)",
-  },
-  {
-    crew: "Pulse",
-    value: "5 social signals detected",
-    color: "var(--indigo)",
-  },
-  {
-    crew: "Recall",
-    value: "2 meetings summarized",
-    color: "var(--sage)",
-  },
+import { useEffect, useState } from "react";
+
+import { useAuth } from "@/context/AuthContext";
+import { getDashboardActivity } from "@/lib/api";
+import type { ActivityEntry } from "@/lib/api";
+
+const CREW_COLORS: Record<string, string> = {
+  chief: "var(--plum)",
+  scan: "var(--coral)",
+  snap: "var(--coral)",
+  nudge: "var(--teal)",
+  inbound: "var(--copper)",
+  gatekeeper: "var(--copper)",
+  social: "var(--indigo)",
+  pulse: "var(--indigo)",
+  scribe: "var(--sage)",
+  recall: "var(--sage)",
+  signals: "var(--teal)",
+};
+
+const FALLBACK_COLORS = [
+  "var(--plum)",
+  "var(--coral)",
+  "var(--teal)",
+  "var(--copper)",
+  "var(--indigo)",
+  "var(--sage)",
 ];
 
+function colorForCrew(crew: string, index: number) {
+  return CREW_COLORS[crew.toLowerCase()] ?? FALLBACK_COLORS[index % FALLBACK_COLORS.length];
+}
+
 export function CrewActivity() {
+  const { user, loading } = useAuth();
+  const [activity, setActivity] = useState<ActivityEntry[]>([]);
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getDashboardActivity()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setActivity(data);
+      })
+      .catch(() => {
+        if (active) {
+          setActivity([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
+
+  const grouped = Object.entries(
+    activity.reduce<Record<string, number>>((acc, entry) => {
+      acc[entry.crew] = (acc[entry.crew] ?? 0) + 1;
+      return acc;
+    }, {}),
+  );
+
   return (
     <section className="mb-8">
       <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-2">
@@ -44,27 +80,33 @@ export function CrewActivity() {
         Working behind the scenes.
       </h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {activity.map((item) => (
-          <div
-            key={item.crew}
-            className="rounded-2xl border border-[var(--border)] p-5 bg-white"
-          >
+      {grouped.length > 0 ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {grouped.map(([crew, count], index) => (
             <div
-              className="font-editorial text-2xl"
-              style={{
-                color: item.color,
-              }}
+              key={crew}
+              className="rounded-2xl border border-[var(--border)] p-5 bg-white"
             >
-              {item.crew}
-            </div>
+              <div
+                className="font-editorial text-2xl capitalize"
+                style={{
+                  color: colorForCrew(crew, index),
+                }}
+              >
+                {crew}
+              </div>
 
-            <div className="mt-2 text-sm text-[var(--muted-strong)]">
-              {item.value}
+              <div className="mt-2 text-sm text-[var(--muted-strong)]">
+                {count} {count === 1 ? "action" : "actions"} logged
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-[var(--muted-strong)]">
+          No crew activity yet.
+        </p>
+      )}
     </section>
   );
 }

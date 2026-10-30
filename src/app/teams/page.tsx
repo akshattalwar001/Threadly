@@ -76,7 +76,7 @@ export default function TeamsPage() {
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
             <Link
-              href="/app/dashboard/teams"
+              href="/dashboard"
               className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition-colors hover:bg-[var(--paper)]"
               style={{ borderColor: TEAL, color: TEAL }}
             >
@@ -187,7 +187,7 @@ export default function TeamsPage() {
                 <ConvoLine who="Sarah" time="Mon 10:02" msg="Hey Priya - want to grab coffee this week to talk Sequoia SEA partnership?" />
                 <ConvoLine who="Ahmed" time="Mon 14:47" msg="Hi Priya! Wondering if you'd be open to a chat about our fintech angle?" />
                 <ConvoLine who="Priya" time="Mon 14:58" msg={"\uD83D\uDC40 are you all... the same company?"} italic />
-                <ConvoLine who="—" time="Priya → mute" msg="Relationship temperature drops" negative />
+                <ConvoLine who="System" time="Priya → mute" msg="Relationship temperature drops" negative />
               </div>
             </div>
             <div

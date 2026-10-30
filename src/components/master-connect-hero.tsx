@@ -65,7 +65,7 @@ export function MasterConnectHero({ mode }: { mode: ViewMode }) {
   const go = (q: string) => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    router.push(`/app/master-connect?q=${encodeURIComponent(trimmed)}`);
+    router.push(`/dashboard/connect?q=${encodeURIComponent(trimmed)}`);
   };
 
   return (
@@ -161,7 +161,7 @@ export function MasterConnectHero({ mode }: { mode: ViewMode }) {
             </button>
           ))}
           <a
-            href="/app/master-connect"
+            href="/dashboard/connect"
             className="ml-auto font-mono text-[10px] uppercase tracking-wider text-[var(--muted)] hover:text-[var(--foreground)] transition-colors flex items-center gap-1"
           >
             Open full Master Connect

@@ -1,30 +1,41 @@
 "use client";
 
-const opportunities = [
-  {
-    name: "Rohit Sharma",
-    role: "Senior Cloud Engineer",
-    company: "Microsoft",
-    relevance: 96,
-    reason: "Matches your AI Cloud Engineer goal",
-  },
-  {
-    name: "Priya Verma",
-    role: "Technical Recruiter",
-    company: "Google",
-    relevance: 91,
-    reason: "Actively hiring for cloud roles",
-  },
-  {
-    name: "Arjun Patel",
-    role: "Startup Founder",
-    company: "Stealth AI",
-    relevance: 88,
-    reason: "Strong operator network",
-  },
-];
+import { useEffect, useState } from "react";
+
+import { useAuth } from "@/context/AuthContext";
+import { getDashboardOpportunities } from "@/lib/api";
+import type { Opportunity } from "@/lib/api";
 
 export function Opportunities() {
+  const { user, loading } = useAuth();
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getDashboardOpportunities()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setOpportunities(data);
+      })
+      .catch(() => {
+        if (active) {
+          setOpportunities([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
+
   return (
     <section className="rounded-3xl border border-[var(--border)] bg-white p-6">
       <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-2">
@@ -35,34 +46,40 @@ export function Opportunities() {
         People worth meeting.
       </h2>
 
-      <div className="space-y-4">
-        {opportunities.map((person) => (
-          <div
-            key={person.name}
-            className="rounded-2xl border border-[var(--border)] p-4"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="font-medium">
-                  {person.name}
+      {opportunities.length > 0 ? (
+        <div className="space-y-4">
+          {opportunities.map((person) => (
+            <div
+              key={person.id}
+              className="rounded-2xl border border-[var(--border)] p-4"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="font-medium">
+                    {person.name}
+                  </div>
+
+                  <div className="text-sm text-[var(--muted-strong)]">
+                    {person.title} · {person.company}
+                  </div>
                 </div>
 
-                <div className="text-sm text-[var(--muted-strong)]">
-                  {person.role} · {person.company}
+                <div className="font-mono text-xs">
+                  {person.warmth}%
                 </div>
               </div>
 
-              <div className="font-mono text-xs">
-                {person.relevance}%
-              </div>
+              <p className="mt-3 text-sm text-[var(--muted-strong)]">
+                Last contact {person.last_contact} ago
+              </p>
             </div>
-
-            <p className="mt-3 text-sm text-[var(--muted-strong)]">
-              {person.reason}
-            </p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-[var(--muted-strong)]">
+          No reconnect opportunities right now.
+        </p>
+      )}
     </section>
   );
 }

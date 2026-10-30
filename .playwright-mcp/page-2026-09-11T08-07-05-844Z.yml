@@ -1,0 +1,501 @@
+- generic [active] [ref=f4e1]:
+  - navigation [ref=f4e2]:
+    - generic [ref=f4e3]:
+      - link "Threadly Home" [ref=f4e4] [cursor=pointer]:
+        - /url: /
+        - img "Threadly" [ref=f4e5]
+      - generic [ref=f4e6]:
+        - link "The Crew" [ref=f4e7] [cursor=pointer]:
+          - /url: /#crew
+        - link "Teams" [ref=f4e8] [cursor=pointer]:
+          - /url: /teams
+        - link "Enterprise" [ref=f4e9] [cursor=pointer]:
+          - /url: /enterprise
+        - link "Contact" [ref=f4e10] [cursor=pointer]:
+          - /url: /contact
+      - link "Get Started" [ref=f4e11] [cursor=pointer]:
+        - /url: /auth
+  - main [ref=f4e15]:
+    - status "Loading Threadly" [ref=f4e16]:
+      - generic [ref=f4e17]:
+        - img "Threadly" [ref=f4e18]
+        - generic [ref=f4e19]: 8%
+        - generic [aria-hidden] [ref=f4e24]: Launching...
+    - generic [ref=f4e27]:
+      - generic [ref=f4e28]:
+        - generic [ref=f4e29]:
+          - generic [ref=f4e31]: Snap
+          - generic [ref=f4e32]: filed Sofia Alencar from Helix Tech
+        - generic [ref=f4e33]:
+          - generic [ref=f4e35]: Nudge
+          - generic [ref=f4e36]: warmed Priya +6 after a Hi!!
+        - generic [ref=f4e37]:
+          - generic [ref=f4e39]: Gatekeeper
+          - generic [ref=f4e40]: qualified 3 cold emails overnight
+        - generic [ref=f4e41]:
+          - generic [ref=f4e43]: Pulse
+          - generic [ref=f4e44]: captured Kai Jensen DM from Instagram
+        - generic [ref=f4e45]:
+          - generic [ref=f4e47]: Recall
+          - generic [ref=f4e48]: captured 2 action items from your call
+        - generic [ref=f4e49]:
+          - generic [ref=f4e51]: Nudge
+          - generic [ref=f4e52]: detected drift on Wei Lin Chen (−7)
+        - generic [ref=f4e53]:
+          - generic [ref=f4e55]: Snap
+          - generic [ref=f4e56]: read a voice note at 23:14
+        - generic [ref=f4e57]:
+          - generic [ref=f4e59]: Gatekeeper
+          - generic [ref=f4e60]: prepared 83-day check-in for Jamal Idris
+      - generic [ref=f4e61]:
+        - generic [ref=f4e62]:
+          - generic [ref=f4e64]: Snap
+          - generic [ref=f4e65]: filed Sofia Alencar from Helix Tech
+        - generic [ref=f4e66]:
+          - generic [ref=f4e68]: Nudge
+          - generic [ref=f4e69]: warmed Priya +6 after a Hi!!
+        - generic [ref=f4e70]:
+          - generic [ref=f4e72]: Gatekeeper
+          - generic [ref=f4e73]: qualified 3 cold emails overnight
+        - generic [ref=f4e74]:
+          - generic [ref=f4e76]: Pulse
+          - generic [ref=f4e77]: captured Kai Jensen DM from Instagram
+        - generic [ref=f4e78]:
+          - generic [ref=f4e80]: Recall
+          - generic [ref=f4e81]: captured 2 action items from your call
+        - generic [ref=f4e82]:
+          - generic [ref=f4e84]: Nudge
+          - generic [ref=f4e85]: detected drift on Wei Lin Chen (−7)
+        - generic [ref=f4e86]:
+          - generic [ref=f4e88]: Snap
+          - generic [ref=f4e89]: read a voice note at 23:14
+        - generic [ref=f4e90]:
+          - generic [ref=f4e92]: Gatekeeper
+          - generic [ref=f4e93]: prepared 83-day check-in for Jamal Idris
+    - generic [ref=f4e94]:
+      - generic [ref=f4e97]:
+        - heading "Say hi to your Threadly Crew." [level=1] [ref=f4e98]
+        - paragraph [ref=f4e99]: Never lose a connection again the events you go to, the emails you forget to answer, the WhatsApp chat that trails off, the Telegram group you joined and ghosted. Five AI Crew members look after all of it in the background.
+      - generic [ref=f4e100]:
+        - generic [ref=f4e101]:
+          - generic [ref=f4e103]:
+            - generic [ref=f4e104]: hover
+            - generic [ref=f4e106]:
+              - generic [ref=f4e107]: 01 · Chief
+              - generic [ref=f4e108]: Hi! I'm Chief.
+              - generic [ref=f4e109]: I read your entire relationship graph and answer strategic questions. Who on my team has warm contacts at Sequoia? Which path gets me to a founder fastest? I rank the answers, explain my reasoning, and coordinate every other specialist.
+          - generic [ref=f4e110]: Chief
+        - generic [ref=f4e111]:
+          - generic [ref=f4e113]:
+            - generic [ref=f4e114]: hover
+            - generic [ref=f4e116]:
+              - generic [ref=f4e117]: 02 · Snap
+              - generic [ref=f4e118]: Hi! I'm Snap.
+              - generic [ref=f4e119]: I turn business cards, badges, and contact photos into enriched profiles. Claude reads the card, Genspark gathers company intelligence, and your contact is organized before you've left the event.
+          - generic [ref=f4e120]: Snap
+        - generic [ref=f4e121]:
+          - generic [ref=f4e123]:
+            - generic [ref=f4e124]: hover
+            - generic [ref=f4e126]:
+              - generic [ref=f4e127]: 03 · Nudge
+              - generic [ref=f4e128]: Hi! I'm Nudge.
+              - generic [ref=f4e129]: I make sure promising conversations never go cold. Create custom cues and follow-up rules, and I'll prepare the perfect next message for your approval at exactly the right time.
+          - generic [ref=f4e130]: Nudge
+        - generic [ref=f4e131]:
+          - generic [ref=f4e133]:
+            - generic [ref=f4e134]: hover
+            - generic [ref=f4e136]:
+              - generic [ref=f4e137]: 04 · Gatekeeper
+              - generic [ref=f4e138]: Hi! I'm Gatekeeper.
+              - generic [ref=f4e139]: I screen every inbound email, qualify opportunities against your criteria, and prepare responses for review. I protect your attention while keeping you in control of every decision.
+          - generic [ref=f4e140]: Gatekeeper
+        - generic [ref=f4e141]:
+          - generic [ref=f4e143]:
+            - generic [ref=f4e144]: hover
+            - generic [ref=f4e146]:
+              - generic [ref=f4e147]: 05 · Pulse
+              - generic [ref=f4e148]: Hi! I'm Pulse.
+              - generic [ref=f4e149]: I monitor Instagram, Facebook Messenger, X, Telegram, and other social channels in real time. I detect important conversations, track signals, and make sure nothing valuable slips through.
+          - generic [ref=f4e150]: Pulse
+        - generic [ref=f4e151]:
+          - generic [ref=f4e153]:
+            - generic [ref=f4e154]: hover
+            - generic [ref=f4e156]:
+              - generic [ref=f4e157]: 06 · Recall
+              - generic [ref=f4e158]: Hi! I'm Recall.
+              - generic [ref=f4e159]: I transform meetings, calls, voice notes, and recordings into structured memory. I capture commitments, extract action items, preserve context, and prepare follow-ups so every conversation stays useful forever.
+          - generic [ref=f4e160]: Recall
+    - link "Open Dashboard" [ref=f4e162] [cursor=pointer]:
+      - /url: /app
+    - generic [ref=f4e166]:
+      - generic [ref=f4e167]: What is Threadly
+      - heading [level=2] [ref=f4e168]:
+        - text: Threadly is a relationship intelligence app that helps you maintain the
+        - generic [ref=f4e169]: connections that matter
+        - text: before they fade.
+      - paragraph [ref=f4e170]:
+        - text: Most people don't lose touch intentionally. They lose touch because modern life is fragmented across too many platforms, too many conversations, and too little memory.
+        - generic [ref=f4e171]: Threadly fixes that.
+        - text: It builds a living graph of your relationships tracking who you've met, what you discussed, and how warm each connection still is. When someone important starts to drift, Threadly notices first. It surfaces the context of your last conversation and helps you reconnect in a way that feels genuine, not transactional.
+    - region "The problem" [ref=f4e172]:
+      - generic [ref=f4e173]:
+        - generic [ref=f4e174]:
+          - generic [ref=f4e175]:
+            - generic [ref=f4e176]: “
+            - text: You met
+            - generic [ref=f4e177]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e178]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e179]: ”
+            - generic [ref=f4e180]: · the problem ·
+          - generic [ref=f4e181]:
+            - generic [ref=f4e182]: “
+            - text: You met
+            - generic [ref=f4e183]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e184]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e185]: ”
+            - generic [ref=f4e186]: · the problem ·
+          - generic [ref=f4e187]:
+            - generic [ref=f4e188]: “
+            - text: You met
+            - generic [ref=f4e189]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e190]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e191]: ”
+            - generic [ref=f4e192]: · the problem ·
+        - generic [ref=f4e193]:
+          - generic [ref=f4e194]:
+            - generic [ref=f4e195]: “
+            - text: You met
+            - generic [ref=f4e196]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e197]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e198]: ”
+            - generic [ref=f4e199]: · the problem ·
+          - generic [ref=f4e200]:
+            - generic [ref=f4e201]: “
+            - text: You met
+            - generic [ref=f4e202]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e203]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e204]: ”
+            - generic [ref=f4e205]: · the problem ·
+          - generic [ref=f4e206]:
+            - generic [ref=f4e207]: “
+            - text: You met
+            - generic [ref=f4e208]: forty-seven
+            - text: people this month. You will remember
+            - generic [ref=f4e209]: eight
+            - text: . Your team of four will have lost another hundred and fifty between you.
+            - generic [ref=f4e210]: ”
+            - generic [ref=f4e211]: · the problem ·
+    - generic [ref=f4e212]:
+      - generic [ref=f4e213]:
+        - generic [ref=f4e214]: Secret cues · your rules · calibrated actions
+        - heading "Set your own secret chat cues. Different cues trigger different actions in your Telegram / WhatsApp." [level=2] [ref=f4e215]: Set your own secret chat cues.Different cues trigger different actions in your Telegram / WhatsApp.
+        - paragraph [ref=f4e216]: The person who wrote Hi at you is not the same person who wrote Hi!!. You define the cues that matter, Claude reads every inbound against them, and Nudge drafts the reply that matches.
+      - generic [ref=f4e217]:
+        - article [ref=f4e218]:
+          - generic [ref=f4e219]:
+            - generic [ref=f4e220]: Secret cue · 01
+            - generic [ref=f4e221]: Measured · +0
+          - generic [ref=f4e222]:
+            - generic [ref=f4e223]: Inbound · Telegram · 23:14
+            - generic [ref=f4e226]: Hi
+            - generic [ref=f4e227]: Crew readsPolite. Neutral. No punctuation signal.
+          - generic [ref=f4e234]:
+            - generic [ref=f4e235]:
+              - generic [ref=f4e236]: Draft · Morning Connect
+              - generic [ref=f4e237]: cold
+            - paragraph [ref=f4e238]: “Great to meet you yesterday - are we able to explore potential collaborations? Here is my deck.”
+            - generic [ref=f4e239]:
+              - generic [ref=f4e240]: + deck attached
+              - generic [ref=f4e241]: ready to approve
+        - article [ref=f4e242]:
+          - generic [ref=f4e243]:
+            - generic [ref=f4e244]: Secret cue · 02
+            - generic [ref=f4e245]: Engaged · +3
+          - generic [ref=f4e246]:
+            - generic [ref=f4e247]: Inbound · Telegram · 23:14
+            - generic [ref=f4e250]: Hi!
+            - generic [ref=f4e251]: Crew readsOne exclamation. Open door. Leaning in.
+          - generic [ref=f4e258]:
+            - generic [ref=f4e259]:
+              - generic [ref=f4e260]: Draft · Morning Connect
+              - generic [ref=f4e261]: warm
+            - paragraph [ref=f4e262]: “Great to meet you yesterday! I'd really like a more in-depth discussion on what we talked about - here is my deck so you know more about me.”
+            - generic [ref=f4e263]:
+              - generic [ref=f4e264]: + deck attached
+              - generic [ref=f4e265]: ready to approve
+        - article [ref=f4e266]:
+          - generic [ref=f4e267]:
+            - generic [ref=f4e268]: Secret cue · 03
+            - generic [ref=f4e269]: Hot · +6
+          - generic [ref=f4e270]:
+            - generic [ref=f4e271]: Inbound · Telegram · 23:14
+            - generic [ref=f4e274]: Hi!!
+            - generic [ref=f4e275]: Crew readsDouble exclamation. High energy. Green light.
+          - generic [ref=f4e282]:
+            - generic [ref=f4e283]:
+              - generic [ref=f4e284]: Draft · Morning Connect
+              - generic [ref=f4e285]: hot
+            - paragraph [ref=f4e286]: “Great to meet you yesterday! Shall we talk more about the collaboration details on what we discussed? Are you free this week? Here's my deck as a reminder btw!”
+            - generic [ref=f4e287]:
+              - generic [ref=f4e288]: + deck attached
+              - generic [ref=f4e289]: ready to approve
+      - paragraph [ref=f4e290]: One inbound word. Three completely different relationships. The Crew writes the reply that matches every time.
+    - generic [ref=f4e292]:
+      - generic [ref=f4e293]:
+        - generic [ref=f4e294]: The Crew
+        - heading "A Chief + five specialists. One graph. They never quit." [level=2] [ref=f4e295]: A Chief + five specialists.One graph. They never quit.
+        - paragraph [ref=f4e296]: Each specialist has a narrow job and does it on every relevant input, forever. They write to the same graph. Chief sits above them and answers questions anyone on the team can ask.
+      - generic [ref=f4e297]:
+        - link "The Chief · 00 ★ IP Chief Ask the graph, in plain English. Natural-language query over every contact, every interaction. Ranked answers with reasoning. Works across personal, team, and portfolio scales. Ask the graph" [ref=f4e298] [cursor=pointer]:
+          - /url: /app/master-connect
+          - generic [ref=f4e299]:
+            - generic [ref=f4e301]:
+              - generic [ref=f4e302]: The Chief · 00
+              - generic [ref=f4e303]: ★ IP
+            - generic [ref=f4e308]: Chief
+            - paragraph [ref=f4e309]: Ask the graph, in plain English.
+            - paragraph [ref=f4e310]: Natural-language query over every contact, every interaction. Ranked answers with reasoning. Works across personal, team, and portfolio scales.
+            - generic [ref=f4e311]: Ask the graph
+        - link "Specialist · 01 Snap Business cards → enriched contacts. Claude reads the card. Genspark enriches from Crunchbase, press, company pages. Filed before you leave the venue. Open Snap" [ref=f4e316] [cursor=pointer]:
+          - /url: /app/scan
+          - generic [ref=f4e317]:
+            - generic [ref=f4e318]: Specialist · 01
+            - generic [ref=f4e327]: Snap
+            - paragraph [ref=f4e328]: Business cards → enriched contacts.
+            - paragraph [ref=f4e329]: Claude reads the card. Genspark enriches from Crunchbase, press, company pages. Filed before you leave the venue.
+            - generic [ref=f4e330]: Open Snap
+        - link "Specialist · 02 Nudge Reads every Telegram and WhatsApp inbound. Hi. vs Hi! vs Hi!! - three relationships, one word apart. Updates Warmth silently. Drafts replies that match the incoming energy. Open Nudge" [ref=f4e335] [cursor=pointer]:
+          - /url: /app/signals
+          - generic [ref=f4e336]:
+            - generic [ref=f4e337]: Specialist · 02
+            - generic [ref=f4e343]: Nudge
+            - paragraph [ref=f4e344]: Reads every Telegram and WhatsApp inbound.
+            - paragraph [ref=f4e345]: Hi. vs Hi! vs Hi!! - three relationships, one word apart. Updates Warmth silently. Drafts replies that match the incoming energy.
+            - generic [ref=f4e346]: Open Nudge
+        - link "Specialist · 03 Gatekeeper Cold email, qualified + drafted. Reads every unsolicited email against your ICP. Polite pass for no-fits. Draft-ready yes for good-fits. Never auto-books meetings. Open Gatekeeper" [ref=f4e351] [cursor=pointer]:
+          - /url: /app/inbound
+          - generic [ref=f4e352]:
+            - generic [ref=f4e353]: Specialist · 03
+            - generic [ref=f4e360]: Gatekeeper
+            - paragraph [ref=f4e361]: Cold email, qualified + drafted.
+            - paragraph [ref=f4e362]: Reads every unsolicited email against your ICP. Polite pass for no-fits. Draft-ready yes for good-fits. Never auto-books meetings.
+            - generic [ref=f4e363]: Open Gatekeeper
+        - link "Specialist · 04 Pulse Instagram · X · FB Messenger DMs. Captures inbound DMs in real time. Same Secret Signal rules as Messenger. Stages replies for Morning Connect. Never cold-DMs strangers. Open Pulse" [ref=f4e368] [cursor=pointer]:
+          - /url: /app/social
+          - generic [ref=f4e369]:
+            - generic [ref=f4e370]: Specialist · 04
+            - generic [ref=f4e377]: Pulse
+            - paragraph [ref=f4e378]: Instagram · X · FB Messenger DMs.
+            - paragraph [ref=f4e379]: Captures inbound DMs in real time. Same Secret Signal rules as Messenger. Stages replies for Morning Connect. Never cold-DMs strangers.
+            - generic [ref=f4e380]: Open Pulse
+        - link "Specialist · 05 Recall Voice + meetings → structured memory. Plaud, Granola, Otter, a voice memo you drop in. Extracts commitments, links to contacts, stages follow-up drafts. Open Recall" [ref=f4e385] [cursor=pointer]:
+          - /url: /app/scribe
+          - generic [ref=f4e386]:
+            - generic [ref=f4e387]: Specialist · 05
+            - generic [ref=f4e394]: Recall
+            - paragraph [ref=f4e395]: Voice + meetings → structured memory.
+            - paragraph [ref=f4e396]: Plaud, Granola, Otter, a voice memo you drop in. Extracts commitments, links to contacts, stages follow-up drafts.
+            - generic [ref=f4e397]: Open Recall
+    - generic [ref=f4e402]:
+      - generic [ref=f4e403]:
+        - generic [ref=f4e404]: The Chief · 00
+        - heading "Meet Chief. Ask the graph, in plain English." [level=2] [ref=f4e408]: Meet Chief.Ask the graph, in plain English.
+        - paragraph [ref=f4e409]: Five specialists keep your graph current. One Chief lets anyone on the team - or across a whole portfolio - ask it anything. Ranked answers, with reasoning, in under 5 seconds.
+      - generic [ref=f4e411]:
+        - generic [ref=f4e412]:
+          - generic [ref=f4e416]:
+            - generic [ref=f4e417]: Who on my team has warm contacts at Sequoia SEA?
+            - generic [ref=f4e418]: Scope · shared team graph · 4 teammates · 847 contacts
+          - generic [aria-hidden] [ref=f4e419]: Ask
+        - generic [ref=f4e423]:
+          - generic [ref=f4e424]: Chief · teams · 2,847 ms
+          - paragraph [ref=f4e425]: Three candidates across the team. Priya (owned by you, Warmth 86) is the hottest direct path. Karen is Sarah's strongest Sequoia China contact.
+          - generic [ref=f4e426]: ReasoningRanked by warmth × recency × company match. Priya's Hi!!from 6 hours ago gave her a decisive edge. Sarah's Karen Chen contact (Sequoia China) offers a lateral path if APAC-China access matters more than SEA-specific reach.
+        - generic [ref=f4e427]:
+          - article [ref=f4e428]:
+            - generic [ref=f4e429]:
+              - generic [ref=f4e430]: Priya Raghavan
+              - generic [ref=f4e431]: Sequoia SEA · Partner
+            - generic [ref=f4e436]:
+              - generic [ref=f4e437]: "86"
+              - generic [ref=f4e438]: · hot
+            - paragraph [ref=f4e439]: Hi!! 6h ago + 2-min reply. Warmth 86 (hot). Direct TOKEN2049 context.
+            - generic [ref=f4e440]:
+              - generic [ref=f4e441]: owned by you · 6h ago
+              - generic [ref=f4e442]: Draft an intro
+          - article [ref=f4e443]:
+            - generic [ref=f4e444]:
+              - generic [ref=f4e445]: Karen Chen
+              - generic [ref=f4e446]: Sequoia China · Associate
+            - generic [ref=f4e451]:
+              - generic [ref=f4e452]: "71"
+              - generic [ref=f4e453]: · warm
+            - paragraph [ref=f4e454]: Sarah's contact via Tokyo ABA circuit. APAC-wide role. Warmth 71.
+            - generic [ref=f4e455]:
+              - generic [ref=f4e456]: owned by Sarah · 3d ago
+              - generic [ref=f4e457]: Request intro
+          - article [ref=f4e458]:
+            - generic [ref=f4e459]:
+              - generic [ref=f4e460]: Jamal Idris
+              - generic [ref=f4e461]: Outlier Ventures (Seq LP)
+            - generic [ref=f4e466]:
+              - generic [ref=f4e467]: "44"
+              - generic [ref=f4e468]: · neutral
+            - paragraph [ref=f4e469]: Indirect Sequoia path via LP relationship. Cold but viable if reactivated.
+            - generic [ref=f4e470]:
+              - generic [ref=f4e471]: owned by you · 83d silent
+              - generic [ref=f4e472]: Re-engage
+        - generic [ref=f4e473]:
+          - generic [ref=f4e474]: Same query. Three scales. Personal · team · ecosystem.
+          - link "Open Chief" [ref=f4e475] [cursor=pointer]:
+            - /url: /app/master-connect
+    - generic [ref=f4e478]:
+      - generic [ref=f4e479]:
+        - generic [ref=f4e480]: The daily ritual
+        - heading "Morning Connect. Everything worth approving, in one place." [level=2] [ref=f4e481]: Morning Connect.Everything worth approving, in one place.
+        - paragraph [ref=f4e482]: "The Crew compiles every draft you asked to review : Inbound replies, Warm follow-ups, Cold resurrections - into one stack for a single daily pass. Autonomy for the easy stuff, approval for anything that books your time. Ten minutes, or ten seconds, up to you."
+      - generic [ref=f4e483]:
+        - generic [ref=f4e484]:
+          - generic [ref=f4e485]: Morning Connect · draft 3 of 12
+          - generic [ref=f4e486]: Warm · Telegram
+        - generic [ref=f4e487]: to · Priya Raghavan · Sequoia SEA
+        - paragraph [ref=f4e488]: “Priya - great meeting at Databrick AI Summit. Loved your point about AI in SEA. Thursday 3pm for coffee? Happy to come to your side of town.”
+        - generic [ref=f4e489]:
+          - paragraph [ref=f4e490]:
+            - generic [ref=f4e491]: Why this draft ·
+            - text: met 14 hours ago at a flagged event. Warmth 86 (hot). Her last message referenced AI × SEA - that phrase is mirrored. Thursday 3pm is free on your calendar and matches your preferred slot.
+          - generic [ref=f4e492]:
+            - button "skip" [ref=f4e493]
+            - button "edit" [ref=f4e494]
+            - button "approve" [ref=f4e495]
+    - generic [ref=f4e496]:
+      - generic [ref=f4e497]:
+        - generic [ref=f4e498]: From solo to portfolio
+        - heading "Works for one. Scales for a team. Anchors a whole portfolio." [level=2] [ref=f4e499]
+        - paragraph [ref=f4e500]: The same five Crew members and the same graph architecture, calibrated to three very different scales - a solo operator's phone, a small team's shared deal flow, a fund's entire portfolio. One product. Three jobs. Same daily ritual.
+        - generic [ref=f4e501]:
+          - generic [ref=f4e502]: Solo
+          - generic [ref=f4e504]: →
+          - generic [ref=f4e505]: Team
+          - generic [ref=f4e507]: →
+          - generic [ref=f4e508]: Portfolio
+      - generic [ref=f4e510]:
+        - article [ref=f4e512]:
+          - generic [ref=f4e514]:
+            - generic [ref=f4e515]: Tier · 01
+            - generic [ref=f4e516]: Solo
+            - heading "A six-member Crew, running in your voice." [level=3] [ref=f4e517]
+            - paragraph [ref=f4e518]: "For the operator running their own relationships : founders, partners, creators, community leads juggling overlapping networks."
+          - generic [ref=f4e524]:
+            - generic [ref=f4e525]:
+              - generic [ref=f4e526]: What you gain
+              - list [ref=f4e531]:
+                - listitem [ref=f4e532]:
+                  - generic [ref=f4e534]: Six AI Crew members trained on your voice, your ICP, your Profile
+                - listitem [ref=f4e535]:
+                  - generic [ref=f4e537]: Every contact across Telegram, WhatsApp, Gmail, LinkedIn in one graph
+                - listitem [ref=f4e538]:
+                  - generic [ref=f4e540]: A ten-minute Morning Connect that keeps you on top of everyone
+                - listitem [ref=f4e541]:
+                  - generic [ref=f4e543]: Per-contact autonomy - auto-send, approve, or never-auto-draft
+            - generic [ref=f4e544]:
+              - generic [ref=f4e545]: What you stop losing
+              - list [ref=f4e550]:
+                - listitem [ref=f4e551]:
+                  - generic [ref=f4e553]: Business cards buried in your camera roll
+                - listitem [ref=f4e554]:
+                  - generic [ref=f4e556]: Follow-ups you meant to send within 24 hours, but didn't
+                - listitem [ref=f4e557]:
+                  - generic [ref=f4e559]: Conversation context from three weeks ago
+                - listitem [ref=f4e560]:
+                  - generic [ref=f4e562]: Relationships that drift silently past the 60-day mark
+        - article [ref=f4e564]:
+          - generic [ref=f4e566]:
+            - generic [ref=f4e567]: Tier · 02
+            - generic [ref=f4e568]: Team
+            - heading "Where the whole team works from one shared graph." [level=3] [ref=f4e569]
+            - paragraph [ref=f4e570]: For founders, partners, BD, and IR - everyone who touches the same deal flow, collaborating on the same people instead of from separate inboxes.
+          - generic [ref=f4e578]:
+            - generic [ref=f4e579]:
+              - generic [ref=f4e580]: What you gain
+              - list [ref=f4e585]:
+                - listitem [ref=f4e586]:
+                  - generic [ref=f4e588]: One shared graph across every teammate - the team sees the same contacts
+                - listitem [ref=f4e589]:
+                  - generic [ref=f4e591]: Coordinated outreach - the Crew knows who has already been in touch
+                - listitem [ref=f4e592]:
+                  - generic [ref=f4e594]: Per-seat autonomy, one unified Morning Connect stack for the whole team
+                - listitem [ref=f4e595]:
+                  - generic [ref=f4e597]: SSO, SCIM provisioning, audit log of every draft and send
+            - generic [ref=f4e598]:
+              - generic [ref=f4e599]: What you stop losing
+              - list [ref=f4e604]:
+                - listitem [ref=f4e605]:
+                  - generic [ref=f4e607]: Years of relationships when a teammate leaves for a new venture
+                - listitem [ref=f4e608]:
+                  - generic [ref=f4e610]: Context when a new hire joins - the graph onboards them in a day
+                - listitem [ref=f4e611]:
+                  - generic [ref=f4e613]: Trust with contacts from clumsy, duplicated outreach
+                - listitem [ref=f4e614]:
+                  - generic [ref=f4e616]: Time rebuilding the same contact fields across three separate CRMs
+        - article [ref=f4e618]:
+          - generic [ref=f4e620]:
+            - generic [ref=f4e621]: Tier · 03
+            - generic [ref=f4e622]: Enterprise
+            - heading "One network, many companies. Shared intelligence, strict privacy." [level=3] [ref=f4e623]
+            - paragraph [ref=f4e624]: For VCs, family offices, and holding companies. See who's connected to whom across everyone in your portfolio - without leaking contacts between the separate entities.
+          - generic [ref=f4e631]:
+            - generic [ref=f4e632]:
+              - generic [ref=f4e633]: What you gain
+              - list [ref=f4e638]:
+                - listitem [ref=f4e639]:
+                  - generic [ref=f4e641]: See mutual connections across every company you own who already knows the person you're trying to reach
+                - listitem [ref=f4e642]:
+                  - generic [ref=f4e644]: Strict walls between entities each portfolio company's contacts stay private to them
+                - listitem [ref=f4e645]:
+                  - generic [ref=f4e647]: One admin console to decide who sees what, entity by entity
+                - listitem [ref=f4e648]:
+                  - generic [ref=f4e650]: "Compliance-ready: custom agreements, data residency, SOC 2 on the roadmap"
+                - listitem [ref=f4e651]:
+                  - generic [ref=f4e653]: We migrate your existing contact lists on day one
+            - generic [ref=f4e654]:
+              - generic [ref=f4e655]: What you stop losing
+              - list [ref=f4e660]:
+                - listitem [ref=f4e661]:
+                  - generic [ref=f4e663]: Relationships when operators move between portfolio companies
+                - listitem [ref=f4e664]:
+                  - generic [ref=f4e666]: Valuable intros buried in individual partners' inboxes
+                - listitem [ref=f4e667]:
+                  - generic [ref=f4e669]: "\"Who knows whom\" knowledge trapped in partners' heads"
+                - listitem [ref=f4e670]:
+                  - generic [ref=f4e672]: Audit trail when a compliance or investor question comes up
+                - listitem [ref=f4e673]:
+                  - generic [ref=f4e675]: Strategic connections when companies merge, exit, or restructure
+      - generic [ref=f4e676]:
+        - generic [ref=f4e678]:
+          - generic [ref=f4e679]: PDPA
+          - generic [ref=f4e680]: compliant
+        - generic [ref=f4e683]:
+          - generic [ref=f4e684]: GDPR
+          - generic [ref=f4e685]: compliant
+        - generic [ref=f4e688]:
+          - generic [ref=f4e689]: SOC 2 Type II
+          - generic [ref=f4e690]: on roadmap
+        - generic [ref=f4e693]:
+          - generic [ref=f4e694]: Data residency
+          - generic [ref=f4e695]: per-entity
+    - generic [ref=f4e698]:
+      - generic [ref=f4e699]: Copyright © 2026
+      - generic [ref=f4e700]: Threadly. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=f4e707] [cursor=pointer]
+  - alert [ref=f4e711]

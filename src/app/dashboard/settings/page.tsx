@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { ComingSoonShell } from "@/components/coming-soon-shell";
+import { TelegramConnect } from "@/components/dashboard/telegram-connect";
+import { GoogleConnect } from "@/components/dashboard/google-connect";
 
 const tabs = [
   { id: "profile", label: "Profile" },
@@ -15,10 +17,10 @@ type TabId = (typeof tabs)[number]["id"];
 
 const tabCopy: Record<TabId, { lede: string }> = {
   profile: {
-    lede: "Your identity across orgs — name, voice samples per context, ICP rules per org, signatures per channel. Swappable on the fly.",
+    lede: "Your identity across orgs: name, voice samples per context, ICP rules per org, signatures per channel. Swappable on the fly.",
   },
   channels: {
-    lede: "OAuth-connected accounts for Telegram, Gmail, LinkedIn, and (soon) WhatsApp Business + Plaud. Never raw passwords.",
+    lede: "OAuth-connected accounts for Telegram, Gmail, LinkedIn, and (soon) Plaud. Never raw passwords.",
   },
   autonomy: {
     lede: "Green auto-sends, Yellow stages for Morning Connect, Red never drafts. Override per-contact, per-channel, or for entire message types.",
@@ -71,11 +73,20 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      <ComingSoonShell
-        eyebrow={`Settings · ${tabs.find((t) => t.id === tab)?.label}`}
-        title={`${tabs.find((t) => t.id === tab)?.label} ships with the hackathon build.`}
-        lede={tabCopy[tab].lede}
-      />
+      {tab === "channels" ? (
+        <div className="space-y-6">
+          <Suspense fallback={null}>
+            <GoogleConnect />
+          </Suspense>
+          <TelegramConnect />
+        </div>
+      ) : (
+        <ComingSoonShell
+          eyebrow={`Settings · ${tabs.find((t) => t.id === tab)?.label}`}
+          title={`${tabs.find((t) => t.id === tab)?.label} ships with the hackathon build.`}
+          lede={tabCopy[tab].lede}
+        />
+      )}
     </div>
   );
 }

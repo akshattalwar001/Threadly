@@ -27,7 +27,12 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Threadly - Never lose someone important again",
   description:
-    "A department of AI staff that runs your relationships in the background - across business cards, voice notes, Telegram, WhatsApp, Gmail, and the events you fly to.",
+    "A department of AI staff that runs your relationships in the background - across business cards, voice notes, Telegram, Gmail, and the events you fly to.",
+  icons: {
+    icon: "/brand/favicon.png",
+    shortcut: "/brand/favicon.png",
+    apple: "/brand/favicon.png",
+  },
 };
 
 export default function RootLayout({

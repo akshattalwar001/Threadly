@@ -40,7 +40,7 @@ const tiles: Tile[] = [
     headline: "Ask the graph, in plain English.",
     tagline:
       "Natural-language query over every contact, every interaction. Ranked answers with reasoning. Works across personal, team, and portfolio scales.",
-    href: "/app/master-connect",
+    href: "/dashboard/connect",
     Icon: Sparkles,
   },
   {
@@ -52,7 +52,7 @@ const tiles: Tile[] = [
     headline: "Business cards → enriched contacts.",
     tagline:
       "Claude reads the card. Genspark enriches from Crunchbase, press, company pages. Filed before you leave the venue.",
-    href: "/app/scan",
+    href: "/dashboard/crew/snap",
     Icon: ScanLine,
   },
   {
@@ -61,10 +61,10 @@ const tiles: Tile[] = [
     role: "Specialist",
     name: "Nudge",
     color: "var(--teal)",
-    headline: "Reads every Telegram and WhatsApp inbound.",
+    headline: "Reads every Telegram inbound.",
     tagline:
       "Hi. vs Hi! vs Hi!! - three relationships, one word apart. Updates Warmth silently. Drafts replies that match the incoming energy.",
-    href: "/app/signals",
+    href: "/dashboard/crew/nudge",
     Icon: Activity,
   },
   {
@@ -76,7 +76,7 @@ const tiles: Tile[] = [
     headline: "Cold email, qualified + drafted.",
     tagline:
       "Reads every unsolicited email against your ICP. Polite pass for no-fits. Draft-ready yes for good-fits. Never auto-books meetings.",
-    href: "/app/inbound",
+    href: "/dashboard/crew/gatekeeper",
     Icon: Mail,
   },
   {
@@ -85,10 +85,10 @@ const tiles: Tile[] = [
     role: "Specialist",
     name: "Pulse",
     color: "var(--indigo)",
-    headline: "Instagram · X · FB Messenger DMs.",
+    headline: "Your network's vital signs, live.",
     tagline:
-      "Captures inbound DMs in real time. Same Secret Signal rules as Messenger. Stages replies for Morning Connect. Never cold-DMs strangers.",
-    href: "/app/social",
+      "Surfaces who's actually talking to you right now: real message signal, real timestamps, plus the full activity log behind every warmth score.",
+    href: "/dashboard/crew/pulse",
     Icon: AtSign,
   },
   {
@@ -100,7 +100,7 @@ const tiles: Tile[] = [
     headline: "Voice + meetings → structured memory.",
     tagline:
       "Plaud, Granola, Otter, a voice memo you drop in. Extracts commitments, links to contacts, stages follow-up drafts.",
-    href: "/app/scribe",
+    href: "/dashboard/crew/recall",
     Icon: Mic,
   },
 ];

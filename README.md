@@ -16,7 +16,7 @@ Five AI specialists manage every relationship in the background. One Chief answe
 - **Snap** - Business cards → enriched contacts in seconds
 - **Nudge** - Secret cues trigger perfectly-timed follow-ups
 - **Gatekeeper** - Inbound screening + qualification
-- **Pulse** - DMs from Instagram, X, Telegram in real time
+- **Pulse** - Real-time network health score, recently-active contacts, and the full crew activity log
 - **Recall** - Voice notes → structured memory + follow-ups
 
 ### Live MVP
@@ -219,6 +219,11 @@ Set these in the FastAPI environment:
 - `FIREBASE_PROJECT_ID`
 - `GROQ_API_KEY`
 - `CORS_ORIGINS` - comma-separated allowed frontend origins
+- `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION_KEY` - Telegram sync
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` - OAuth client credentials from Google Cloud Console
+- `GOOGLE_REDIRECT_URI` - must match a redirect URI registered on the OAuth client (defaults to `http://localhost:8000/google/oauth/callback`)
+- `GOOGLE_TOKEN_KEY` - Fernet key used to encrypt stored Google OAuth tokens (generate with `Fernet.generate_key()`)
+- `FRONTEND_URL` - used to redirect back to the app after the Google OAuth callback (defaults to `http://localhost:3000`)
 
 ---
 

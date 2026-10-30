@@ -1,0 +1,81 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - complementary [ref=f2e3]:
+      - generic [ref=f2e5]:
+        - img "Threadly" [ref=f2e6]
+        - button [ref=f2e7]
+      - generic [ref=f2e10]:
+        - generic [ref=f2e12]:
+          - button "Personal" [ref=f2e13]
+          - button "Team" [ref=f2e14]
+          - button "Enterprise" [ref=f2e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f2e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f2e18]: Chief
+          - generic [ref=f2e19]: Ask the Graph
+          - generic [ref=f2e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f2e21]:
+          - generic [ref=f2e22]: Workspace
+          - link "Dashboard" [ref=f2e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f2e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f2e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f2e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f2e47]:
+          - generic [ref=f2e48]: Your Crew
+          - link "Snap" [ref=f2e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f2e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f2e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f2e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f2e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f2e81]:
+          - generic [ref=f2e82]: Latest Signal
+          - generic [ref=f2e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f2e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f2e90]:
+        - generic [ref=f2e91]:
+          - generic [ref=f2e92]: U
+          - generic [ref=f2e93]: User
+        - button "Logout" [ref=f2e95]
+    - main [ref=f2e100]:
+      - generic [ref=f2e101]:
+        - generic [ref=f2e102]:
+          - generic [ref=f2e103]: Settings
+          - heading "Settings" [level=1] [ref=f2e104]
+        - generic [ref=f2e105]:
+          - button "Profile" [ref=f2e106]
+          - button "Channels" [ref=f2e108]
+          - button "Autonomy" [ref=f2e109]
+          - button "Privacy" [ref=f2e110]
+          - button "Data" [ref=f2e111]
+        - generic [ref=f2e112]:
+          - generic [ref=f2e113]:
+            - generic [ref=f2e114]: Settings · Profile
+            - heading "Profile ships with the hackathon build." [level=1] [ref=f2e115]
+            - paragraph [ref=f2e116]: Your identity across orgs — name, voice samples per context, ICP rules per org, signatures per channel. Swappable on the fly.
+          - generic [ref=f2e117]:
+            - generic [ref=f2e118]: Coming soon
+            - heading "This screen ships with the hackathon build." [level=2] [ref=f2e123]
+            - paragraph [ref=f2e124]: The Crew is already working in the background — you can see the latest items in Morning Connect or on the Dashboard.
+            - generic [ref=f2e125]:
+              - link "Open Morning Connect" [ref=f2e126] [cursor=pointer]:
+                - /url: /app/morning-connect
+              - link "See the Dashboard →" [ref=f2e129] [cursor=pointer]:
+                - /url: /dashboard
+  - complementary [aria-hidden] [ref=f2e130]:
+    - generic [ref=f2e131]:
+      - generic [ref=f2e132]:
+        - generic [ref=f2e133]: Genspark · web actions
+        - generic [ref=f2e134]: Crew
+      - button [ref=f2e137]
+    - generic [ref=f2e142]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f2e148] [cursor=pointer]

@@ -91,3 +91,31 @@ app.include_router(
     prefix="/crew",
     tags=["Crew"],
 )
+from app.routes.contacts import router as contacts_router
+
+app.include_router(
+    contacts_router,
+    prefix="/contacts",
+    tags=["Contacts"],
+)
+from app.routes.telegram import router as telegram_router
+
+app.include_router(
+    telegram_router,
+    prefix="/telegram",
+    tags=["Telegram"],
+)
+from app.routes.chief import router as chief_router
+
+app.include_router(
+    chief_router,
+    prefix="/chief",
+    tags=["Chief"],
+)
+from app.routes.google import router as google_router
+
+app.include_router(
+    google_router,
+    prefix="/google",
+    tags=["Google"],
+)

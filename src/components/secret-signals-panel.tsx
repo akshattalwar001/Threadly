@@ -525,7 +525,7 @@ function RuleRow({
           <textarea
             value={replyTemplate}
             onChange={(e) => onReplyChange(e.target.value)}
-            placeholder={`e.g. "Great seeing you — want to catch up soon?" · leave blank to let Claude draft dynamically from this signal`}
+            placeholder={`e.g. "Great seeing you, want to catch up soon?" · leave blank to let Claude draft dynamically from this signal`}
             rows={3}
             className="w-full rounded-lg border bg-white px-3 py-2 text-sm leading-relaxed outline-none transition-colors resize-y"
             style={{
@@ -596,7 +596,7 @@ function AddRuleForm({
         type="text"
         value={rule.condition}
         onChange={(e) => onChange({ ...rule, condition: e.target.value })}
-        placeholder="Message that triggers this — e.g. 'Hi!!' or '🔥 Can we chat?'"
+        placeholder="Message that triggers this, e.g. 'Hi!!' or '🔥 Can we chat?'"
         className="flex-1 min-w-[260px] rounded border border-[var(--border)] bg-white px-3 py-1.5 text-sm outline-none focus:border-[var(--foreground)]"
       />
       <div className="flex items-center gap-1">

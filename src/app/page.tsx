@@ -22,7 +22,7 @@ const soloTier = {
   color: "var(--terracotta)",
   gains: [
     "Six AI Crew members trained on your voice, your ICP, your Profile",
-    "Every contact across Telegram, WhatsApp, Gmail, LinkedIn in one graph",
+    "Every contact across Telegram, Gmail, LinkedIn in one graph",
     "A ten-minute Morning Connect that keeps you on top of everyone",
     "Per-contact autonomy - auto-send, approve, or never-auto-draft",
   ],

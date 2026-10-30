@@ -9,7 +9,6 @@ export type Channel =
   | "telegram"
   | "email"
   | "linkedin"
-  | "whatsapp"
   | "card"
   | "social";
 export type AutonomyTier = "green" | "yellow" | "red";
@@ -28,13 +27,13 @@ export const CREW: Record<
     name: "Messenger",
     color: "var(--teal)",
     tint: "color-mix(in srgb, var(--teal) 12%, white)",
-    role: "Watches Telegram and WhatsApp — reads tone, updates Warmth, drafts replies",
+    role: "Watches Telegram: reads tone, updates Warmth, drafts replies",
   },
   inbound: {
     name: "Mailbox",
     color: "var(--copper)",
     tint: "color-mix(in srgb, var(--copper) 12%, white)",
-    role: "Watches email and LinkedIn — qualifies cold asks, drafts replies",
+    role: "Watches email and LinkedIn: qualifies cold asks, drafts replies",
   },
   scribe: {
     name: "Scribe",
@@ -43,10 +42,10 @@ export const CREW: Record<
     role: "Meetings, voice notes, conversations → structured memory + commitments",
   },
   social: {
-    name: "Social Media",
+    name: "Pulse",
     color: "var(--indigo)",
     tint: "color-mix(in srgb, var(--indigo) 12%, white)",
-    role: "Watches Instagram, Facebook Messenger, and X DMs in real time. Stages replies for Morning Connect — you review the night's pile each morning.",
+    role: "Watches your network's real-time signal: who's actually in touch with you right now, and the full unfiltered activity log behind every score.",
   },
 };
 
@@ -613,7 +612,6 @@ export type FixtureDraft = {
   channel:
     | "Telegram"
     | "Gmail"
-    | "WhatsApp"
     | "LinkedIn"
     | "Instagram"
     | "X"
@@ -644,9 +642,9 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["Hi!!", "🔥", "2-min reply", "weekend evening"],
     draft:
-      "Sofia — so good to hear from you! Thursday 3pm at Common Man Stan Rd works for me. Or happy to come to your side of town. The TOKEN talk made me realise we're thinking about the same compliance problem from opposite ends — want to properly swap notes.",
+      "Sofia, so good to hear from you! Thursday 3pm at Common Man Stan Rd works for me. Or happy to come to your side of town. The TOKEN talk made me realise we're thinking about the same compliance problem from opposite ends, want to properly swap notes.",
     reasoning:
-      "Met 14 hours ago at a flagged event. Warmth 82 (hot). Her last message referenced the TOKEN talk — that context is mirrored. Thursday 3pm is free on your calendar and matches your preferred slot.",
+      "Met 14 hours ago at a flagged event. Warmth 82 (hot). Her last message referenced the TOKEN talk, that context is mirrored. Thursday 3pm is free on your calendar and matches your preferred slot.",
     reasoning_trail: [
       { crew: "signals", note: "Hi!! + 🔥 + 2-min reply → hot" },
       { crew: "scan", note: "Met at TOKEN2049, Sep 2025 (re-met Sat)" },
@@ -663,14 +661,14 @@ export const fixtureDrafts: FixtureDraft[] = [
     channel: "Telegram",
     warmth: 86,
     inbound_message: {
-      text: "Hi!! Fred — amazing to reconnect. Let me know when you're free this week?",
+      text: "Hi!! Fred, amazing to reconnect. Let me know when you're free this week?",
       timestamp: "09:14",
     },
     signal_chips: ["Hi!!", "2-min reply", "TOKEN2049"],
     draft:
-      "Priya — same! Thursday 3pm for coffee? Loved your point on AI × SEA; want to dig into it properly. Happy to come to your side of town.",
+      "Priya, same! Thursday 3pm for coffee? Loved your point on AI × SEA; want to dig into it properly. Happy to come to your side of town.",
     reasoning:
-      "Warmth 86 (hot). Her message referenced AI × SEA — that phrase is mirrored. Thursday 3pm is your preferred slot and free on the calendar.",
+      "Warmth 86 (hot). Her message referenced AI × SEA, that phrase is mirrored. Thursday 3pm is your preferred slot and free on the calendar.",
     reasoning_trail: [
       { crew: "signals", note: "Hi!! + 2-min reply → hot" },
       { crew: "scan", note: "Met at TOKEN2049 Sep 2025" },
@@ -692,13 +690,13 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["polite", "Hi Freddy,", "business hours"],
     draft:
-      "Hi Maria — thanks for the note. Growth Labs looks interesting; reminds me a little of what we did with a Web3 SG partner last year. Happy to jump on a 20-min call — Thursday 3pm SGT work?",
+      "Hi Maria, thanks for the note. Growth Labs looks interesting; reminds me a little of what we did with a Web3 SG partner last year. Happy to jump on a 20-min call, Thursday 3pm SGT work?",
     reasoning:
-      "Inbound cold ask from Growth Labs. Qualified as fit — real company, Series A last year, aligned space. Approval required since the draft proposes a meeting on your calendar.",
+      "Inbound cold ask from Growth Labs. Qualified as fit: real company, Series A last year, aligned space. Approval required since the draft proposes a meeting on your calendar.",
     reasoning_trail: [
       { crew: "inbound", note: "Qualified · Web3 SG ICP fit · Series A co." },
       { crew: "scan", note: "Genspark enriched: Sequoia-backed, Mar 2025" },
-      { crew: "inbound", note: "Staged for Morning Connect — meeting proposed" },
+      { crew: "inbound", note: "Staged for Morning Connect, meeting proposed" },
     ],
   },
   {
@@ -712,7 +710,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 28,
     signal_chips: ["83d silent", "ETHSG", "dropped ball"],
     draft:
-      "Jamal — been way too long. I know I dropped the ball after ETHSG. Here for a proper catch-up if you are — what does Thursday look like?",
+      "Jamal, been way too long. I know I dropped the ball after ETHSG. Here for a proper catch-up if you are, what does Thursday look like?",
     reasoning:
       "83 days silent. Last meaningful exchange was at ETHSG. Owning the silence is the right tone; proposing a concrete day reopens the door without pressure.",
     reasoning_trail: [
@@ -732,7 +730,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 78,
     signal_chips: ["Hi Hi!", "voice note", "Dubai circle"],
     draft:
-      "Rashid! You mentioned intros to the Dubai circle last week — I'm in UAE 6–8 May, worth looping in?",
+      "Rashid! You mentioned intros to the Dubai circle last week, I'm in UAE 6–8 May, worth looping in?",
     reasoning:
       "Warmth 78 (hot-warm). He offered intros earlier; this surfaces the commitment while it's still fresh. UAE dates pulled from your calendar.",
     reasoning_trail: [
@@ -752,7 +750,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 68,
     signal_chips: ["Tuesday call", "commitment", "SEA reg deck"],
     draft:
-      "Catherine — following up on Tuesday's call. Per your ask, attached the SEA regulatory framework deck. Happy to set time if useful.",
+      "Catherine, following up on Tuesday's call. Per your ask, attached the SEA regulatory framework deck. Happy to set time if useful.",
     reasoning:
       "Scribe extracted an action item from Tuesday's call: 'send Catherine SEA reg deck.' This closes the loop on that commitment.",
     reasoning_trail: [
@@ -776,13 +774,13 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["cold outreach", "no-fit", "polite"],
     draft:
-      "Arun — appreciate the note. Not quite the right fit for what we're doing right now, but thank you for thinking of me. Keep in touch.",
+      "Arun, appreciate the note. Not quite the right fit for what we're doing right now, but thank you for thinking of me. Keep in touch.",
     reasoning:
       "Inbound cold outreach. No-fit against your current ICP. Polite pass prepared; no meeting proposed.",
     reasoning_trail: [
       { crew: "inbound", note: "Scored no-fit against current ICP" },
       { crew: "inbound", note: "Polite-pass template, warm tone" },
-      { crew: "inbound", note: "No meeting proposed — safe to auto-send" },
+      { crew: "inbound", note: "No meeting proposed, safe to auto-send" },
     ],
   },
   {
@@ -800,13 +798,13 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["voice note", "Saturday", "42s"],
     draft:
-      "Marcus — quick one, yes I'm in for breakfast Tuesday. Same place? Also the thing you mentioned about the escrow flow — would love to see a whiteboard of it when we meet.",
+      "Marcus, quick one, yes I'm in for breakfast Tuesday. Same place? Also the thing you mentioned about the escrow flow, would love to see a whiteboard of it when we meet.",
     reasoning:
       "Warmth 88 (hot). He sent a weekend voice note proposing breakfast Tuesday. Acknowledges + references his commerce-escrow comment. Auto-send is enabled for Marcus (Green tier), but a draft is surfaced for confirmation since it proposes a calendar commitment.",
     reasoning_trail: [
       { crew: "scribe", note: "Transcribed 42s voice note · Tue breakfast ask" },
       { crew: "signals", note: "Weekend voice note → hot signal" },
-      { crew: "signals", note: "Short, casual — matches Marcus voice pattern" },
+      { crew: "signals", note: "Short, casual, matches Marcus voice pattern" },
     ],
   },
   {
@@ -824,9 +822,9 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["Hi Fred!!", "🙂", "fast replies"],
     draft:
-      "Diego — great to hear from you! On-ramps in LATAM is a space I'm following closely. Would love to compare notes — 30-min call next week?",
+      "Diego, great to hear from you! On-ramps in LATAM is a space I'm following closely. Would love to compare notes, 30-min call next week?",
     reasoning:
-      "Warmth 76 (hot-warm). Inbound from a real partnerships GM; clear ICP fit. Proposes a call — approval required in Morning Connect.",
+      "Warmth 76 (hot-warm). Inbound from a real partnerships GM; clear ICP fit. Proposes a call, approval required in Morning Connect.",
     reasoning_trail: [
       { crew: "inbound", note: "Qualified · LATAM fintech · Santander" },
       { crew: "scan", note: "Genspark enriched · 4 mutuals · Web3 SG" },
@@ -844,7 +842,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 22,
     signal_chips: ["127d silent", "Tokyo", "formal"],
     draft:
-      "Kenji-san — it's been too long since our Tokyo roundtable. I remember you mentioning the MUFG stablecoin pilot; I'd be keen to hear where it landed. If you're open to a short call, happy to work around your timezone.",
+      "Kenji-san, it's been too long since our Tokyo roundtable. I remember you mentioning the MUFG stablecoin pilot; I'd be keen to hear where it landed. If you're open to a short call, happy to work around your timezone.",
     reasoning:
       "127 days silent. Last substantive touch was the Tokyo fintech roundtable. Formal Japanese-business register is required. References a specific point from the original conversation to demonstrate memory.",
     reasoning_trail: [
@@ -864,13 +862,13 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 70,
     signal_chips: ["ETHSG", "partnerships", "due"],
     draft:
-      "Theo — following up from ETHSG. You mentioned the Polygon partnerships RFP; I'd like to submit a proposal with a Web3 SG angle. Worth 30-min this week to align on scope?",
+      "Theo, following up from ETHSG. You mentioned the Polygon partnerships RFP; I'd like to submit a proposal with a Web3 SG angle. Worth 30-min this week to align on scope?",
     reasoning:
       "Warmth 70 (warm). He opened the door to an RFP at ETHSG; 24-hour post-event window has passed, so this is the 1-week follow-up nudge. Specific ask, not a general 'catch up'.",
     reasoning_trail: [
       { crew: "signals", note: "1-week ETHSG follow-up window" },
       { crew: "scribe", note: "Captured RFP mention from ETHSG booth chat" },
-      { crew: "signals", note: "Drafted specific not generic — proposal ask" },
+      { crew: "signals", note: "Drafted specific not generic, proposal ask" },
     ],
   },
   {
@@ -884,12 +882,12 @@ export const fixtureDrafts: FixtureDraft[] = [
     warmth: 66,
     signal_chips: ["commitment", "Compliance Summit"],
     draft:
-      "Leila — attaching the PDPA memo we talked about. Also flagging the Helix Tech deck since you mentioned you were evaluating privacy infrastructure; happy to intro.",
+      "Leila, attaching the PDPA memo we talked about. Also flagging the Helix Tech deck since you mentioned you were evaluating privacy infrastructure; happy to intro.",
     reasoning:
       "Scribe captured two commitments from Compliance Summit: send PDPA memo, flag privacy-infra options. Both close out in one email.",
     reasoning_trail: [
       { crew: "scribe", note: "2 commitments from Compliance Summit 12 Mar" },
-      { crew: "inbound", note: "Drafted slightly formal — Chainalysis voice" },
+      { crew: "inbound", note: "Drafted slightly formal, Chainalysis voice" },
       { crew: "scribe", note: "Bundles both commitments into one reply" },
     ],
   },
@@ -903,12 +901,12 @@ export const fixtureDrafts: FixtureDraft[] = [
     channel: "Gmail",
     warmth: 72,
     inbound_message: {
-      text: "Hi Freddy! Demo day was great seeing you. Remind me — did you want to be on the mentor list for batch S26?",
+      text: "Hi Freddy! Demo day was great seeing you. Remind me, did you want to be on the mentor list for batch S26?",
       timestamp: "yesterday 17:22",
     },
     signal_chips: ["Hi Freddy!", "YC", "batch S26"],
     draft:
-      "Sam — yes please, I'd love to be on the S26 mentor list. Happy to bias toward SEA-based founders if useful. Let me know what you need from me.",
+      "Sam, yes please, I'd love to be on the S26 mentor list. Happy to bias toward SEA-based founders if useful. Let me know what you need from me.",
     reasoning:
       "Warmth 72 (warm). He's offering a low-friction commitment with no meeting proposed. Simple yes with a helpful qualifier.",
     reasoning_trail: [
@@ -927,14 +925,14 @@ export const fixtureDrafts: FixtureDraft[] = [
     channel: "Instagram",
     warmth: 68,
     inbound_message: {
-      text: "Hey Fred! Saw your Web3 SG post — would love to chat about Seedstars doing something joint. DM open?",
+      text: "Hey Fred! Saw your Web3 SG post, would love to chat about Seedstars doing something joint. DM open?",
       timestamp: "6am sweep · yesterday",
     },
     signal_chips: ["Hey Fred!", "🙌", "IG DM", "partnership ask"],
     draft:
-      "Kai — yes definitely, always keen to chat Seedstars. Would 30-min next Tues work? Ping me on TG if easier — @bboxfred.",
+      "Kai, yes definitely, always keen to chat Seedstars. Would 30-min next Tues work? Ping me on TG if easier, @bboxfred.",
     reasoning:
-      "Inbound IG DM from real partnerships contact. ICP fit — Seedstars has an active SEA portfolio. Offers to move to TG (a channel we actually automate), so future exchanges leave IG.",
+      "Inbound IG DM from real partnerships contact. ICP fit, Seedstars has an active SEA portfolio. Offers to move to TG (a channel we actually automate), so future exchanges leave IG.",
     reasoning_trail: [
       { crew: "social", note: "Captured 6am · IG DM window open" },
       { crew: "signals", note: "Hey Fred! + 🙌 + quick reply → warm" },
@@ -951,12 +949,12 @@ export const fixtureDrafts: FixtureDraft[] = [
     channel: "X",
     warmth: 58,
     inbound_message: {
-      text: "Hi Freddy, working on a piece about SEA web3 infrastructure — would love a quote on the Claude Code SG community. Email ok?",
+      text: "Hi Freddy, working on a piece about SEA web3 infrastructure, would love a quote on the Claude Code SG community. Email ok?",
       timestamp: "6am sweep · yesterday",
     },
     signal_chips: ["Hi Freddy,", "press ask", "X DM"],
     draft:
-      "Naomi — happy to contribute a quote. Email is better for quotes — fred@collecter.club. Quick turnaround or a few days?",
+      "Naomi, happy to contribute a quote. Email is better for quotes: fred@collecter.club. Quick turnaround or a few days?",
     reasoning:
       "Inbound X DM from Blockworks reporter. Legitimate press ask. Routing to email is the right register for a quote attribution flow.",
     reasoning_trail: [
@@ -980,7 +978,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["cold ask", "no context", "X DM"],
     draft:
-      "Hi Hassan — thanks for the note. Speaker slots are locked in for 2026 on my side. Keep me in mind for 2027 and I'll do the same.",
+      "Hi Hassan, thanks for the note. Speaker slots are locked in for 2026 on my side. Keep me in mind for 2027 and I'll do the same.",
     reasoning:
       "Inbound X DM · cold outreach · no personal context. Polite pass, reciprocal offer to stay in touch.",
     reasoning_trail: [
@@ -1004,7 +1002,7 @@ export const fixtureDrafts: FixtureDraft[] = [
     },
     signal_chips: ["formal", "thank-you", "acknowledgment"],
     draft:
-      "Dear Akiko-san, thank you — happy to have made the introduction. Catherine mentioned the regulatory framework work; I will be in Tokyo 18–22 May and would welcome a coffee if your schedule allows.",
+      "Dear Akiko-san, thank you, happy to have made the introduction. Catherine mentioned the regulatory framework work; I will be in Tokyo 18–22 May and would welcome a coffee if your schedule allows.",
     reasoning:
       "Warmth 77 (hot). Thank-you acknowledgement is low-friction; this is also the right moment to reference the upcoming Tokyo trip from the calendar.",
     reasoning_trail: [
@@ -1117,7 +1115,7 @@ export const fixtureInteractions: Interaction[] = [
     direction: "outbound",
     kind: "message",
     preview:
-      "Great running into you at SGInnovate. Let's grab coffee soon — I owe you a proper catch-up.",
+      "Great running into you at SGInnovate. Let's grab coffee soon, I owe you a proper catch-up.",
     crew: "signals",
   },
   {
@@ -1180,7 +1178,7 @@ export const fixtureActivityLog: ActivityEntry[] = [
     id: "a5",
     timestamp: "13:58",
     crew: "scribe",
-    action: "Captured commitment — send Catherine SEA reg deck",
+    action: "Captured commitment: send Catherine SEA reg deck",
     detail: "From Tuesday's Plaud recording · 18:04 mark · draft routed to Morning Connect",
     contact_id: "catherine",
   },
@@ -1385,7 +1383,7 @@ export const fixtureEnrichments: Record<string, Enrichment> = {
       "Partner at Sequoia SEA since 2023 (per Sequoia site). Thesis: AI × SEA infrastructure.",
     company_url: "https://sequoiacap.com/sea",
     company_summary:
-      "Sequoia Capital Southeast Asia — early-stage venture. Fund III active ($2.85B AUM). Investments include Helix Tech, Tonik, Ninja Van.",
+      "Sequoia Capital Southeast Asia, early-stage venture. Fund III active ($2.85B AUM). Investments include Helix Tech, Tonik, Ninja Van.",
     mutual_connections: [
       { name: "Sofia Alencar", contact_id: "sofia" },
       { name: "Sam Harel", contact_id: "sam" },
@@ -1508,7 +1506,7 @@ export const fixtureVoiceNotes: VoiceNote[] = [
     duration_sec: 240,
     title: "Sofia Alencar · voice note reply",
     transcript_preview:
-      "Hey Fred, just thinking through your question about the Helix privacy stack. The short answer is yes, we're thinking about it the same way — the zero-knowledge claim paths are where we diverge from the obvious playbook. Would love to whiteboard when you're in town...",
+      "Hey Fred, just thinking through your question about the Helix privacy stack. The short answer is yes, we're thinking about it the same way: the zero-knowledge claim paths are where we diverge from the obvious playbook. Would love to whiteboard when you're in town...",
     commitments: ["Whiteboard session with Sofia (in town week of Apr 23)"],
     contact_ids: ["sofia"],
   },
@@ -1547,7 +1545,7 @@ export const fixtureVoiceNotes: VoiceNote[] = [
     duration_sec: 180,
     title: "Self-note after Claude Code SG April 10",
     transcript_preview:
-      "Quick note to self after the event — really strong SEA founder contingent tonight. Marcus pitched his escrow thing, got the whole room nodding. Priya showed up unexpectedly, we chatted about TOKEN2049 Dubai prep. Met three new founders I need to file properly...",
+      "Quick note to self after the event, really strong SEA founder contingent tonight. Marcus pitched his escrow thing, got the whole room nodding. Priya showed up unexpectedly, we chatted about TOKEN2049 Dubai prep. Met three new founders I need to file properly...",
     commitments: [
       "File three new founder contacts from Apr 10 event",
       "Follow up with Priya re: TOKEN2049 Dubai",
@@ -1878,12 +1876,12 @@ export const fixtureIntroRequests: IntroRequest[] = [
     holder_portco_id: "helix",
     target_company: "Stripe",
     target_person: "Marcus Alvarez",
-    purpose: "Payment rail partnership — exploring API integration for SEA corridor",
+    purpose: "Payment rail partnership, exploring API integration for SEA corridor",
     vertical_match: true,
     urgency: "high",
     status: "pending_gate1",
     requested_at: "2026-04-24T08:14:00Z",
-    reasoning: "Kite Commerce is expanding payment integrations. Helix has a warm contact at Stripe (Warmth 82). Same fintech vertical — low competitive risk. Auto-approve candidate.",
+    reasoning: "Kite Commerce is expanding payment integrations. Helix has a warm contact at Stripe (Warmth 82). Same fintech vertical, low competitive risk. Auto-approve candidate.",
   },
   {
     id: "ir2",
@@ -1904,12 +1902,12 @@ export const fixtureIntroRequests: IntroRequest[] = [
     holder_portco_id: "helix",
     target_company: "Sequoia SEA",
     target_person: "Priya Raghavan",
-    purpose: "Series B conversations — raising $12M",
+    purpose: "Series B conversations, raising $12M",
     vertical_match: false,
     urgency: "high",
     status: "pending_gate1",
     requested_at: "2026-04-24T06:58:00Z",
-    reasoning: "Seedstars funding round. Helix has a Sequoia SEA partner contact (Warmth 86). Cross-vertical — needs manual review. Competitive check: neither company is a current Sequoia portfolio.",
+    reasoning: "Seedstars funding round. Helix has a Sequoia SEA partner contact (Warmth 86). Cross-vertical, needs manual review. Competitive check: neither company is a current Sequoia portfolio.",
   },
   {
     id: "ir4",
@@ -1922,7 +1920,7 @@ export const fixtureIntroRequests: IntroRequest[] = [
     urgency: "low",
     status: "approved",
     requested_at: "2026-04-22T14:00:00Z",
-    reasoning: "Same vertical, low stakes, founder-to-founder — auto-approved by policy. Intro draft in Santander's voice ready.",
+    reasoning: "Same vertical, low stakes, founder-to-founder, auto-approved by policy. Intro draft in Santander's voice ready.",
   },
   {
     id: "ir5",
@@ -2130,7 +2128,7 @@ export const SIGNAL_CATEGORY_LABEL: Record<SignalCategory, string> = {
 };
 
 export const fixtureSecretSignals: SecretSignalRule[] = [
-  // ─── Messenger (Telegram / WhatsApp) keyword triggers ───
+  // ─── Messenger (Telegram) keyword triggers ───
   // Each trigger is the literal inbound text. Replies are presets the
   // user can edit inline; leave blank and Claude drafts dynamically.
   {
@@ -2141,7 +2139,7 @@ export const fixtureSecretSignals: SecretSignalRule[] = [
     scope: "telegram",
     active: true,
     reply_template:
-      "Hey! 🔥 Great to hear from you — let's make time this week. What does Thursday or Friday look like for you?\n\nFreddy",
+      "Hey! 🔥 Great to hear from you, let's make time this week. What does Thursday or Friday look like for you?\n\nFreddy",
   },
   {
     id: "sig-msg-hi1",
@@ -2151,7 +2149,7 @@ export const fixtureSecretSignals: SecretSignalRule[] = [
     scope: "telegram",
     active: true,
     reply_template:
-      "Hi! Great to hear from you. Happy to chat more — what did you have in mind?\n\nFreddy",
+      "Hi! Great to hear from you. Happy to chat more, what did you have in mind?\n\nFreddy",
   },
   {
     id: "sig-msg-hi0",
@@ -2161,7 +2159,7 @@ export const fixtureSecretSignals: SecretSignalRule[] = [
     scope: "telegram",
     active: true,
     reply_template:
-      "Hi — thanks for reaching out. What can I help with?\n\nFreddy",
+      "Hi, thanks for reaching out. What can I help with?\n\nFreddy",
   },
   {
     id: "sig-msg-hidots",
@@ -2183,7 +2181,7 @@ export const fixtureSecretSignals: SecretSignalRule[] = [
     scope: "social",
     active: true,
     reply_template:
-      "Hi there. Thanks for reaching out — I don't think we've connected before. What can I help with?",
+      "Hi there. Thanks for reaching out, I don't think we've connected before. What can I help with?",
   },
   {
     id: "sig-soc-hi1",
@@ -2203,7 +2201,7 @@ export const fixtureSecretSignals: SecretSignalRule[] = [
     scope: "social",
     active: true,
     reply_template:
-      "Hi! 🙌 Awesome to hear from you — let's jump on a quick call this week. Which day works for you?",
+      "Hi! 🙌 Awesome to hear from you, let's jump on a quick call this week. Which day works for you?",
   },
 ];
 

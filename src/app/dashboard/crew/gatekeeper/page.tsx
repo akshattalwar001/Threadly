@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -14,13 +14,16 @@ import {
   Loader2,
 } from "lucide-react";
 import { CREW } from "@/lib/fixtures";
+import { useAuth } from "@/context/AuthContext";
+import { getDashboardDrafts } from "@/lib/api";
+import type { Draft } from "@/lib/api";
 
 /**
  * Mailbox (/app/inbound) — cold-email qualification + retro-import shell.
  *
  * Pattern mirrors Messenger: header + connection state + rule matrix +
- * live classification card with Simulate controls. Fixture-backed for
- * the demo; real Gmail retro-import + ICP classifier is post-beta.
+ * live classification card, sourced from the real drafts queue filtered
+ * to the inbound (Mailbox) crew.
  */
 
 const icpRules = [
@@ -64,75 +67,162 @@ type InboundExample = {
   sentAt: string;
 };
 
-const examples: InboundExample[] = [
+function formatRelative(iso?: string) {
+  if (!iso) return "";
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const now = Date.now();
+  const hours = Math.max(0, Math.floor((now - then) / (1000 * 60 * 60)));
+  if (hours < 1) return "moments ago";
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "yesterday";
+  return `${days}d ago`;
+}
+
+// Canned inbound examples for the "Simulate" demo — used whenever the
+// account has no real classified inbound yet (i.e. always, right now,
+// since the live Gmail retro-import/webhook pipeline isn't wired up).
+// Kept separate from `stats`, which only ever reflects real drafts.
+const CANNED_EXAMPLES: InboundExample[] = [
   {
-    id: "ex1",
-    from: "Hassan Okafor",
-    company: "Blockworks",
-    subject: "Quick quote on SEA founder network effects?",
+    id: "canned-1",
+    from: "Priya Nair",
+    company: "Series B fintech (stealth)",
+    subject: "Quick intro, building payments infra, loved your post",
     snippet:
-      "Hi Freddy — working on a piece on SEA founder network effects. Saw your TOKEN2049 post and wanted 2-3 sentences from you by Friday…",
+      "Hey! I'm an operator at a Series B fintech building payments infra. Read your thread on relationship graphs and would love 15 min to compare notes on GTM.",
     verdict: "qualified",
     reasoning:
-      "Journalist · known outlet · short specific ask with a deadline. Matches ICP rule: 'Journalist or analyst from a known outlet'. Warmth +4.",
+      "Operator at a Series A/B tech company (+6), mentions a specific thing I wrote (+5). Net +11, clears the qualify threshold.",
     draft:
-      "Hi Hassan — happy to contribute. Can you send the angle and the word count? I can turn around 2–3 sentences by Friday — probably better over email than a call for a tight quote.\n\nFreddy",
+      "Hey Priya, appreciate you reading the thread! Happy to do 15 min, Thursday or Friday afternoon both work. Sending a cal link.",
     sentAt: "2h ago",
   },
   {
-    id: "ex2",
-    from: "Jamie Park",
-    company: "Atlas Recruiting",
-    subject: "Head of Operations role at Series B fintech",
+    id: "canned-2",
+    from: "Marcus Webb",
+    company: "TalentBridge Recruiting",
+    subject: "Exciting Backend Engineer role, 250k+equity",
     snippet:
-      "Hi there — we have an exciting VP Ops opportunity at a high-growth Series B fintech. Base $250k, 0.3% equity. Are you open to a chat?…",
+      "I'm reaching out about a Staff Backend Engineer opening at a stealth startup. Your background looked like a great fit!",
     verdict: "decline",
     reasoning:
-      "Recruiter for a role outside my function. Matches 'Recruiter for a role not my function' (-4). Polite decline drafted — no rudeness, no door-closing.",
+      "Recruiter for a role not my function (-4). No offsetting signal. Net negative, polite decline, no meeting.",
     draft:
-      "Hi Jamie — appreciate you thinking of me. I'm heads-down on my own thing right now so not the right fit, but good luck with the search.\n\nFreddy",
+      "Thanks for reaching out, Marcus. Not the right fit for me right now, but I'll keep it in mind if that changes.",
     sentAt: "5h ago",
   },
   {
-    id: "ex3",
-    from: "noreply@growthsaas.io",
-    company: "GrowthSaaS (auto)",
-    subject: "Double your LinkedIn leads this week with AI",
+    id: "canned-3",
+    from: "Sales Bot",
+    company: "GrowthStack CRM",
+    subject: "See how GrowthStack 10x's your pipeline",
     snippet:
-      "Hi there, my AI tool will 10x your LinkedIn outreach overnight. 1,000+ founders already using it. Can I send you a 5-min demo video?…",
+      "Hi there, I wanted to reach out to see if you'd be interested in a demo of our AI-powered CRM platform...",
     verdict: "auto_dismiss",
     reasoning:
-      "Generic sales demo · no personalisation · automation-signal in sender domain. Matches 'Generic sales demo' (-6). Auto-dismissed without drafting.",
+      "Generic sales demo, no personalization (-6). No positive signals present. Auto-dismissed, no draft.",
     draft: null,
-    sentAt: "yesterday",
+    sentAt: "1d ago",
   },
   {
-    id: "ex4",
-    from: "Maya Okonkwo",
-    company: "Polygon Labs",
-    subject: "Loved your ABA talk — want to chat about Asia expansion",
+    id: "canned-4",
+    from: "Dana Osei",
+    company: "TechCrunch",
+    subject: "Quick quote for a piece on relationship AI?",
     snippet:
-      "Hey Fred! Marcus from Kite connected us on Telegram last week — saw your ABA talk on SEA compliance. We're mapping out Polygon's Asia GTM and would love your read…",
+      "I'm a reporter at TechCrunch working on a piece about relationship-intelligence tools. Would love a quick quote if you have 10 minutes.",
     verdict: "qualified",
     reasoning:
-      "Founder-adjacent operator · mutual via Marcus (warm graph path) · references specific talk. Matches 'Mentions a specific thing I wrote or built' (+5) + mutual-connection rule (+5). Warmth +10, clamped +6.",
+      "Journalist from a known outlet (+4), mentions a specific thing I built (+5). Net +9, qualifies.",
     draft:
-      "Hey Maya! Great to hear from you via Marcus. Happy to swap notes — I have real views on what's working and what isn't in SEA compliance right now. Got 30 min Thursday or Friday? Either works.\n\nFreddy",
-    sentAt: "1h ago",
+      "Hi Dana, happy to help, this sounds like a fun piece. I've got 10 min Tuesday or Wednesday, whichever's easier for you.",
+    sentAt: "1d ago",
+  },
+  {
+    id: "canned-5",
+    from: "Jonah Ruiz",
+    company: "Loop Health (Seed)",
+    subject: "Founder to founder, mutual friend suggested I reach out",
+    snippet:
+      "Hey, Sarah Kim mentioned we should connect, we're both building in health-tech infra. Would love to trade notes sometime.",
+    verdict: "qualified",
+    reasoning:
+      "Founder-to-founder reach-out with mutual connection (+5). Net +5, clears the qualify threshold.",
+    draft:
+      "Hi Jonah, always good to meet through Sarah! Free next week for a quick call, whatever timezone works for you.",
+    sentAt: "2d ago",
   },
 ];
 
+function draftToExample(d: Draft): InboundExample {
+  return {
+    id: d.id,
+    from: d.contact,
+    company: d.company,
+    subject: d.inbound_text ? d.inbound_text.slice(0, 72) : `Inbound from ${d.contact}`,
+    snippet: d.inbound_text ?? "",
+    verdict: d.draft ? "qualified" : "auto_dismiss",
+    reasoning: d.reasoning,
+    draft: d.draft || null,
+    sentAt: formatRelative(d.inbound_timestamp),
+  };
+}
+
 export default function InboundPage() {
   const crew = CREW.inbound;
-  const [selectedId, setSelectedId] = useState<string>("ex1");
+  const { user, loading } = useAuth();
+  // Real inbound drafts only — drives the "Live" Gmail stats up top.
+  const [liveExamples, setLiveExamples] = useState<InboundExample[]>([]);
+  // Real drafts (if any) + canned fallback — drives the Simulate demo,
+  // so it always has something to cycle through even on a fresh account.
+  const [examples, setExamples] = useState<InboundExample[]>(CANNED_EXAMPLES);
+  const [selectedId, setSelectedId] = useState<string>(
+    CANNED_EXAMPLES[0]?.id ?? "",
+  );
   const [simulating, setSimulating] = useState(false);
 
-  const selected = examples.find((e) => e.id === selectedId) ?? examples[0];
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getDashboardDrafts()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        const inboundExamples = data
+          .filter((d) => d.crew === "inbound")
+          .map(draftToExample);
+
+        setLiveExamples(inboundExamples);
+
+        const combined = [...inboundExamples, ...CANNED_EXAMPLES];
+        setExamples(combined);
+        setSelectedId(combined[0]?.id ?? "");
+      })
+      .catch(() => {
+        if (active) {
+          setLiveExamples([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
+
+  const selected = examples.find((e) => e.id === selectedId) ?? examples[0] ?? null;
 
   async function runSimulate() {
+    if (examples.length < 2) return;
     setSimulating(true);
-    // Purely decorative — mimics a ~1.5s classifier roundtrip then picks
-    // a different example to foreground.
+    // Purely decorative — cycles to a different example (real or canned).
     await new Promise((r) => setTimeout(r, 1200));
     const others = examples.filter((e) => e.id !== selectedId);
     setSelectedId(others[Math.floor(Math.random() * others.length)].id);
@@ -140,9 +230,9 @@ export default function InboundPage() {
   }
 
   const stats = {
-    qualified: examples.filter((e) => e.verdict === "qualified").length,
-    declined: examples.filter((e) => e.verdict === "decline").length,
-    dismissed: examples.filter((e) => e.verdict === "auto_dismiss").length,
+    qualified: liveExamples.filter((e) => e.verdict === "qualified").length,
+    declined: liveExamples.filter((e) => e.verdict === "decline").length,
+    dismissed: liveExamples.filter((e) => e.verdict === "auto_dismiss").length,
   };
 
   return (
@@ -172,7 +262,7 @@ export default function InboundPage() {
         <p className="mt-4 text-[var(--muted-strong)] max-w-2xl leading-relaxed text-base md:text-lg">
           {crew.role} Runs every cold inbound against your ICP rules. Drafts a
           warm &apos;yes&apos; for the good ones, a polite &apos;no&apos; for the mis-matches,
-          auto-dismisses the obvious spam. Never auto-books a meeting — your
+          auto-dismisses the obvious spam. Never auto-books a meeting, your
           time stays yours.
         </p>
       </header>
@@ -392,7 +482,13 @@ export default function InboundPage() {
         </div>
 
         {/* Email card */}
-        <InboundCard example={selected} accentColor={crew.color} />
+        {selected ? (
+          <InboundCard example={selected} accentColor={crew.color} />
+        ) : (
+          <p className="text-sm text-[var(--muted-strong)]">
+            No inbound drafts in the queue right now.
+          </p>
+        )}
       </section>
 
       {/* Roadmap note */}
@@ -415,18 +511,18 @@ export default function InboundPage() {
               className="font-mono text-[10px] uppercase tracking-widest mb-2"
               style={{ color: "var(--warmth-hot)" }}
             >
-              Note to hackathon judges
+              How this works
             </div>
             <p className="text-sm text-[var(--foreground)] leading-relaxed">
-              Mailbox here is fixture-backed for the demo. The live path uses
-              Composio&apos;s Gmail API to (1) retro-import the last 90 days of
-              threads and classify against these ICP rules, (2) watch the
-              inbox in real time via webhook and fire a draft into Morning
-              Connect when a good-fit lands. Both are built on the same
-              Composio pipeline Scanner and Scribe already use.
+              Mailbox here is wired to your live drafts queue. The full path
+              uses Composio&apos;s Gmail API to (1) retro-import the last 90
+              days of threads and classify against these ICP rules, (2) watch
+              the inbox in real time via webhook and fire a draft into
+              Morning Connect when a good-fit lands. Both are built on the
+              same Composio pipeline Scanner and Scribe already use.
             </p>
             <div className="mt-3 font-editorial text-sm text-[var(--muted-strong)] italic">
-              — Freddy
+              - Freddy
             </div>
           </div>
         </div>
@@ -478,7 +574,7 @@ function InboundCard({
       icon: XIcon,
     },
     auto_dismiss: {
-      label: "Auto-dismissed — no draft",
+      label: "Auto-dismissed, no draft",
       color: "var(--muted)",
       icon: Inbox,
     },
@@ -554,7 +650,7 @@ function InboundCard({
               Drafted reply · staged for Morning Connect
             </div>
             <Link
-              href="/app/morning-connect"
+              href="/dashboard"
               className="font-mono text-[10px] uppercase tracking-wider text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
             >
               Review in Morning Connect →

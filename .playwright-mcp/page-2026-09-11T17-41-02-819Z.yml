@@ -1,0 +1,89 @@
+- generic [active] [ref=f13e1]:
+  - generic [ref=f13e2]:
+    - complementary [ref=f13e3]:
+      - generic [ref=f13e5]:
+        - img "Threadly" [ref=f13e6]
+        - button [ref=f13e7]
+      - generic [ref=f13e10]:
+        - generic [ref=f13e12]:
+          - button "Personal" [ref=f13e13]
+          - button "Team" [ref=f13e14]
+          - button "Enterprise" [ref=f13e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f13e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f13e18]: Chief
+          - generic [ref=f13e19]: Ask the Graph
+          - generic [ref=f13e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f13e21]:
+          - generic [ref=f13e22]: Workspace
+          - link "Dashboard" [ref=f13e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f13e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f13e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f13e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f13e47]:
+          - generic [ref=f13e48]: Your Crew
+          - link "Snap" [ref=f13e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f13e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f13e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f13e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f13e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f13e81]:
+          - generic [ref=f13e82]: Latest Signal
+          - generic [ref=f13e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f13e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f13e90]:
+        - generic [ref=f13e91]:
+          - generic [ref=f13e92]: A
+          - generic [ref=f13e93]:
+            - generic [ref=f13e94]: Akshat The Second
+            - generic [ref=f13e150]: uniquedimension1@gmail.com
+        - button "Logout" [ref=f13e95]
+    - main [ref=f13e100]:
+      - generic [ref=f13e101]:
+        - link "Dashboard" [ref=f13e102] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f13e105]:
+          - generic [ref=f13e106]:
+            - generic [ref=f13e107]: Crew · 01 · Snap
+            - heading "Snap a card. The Crew does the rest." [level=1] [ref=f13e108]: Snap a card.The Crew does the rest.
+            - paragraph [ref=f13e109]: Snap a photo with your camera or drop a file. Text is read from the card in your browser, then Groq extracts the contact's details and files them straight into your graph.
+          - generic [ref=f13e152]:
+            - generic [ref=f13e153]:
+              - generic [ref=f13e154]:
+                - img "captured card" [ref=f13e156]
+                - generic [ref=f13e178]: Reading and extracting…
+              - generic [ref=f13e182]:
+                - generic [ref=f13e183]: In progress
+                - paragraph [ref=f13e184]: Watch the side panel on the right for live progress while OCR and the extraction step run.
+            - button "Scan another" [ref=f13e169]
+  - complementary [ref=f13e128]:
+    - generic [ref=f13e129]:
+      - generic [ref=f13e130]:
+        - generic [ref=f13e131]: Scan · OCR + Groq
+        - generic [ref=f13e132]: Scanner
+      - generic [ref=f13e133]:
+        - generic "processing" [ref=f13e185]
+        - button "Close" [ref=f13e186]
+    - generic [ref=f13e139]:
+      - generic [ref=f13e187]:
+        - generic [ref=f13e188]: ▸
+        - generic [ref=f13e190]: Reading text from the card (OCR, in-browser)
+      - generic [ref=f13e191]:
+        - generic [ref=f13e192]: ▸
+        - generic [ref=f13e194]: Groq extracting structured fields
+      - generic [ref=f13e195]:
+        - generic [ref=f13e196]: ▸
+        - generic [ref=f13e198]: Filing the contact into your graph
+    - generic [ref=f13e140]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f13e146] [cursor=pointer]
+  - alert [ref=f13e151]

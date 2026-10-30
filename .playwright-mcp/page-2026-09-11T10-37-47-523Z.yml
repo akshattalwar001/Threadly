@@ -1,0 +1,134 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e5]:
+        - img "Threadly" [ref=e6]
+        - button [ref=e7]
+      - generic [ref=e10]:
+        - generic [ref=e12]:
+          - button "Personal" [ref=e13]
+          - button "Team" [ref=e14]
+          - button "Enterprise" [ref=e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=e18]: Chief
+          - generic [ref=e19]: Ask the Graph
+          - generic [ref=e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=e21]:
+          - generic [ref=e22]: Workspace
+          - link "Dashboard" [ref=e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=e47]:
+          - generic [ref=e48]: Your Crew
+          - link "Snap" [ref=e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=e81]:
+          - generic [ref=e82]: Latest Signal
+          - generic [ref=e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - generic [ref=e92]: U
+          - generic [ref=e93]: User
+        - button "Logout" [ref=e95]
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e103]:
+          - generic [ref=e104]: Chief's Briefing
+          - heading "Good Evening, there." [level=1] [ref=e105]
+          - paragraph [ref=e106]: Your Crew is watching your network for the next opportunity to reconnect.
+          - generic [ref=e107]:
+            - generic [ref=e108]: Network Strength · --
+            - generic [ref=e110]: Dormant · --
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e114]: Live Crew Console
+            - heading "Dispatch one of the seven MVP actions." [level=2] [ref=e115]
+            - paragraph [ref=e116]: Every request goes through Firebase auth, then POST /crew/action, then Neo4j. No extra orchestration layer.
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]:
+                - button "microsoft Microsoft Search" [ref=e120]:
+                  - generic [ref=e121]: microsoft
+                  - generic [ref=e122]: Microsoft Search
+                - button "founders Founder Search" [ref=e123]:
+                  - generic [ref=e124]: founders
+                  - generic [ref=e125]: Founder Search
+                - button "ai AI Search" [ref=e126]:
+                  - generic [ref=e127]: ai
+                  - generic [ref=e128]: AI Search
+                - button "reconnect Reconnect" [ref=e129]:
+                  - generic [ref=e130]: reconnect
+                  - generic [ref=e131]: Reconnect
+                - button "health Network Health" [ref=e132]:
+                  - generic [ref=e133]: health
+                  - generic [ref=e134]: Network Health
+                - button "companies Top Companies" [ref=e135]:
+                  - generic [ref=e136]: companies
+                  - generic [ref=e137]: Top Companies
+              - generic [ref=e138]:
+                - generic [ref=e139]: Scanner note
+                - textbox "Met Maya Okonkwo at TOKEN2049 reception. She is a founder at Polygon Labs and wants coffee next week." [ref=e143]
+                - generic [ref=e144]:
+                  - button "Run Scanner" [ref=e145]
+                  - generic [ref=e146]: Scanner saves the contact and returns structured JSON.
+            - generic [ref=e147]:
+              - generic [ref=e148]: Latest response
+              - generic [ref=e149]: Run an action to see the live response from FastAPI and Neo4j.
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]: Live from Neo4j
+            - generic [ref=e154]: Network Health · --
+          - generic [ref=e155]:
+            - generic [ref=e157]:
+              - generic [ref=e158]: "--"
+              - generic [ref=e159]: Relationships
+            - generic [ref=e161]:
+              - generic [ref=e162]: "--"
+              - generic [ref=e163]: Companies
+            - generic [ref=e165]:
+              - generic [ref=e166]: "--"
+              - generic [ref=e167]: AI Builders
+            - generic [ref=e169]:
+              - generic [ref=e170]: "--"
+              - generic [ref=e171]: Founders
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - generic [ref=e174]: Top Opportunities
+            - heading "People worth meeting." [level=2] [ref=e175]
+            - paragraph [ref=e176]: No reconnect opportunities right now.
+          - generic [ref=e177]:
+            - generic [ref=e178]: Coverage
+            - heading "Relationship Map" [level=2] [ref=e179]
+            - paragraph [ref=e180]: No coverage data yet.
+        - generic [ref=e181]:
+          - generic [ref=e182]: Crew Activity
+          - heading "Working behind the scenes." [level=2] [ref=e183]
+          - paragraph [ref=e184]: No crew activity yet.
+        - generic [ref=e185]:
+          - generic [ref=e186]: Recent Progress
+          - heading "Momentum." [level=2] [ref=e187]
+          - paragraph [ref=e188]: No recent progress yet.
+  - complementary [aria-hidden] [ref=e189]:
+    - generic [ref=e190]:
+      - generic [ref=e191]:
+        - generic [ref=e192]: Genspark · web actions
+        - generic [ref=e193]: Crew
+      - button [ref=e196]
+    - generic [ref=e201]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=e207] [cursor=pointer]

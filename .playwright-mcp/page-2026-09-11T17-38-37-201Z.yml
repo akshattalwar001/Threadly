@@ -1,0 +1,72 @@
+- generic [active] [ref=f12e1]:
+  - generic [ref=f12e2]:
+    - complementary [ref=f12e3]:
+      - generic [ref=f12e5]:
+        - img "Threadly" [ref=f12e6]
+        - button [ref=f12e7]
+      - generic [ref=f12e10]:
+        - generic [ref=f12e12]:
+          - button "Personal" [ref=f12e13]
+          - button "Team" [ref=f12e14]
+          - button "Enterprise" [ref=f12e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f12e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f12e18]: Chief
+          - generic [ref=f12e19]: Ask the Graph
+          - generic [ref=f12e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f12e21]:
+          - generic [ref=f12e22]: Workspace
+          - link "Dashboard" [ref=f12e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f12e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f12e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f12e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f12e47]:
+          - generic [ref=f12e48]: Your Crew
+          - link "Snap" [ref=f12e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f12e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f12e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f12e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f12e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f12e81]:
+          - generic [ref=f12e82]: Latest Signal
+          - generic [ref=f12e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f12e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f12e90]:
+        - generic [ref=f12e91]:
+          - generic [ref=f12e92]: U
+          - generic [ref=f12e93]: User
+        - button "Logout" [ref=f12e95]
+    - main [ref=f12e100]:
+      - generic [ref=f12e101]:
+        - link "Dashboard" [ref=f12e102] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f12e105]:
+          - generic [ref=f12e106]:
+            - generic [ref=f12e107]: Crew · 01 · Snap
+            - heading "Snap a card. The Crew does the rest." [level=1] [ref=f12e108]: Snap a card.The Crew does the rest.
+            - paragraph [ref=f12e109]: Snap a photo with your camera or drop a file. Text is read from the card in your browser, then Groq extracts the contact's details and files them straight into your graph.
+          - generic [ref=f12e111]:
+            - heading "Add a business card" [level=2] [ref=f12e116]
+            - paragraph [ref=f12e117]: Use your camera or upload a file. Both work on desktop and mobile. If camera permission is denied, upload still works.
+            - generic [ref=f12e118]:
+              - button "Use camera" [ref=f12e119]
+              - button "Upload file" [ref=f12e123]
+            - generic [ref=f12e127]: Processed this session · 0
+  - complementary [aria-hidden] [ref=f12e128]:
+    - generic [ref=f12e129]:
+      - generic [ref=f12e130]:
+        - generic [ref=f12e131]: Genspark · web actions
+        - generic [ref=f12e132]: Crew
+      - button [ref=f12e135]
+    - generic [ref=f12e140]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f12e146] [cursor=pointer]

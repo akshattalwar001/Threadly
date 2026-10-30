@@ -1,60 +1,113 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Send,
-  Inbox,
-  Sparkles,
-  MessageSquareReply,
-  Camera,
-  AtSign,
+  Activity,
   MessageCircle,
+  Mail,
+  ScanLine,
+  AtSign,
+  Users,
 } from "lucide-react";
-import { CREW } from "@/lib/fixtures";
-import { SecretSignalsPanel } from "@/components/secret-signals-panel";
+import { CREW, type Channel } from "@/lib/fixtures";
+import { useAuth } from "@/context/AuthContext";
+import {
+  getPulseDashboard,
+  getPulseRecentlyActive,
+  getDashboardActivity,
+} from "@/lib/api";
+import type {
+  PulseDashboard,
+  RecentlyActiveContact,
+  ActivityEntry,
+} from "@/lib/api";
 
-// ─── Social Media (/app/social) ────────────────────────────────────────────
+// ─── Pulse (/dashboard/crew/pulse) ─────────────────────────────────────────
 //
-// Two modes, explicit in the UI:
+// Pulse is your network's vital signs — real signal, not a fake DM inbox.
+// Two things live here that nowhere else in the app shows:
 //
-//   1. OUTBOUND cues — same pattern as Messenger. When YOU type a cue
-//      like "Hi!!" to a contact, the preset reply template fires (or
-//      Claude drafts dynamically if no template is set).
+//   1. Recently active — contacts sorted by real last-contact recency
+//      (r.lastContact, driven by actual Telegram message timestamps for
+//      Telegram contacts). Different axis from Lead-O-Meter (sorted by
+//      warmth) and Nudge (sorted by who's cooling).
 //
-//   2. INBOUND replies — NEW on the Social page. When a stranger DMs
-//      you with almost no context (e.g. "Hi!"), Claude analyses the
-//      message and drafts a careful, appropriate reply. No preset
-//      template — Claude's full judgment.
-//
-// Both land in Connect for approval. Never cold-DMs strangers.
+//   2. The full activity feed — every logged Crew action, unsliced
+//      (the Dashboard home page only shows a 4-item preview).
 
-type PlatformId = "instagram" | "x" | "fb";
+const CHANNEL_ICON: Record<Channel, typeof Mail> = {
+  email: Mail,
+  telegram: MessageCircle,
+  linkedin: ScanLine,
+  card: ScanLine,
+  social: AtSign,
+};
 
-const PLATFORMS: Array<{
-  id: PlatformId;
-  name: string;
-  handle: string;
-  icon: typeof Camera;
-}> = [
-  { id: "instagram", name: "Instagram", handle: "@waqar_0802", icon: Camera },
-  { id: "x", name: "X (Twitter)", handle: "@WaqarAkhtar_08", icon: AtSign },
-  { id: "fb", name: "FB Messenger", handle: "Waqar Akhtar", icon: MessageCircle },
-];
+const CHANNEL_LABEL: Record<Channel, string> = {
+  email: "Gmail",
+  telegram: "Telegram",
+  linkedin: "LinkedIn",
+  card: "Card",
+  social: "Social",
+};
 
-export default function SocialPage() {
+function formatRelative(iso?: string) {
+  if (!iso) return "";
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const now = Date.now();
+  const hours = Math.max(0, Math.floor((now - then) / (1000 * 60 * 60)));
+  if (hours < 1) return "moments ago";
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "yesterday";
+  return `${days}d ago`;
+}
+
+export default function PulsePage() {
   const crew = CREW.social;
+  const { user, loading } = useAuth();
+  const [stats, setStats] = useState<PulseDashboard | null>(null);
+  const [recentlyActive, setRecentlyActive] = useState<RecentlyActiveContact[]>([]);
+  const [activity, setActivity] = useState<ActivityEntry[]>([]);
 
-  const [connected, setConnected] = useState<Record<PlatformId, boolean>>({
-    instagram: true,
-    x: false,
-    fb: false,
-  });
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
 
-  function toggle(id: PlatformId) {
-    setConnected((c) => ({ ...c, [id]: !c[id] }));
-  }
+    let active = true;
+
+    getPulseDashboard()
+      .then((data) => {
+        if (active) setStats(data);
+      })
+      .catch(() => {
+        if (active) setStats(null);
+      });
+
+    getPulseRecentlyActive()
+      .then((data) => {
+        if (active) setRecentlyActive(data);
+      })
+      .catch(() => {
+        if (active) setRecentlyActive([]);
+      });
+
+    getDashboardActivity()
+      .then((data) => {
+        if (active) setActivity(data);
+      })
+      .catch(() => {
+        if (active) setActivity([]);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
 
   return (
     <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
@@ -71,51 +124,62 @@ export default function SocialPage() {
           className="font-mono text-[10px] uppercase tracking-widest mb-3"
           style={{ color: crew.color }}
         >
-          Crew · 04 · PULSE (Social Media)
+          Crew · 04 · Pulse
         </div>
         <h1
           className="font-editorial text-4xl md:text-5xl tracking-tight"
           style={{ fontWeight: 700, letterSpacing: "-0.025em" }}
         >
-          Pulse watches DMs across platforms.
+          Pulse tracks who&apos;s really in touch.
         </h1>
         <p className="mt-4 text-[var(--muted-strong)] max-w-2xl leading-relaxed text-base md:text-lg">
-          {crew.role} Two modes - outbound cues fire the reply templates
-          you set, inbound DMs trigger fresh Claude drafts when context is
-          thin. Everything lands in Connect for your approval.
-          Never cold-DMs strangers.
+          Real signal, not vanity connections: recency of contact, message
+          volume, and your network&apos;s live health score. Everything
+          here is computed from your actual graph, no fake integrations.
         </p>
       </header>
 
-      {/* Platform connection tabs — one row, big toggle per platform */}
-      <section className="anim-fade-up" style={{ animationDelay: "0.04s" }}>
-        <div
-          className="font-mono text-[10px] uppercase tracking-widest mb-3 flex items-center justify-between"
-          style={{ color: crew.color }}
-        >
-          <span>Your social channels</span>
-          <span className="normal-case tracking-normal text-[var(--muted)]">
-            {Object.values(connected).filter(Boolean).length} of{" "}
-            {PLATFORMS.length} connected
-          </span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 md:gap-3">
-          {PLATFORMS.map((p) => (
-            <PlatformTab
-              key={p.id}
-              name={p.name}
-              handle={p.handle}
-              Icon={p.icon}
-              connected={connected[p.id]}
-              accentColor={crew.color}
-              onToggle={() => toggle(p.id)}
-            />
-          ))}
-        </div>
-      </section>
+      {/* Network pulse stats */}
+      {stats ? (
+        <section className="anim-fade-up" style={{ animationDelay: "0.02s" }}>
+          <div
+            className="mb-3 font-mono text-[10px] uppercase tracking-widest"
+            style={{ color: crew.color }}
+          >
+            Network pulse · {stats.networkHealth}/100
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              { label: "Relationships", value: stats.people },
+              { label: "Companies", value: stats.companies },
+              { label: "AI Builders", value: stats.aiBuilders },
+              { label: "Founders", value: stats.founders },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border p-4"
+                style={{
+                  borderColor: `color-mix(in srgb, ${crew.color} 25%, transparent)`,
+                  backgroundColor: `color-mix(in srgb, ${crew.color} 5%, white)`,
+                }}
+              >
+                <div
+                  className="font-editorial text-3xl"
+                  style={{ color: crew.color, fontWeight: 800 }}
+                >
+                  {stat.value}
+                </div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      {/* ─── Mode 1: Outbound cues ─────────────────────────────────── */}
-      <section className="anim-fade-up" style={{ animationDelay: "0.08s" }}>
+      {/* Recently active */}
+      <section className="anim-fade-up" style={{ animationDelay: "0.06s" }}>
         <div className="flex items-start gap-3 mb-4">
           <div
             className="h-9 w-9 rounded-xl shrink-0 flex items-center justify-center"
@@ -124,40 +188,86 @@ export default function SocialPage() {
               color: crew.color,
             }}
           >
-            <Send className="h-4 w-4" strokeWidth={2} />
+            <Activity className="h-4 w-4" strokeWidth={2} />
           </div>
           <div className="min-w-0">
             <div
               className="font-mono text-[10px] uppercase tracking-widest mb-1"
               style={{ color: crew.color }}
             >
-              Mode 1 · Outbound cues
+              Recently active
             </div>
             <h2
               className="font-editorial text-xl md:text-2xl tracking-tight leading-tight"
               style={{ fontWeight: 700 }}
             >
-              When YOU type a cue, fire a preset reply.
+              Who&apos;s actually talking to you right now.
             </h2>
             <p className="mt-1.5 text-sm text-[var(--muted-strong)] leading-relaxed max-w-2xl">
-              Same pattern as Messenger. Your outbound cue triggers the
-              reply template you set below - or Claude drafts dynamically
-              from tone + context if you leave the template blank.
+              Sorted by real last-contact recency, not warmth score, not
+              who&apos;s cooling off. Just who you&apos;ve actually been in
+              touch with lately.
             </p>
           </div>
         </div>
-        <SecretSignalsPanel
-          scope="social"
-          mode="full"
-          accentColor={crew.color}
-          title="Social · Cue triggers"
-          eyebrow="IG + FB + X · your rule matrix"
-          description="Your outbound cues across social platforms. Each rule's reply template is what gets fired when you type the cue to a contact."
-        />
+
+        {recentlyActive.length > 0 ? (
+          <div className="space-y-3">
+            {recentlyActive.map((c) => {
+              const channel = c.channel as Channel;
+              const ChannelIcon = CHANNEL_ICON[channel] ?? Mail;
+              return (
+                <div
+                  key={c.id}
+                  className="rounded-2xl border border-[var(--border)] p-4 flex items-center gap-3"
+                >
+                  <div
+                    className="h-10 w-10 rounded-full shrink-0 flex items-center justify-center font-mono text-xs"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${crew.color} 14%, white)`,
+                      color: crew.color,
+                    }}
+                  >
+                    {c.initials}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-medium truncate">{c.name}</div>
+                    <div className="text-sm text-[var(--muted-strong)] truncate">
+                      {c.title ? `${c.title} · ` : ""}
+                      {c.company}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-mono text-[var(--muted)]">
+                    <ChannelIcon className="h-3.5 w-3.5" strokeWidth={1.75} />
+                    {CHANNEL_LABEL[channel] ?? channel}
+                  </div>
+                  {channel === "telegram" && c.telegram_message_count > 0 ? (
+                    <div
+                      className="rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider"
+                      style={{
+                        backgroundColor: `color-mix(in srgb, ${crew.color} 12%, white)`,
+                        color: crew.color,
+                      }}
+                    >
+                      {c.telegram_message_count} messages
+                    </div>
+                  ) : null}
+                  <div className="font-mono text-xs text-[var(--muted)] whitespace-nowrap">
+                    {formatRelative(c.last_contact)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-sm text-[var(--muted-strong)]">
+            No recent contact activity yet.
+          </p>
+        )}
       </section>
 
-      {/* ─── Mode 2: Inbound Claude drafts ─────────────────────────── */}
-      <section className="anim-fade-up" style={{ animationDelay: "0.12s" }}>
+      {/* Full activity feed */}
+      <section className="anim-fade-up" style={{ animationDelay: "0.1s" }}>
         <div className="flex items-start gap-3 mb-4">
           <div
             className="h-9 w-9 rounded-xl shrink-0 flex items-center justify-center"
@@ -166,246 +276,64 @@ export default function SocialPage() {
               color: crew.color,
             }}
           >
-            <Inbox className="h-4 w-4" strokeWidth={2} />
+            <Users className="h-4 w-4" strokeWidth={2} />
           </div>
           <div className="min-w-0">
             <div
               className="font-mono text-[10px] uppercase tracking-widest mb-1"
               style={{ color: crew.color }}
             >
-              Mode 2 · Inbound replies
+              Full activity log
             </div>
             <h2
               className="font-editorial text-xl md:text-2xl tracking-tight leading-tight"
               style={{ fontWeight: 700 }}
             >
-              When someone DMs you, Claude drafts fresh.
+              Every logged Crew action, unfiltered.
             </h2>
             <p className="mt-1.5 text-sm text-[var(--muted-strong)] leading-relaxed max-w-2xl">
-              On social, inbound DMs often arrive with almost no context —
-              &ldquo;Hi!&rdquo; from a stranger tells you nothing about
-              who they are or what they want. So we{" "}
-              <strong>don&apos;t</strong> use preset templates here. Claude
-              reads the message, considers what little context is available,
-              and drafts a careful, appropriate reply. Always lands in
-              Connect for your approval before anything sends.
+              The Dashboard home page only shows a short preview, this is
+              the full feed behind it.
             </p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
-          <div
-            className="px-5 md:px-6 py-3 border-b border-[var(--hairline)]"
-            style={{
-              backgroundColor: `color-mix(in srgb, ${crew.color} 5%, white)`,
-            }}
-          >
-            <div
-              className="font-mono text-[10px] uppercase tracking-widest"
-              style={{ color: crew.color }}
-            >
-              Recent inbound · Claude-drafted replies
-            </div>
+        {activity.length > 0 ? (
+          <div className="rounded-2xl border border-[var(--border)] divide-y divide-[var(--hairline)]">
+            {activity.map((entry) => (
+              <div
+                key={entry.id}
+                className="flex items-center justify-between gap-3 p-4"
+              >
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{entry.action}</div>
+                  <div className="text-sm text-[var(--muted-strong)] truncate">
+                    {entry.detail}
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span
+                    className="font-mono text-[10px] uppercase tracking-wider rounded-full px-2 py-0.5"
+                    style={{
+                      backgroundColor: "color-mix(in srgb, var(--muted) 10%, white)",
+                      color: "var(--muted-strong)",
+                    }}
+                  >
+                    {entry.crew}
+                  </span>
+                  <span className="font-mono text-xs text-[var(--muted)] whitespace-nowrap">
+                    {formatRelative(entry.timestamp)}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
-          <ul className="divide-y divide-[var(--hairline)]">
-            <InboundReplyRow
-              platform="Instagram"
-              who="Unknown · @kai_jensen"
-              inbound="Hi!"
-              draft="Hi there! Thanks for reaching out — I don't think we've connected before. What can I help with?"
-              note="Minimal context. Claude defaults to a warm, open-ended question to surface intent before committing."
-              when="4h ago"
-              color={crew.color}
-            />
-            <InboundReplyRow
-              platform="X"
-              who="Naomi Park · Blockworks"
-              inbound="Working on a piece on SEA founder network effects — quick quote?"
-              draft="Hey Naomi — happy to. Can you send the angle and your deadline? I can turn around 2–3 sentences by email within a day."
-              note="Journalist asking for a quote. Claude pivots to email (higher-fidelity channel) and asks for the specifics it needs before committing."
-              when="yesterday"
-              color={crew.color}
-            />
-            <InboundReplyRow
-              platform="X"
-              who="Hassan Okafor · Breakpoint"
-              inbound="Are you open to speaking at Breakpoint 2026?"
-              draft="Thanks Hassan! Short answer yes, interested. What's the theme, slot length, and rough audience size? Also happy to suggest topics if useful."
-              note="Invitation with zero specifics. Claude says yes-in-principle + asks the three things needed to actually decide."
-              when="3d ago"
-              color={crew.color}
-            />
-          </ul>
-          <div
-            className="px-5 md:px-6 py-3 font-mono text-[11px] leading-relaxed border-t border-[var(--hairline)]"
-            style={{
-              backgroundColor: `color-mix(in srgb, ${crew.color} 5%, white)`,
-              color: "var(--muted-strong)",
-            }}
-          >
-            No templates fire in this mode · Claude drafts each reply
-            fresh · you approve every one in Connect · zero cold
-            outbound · platform ToS respected.
-          </div>
-        </div>
+        ) : (
+          <p className="text-sm text-[var(--muted-strong)]">
+            No activity logged yet.
+          </p>
+        )}
       </section>
     </div>
-  );
-}
-
-function PlatformTab({
-  name,
-  handle,
-  Icon,
-  connected,
-  accentColor,
-  onToggle,
-}: {
-  name: string;
-  handle: string;
-  Icon: typeof Camera;
-  connected: boolean;
-  accentColor: string;
-  onToggle: () => void;
-}) {
-  return (
-    <div
-      className={`rounded-2xl border p-4 flex items-center gap-3 transition-all ${
-        connected ? "shadow-sm" : ""
-      }`}
-      style={{
-        borderColor: connected
-          ? `color-mix(in srgb, ${accentColor} 35%, transparent)`
-          : "var(--border)",
-        backgroundColor: connected
-          ? `color-mix(in srgb, ${accentColor} 6%, white)`
-          : "var(--surface)",
-      }}
-    >
-      <div
-        className="h-10 w-10 rounded-xl shrink-0 flex items-center justify-center"
-        style={{
-          backgroundColor: connected
-            ? `color-mix(in srgb, ${accentColor} 18%, white)`
-            : "color-mix(in srgb, var(--muted) 10%, white)",
-          color: connected ? accentColor : "var(--muted)",
-        }}
-      >
-        <Icon className="h-5 w-5" strokeWidth={1.75} />
-      </div>
-      <div className="min-w-0 flex-1">
-        <div
-          className="font-editorial text-sm md:text-base tracking-tight truncate"
-          style={{ fontWeight: 700 }}
-        >
-          {name}
-        </div>
-        <div
-          className="font-mono text-[11px] text-[var(--muted)] truncate"
-          title={connected ? handle : "Not connected"}
-        >
-          {connected ? handle : "Not connected"}
-        </div>
-      </div>
-      <button
-        type="button"
-        onClick={onToggle}
-        role="switch"
-        aria-checked={connected}
-        aria-label={connected ? `Disconnect ${name}` : `Connect ${name}`}
-        className="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
-        style={{
-          backgroundColor: connected
-            ? accentColor
-            : "color-mix(in srgb, var(--muted) 28%, white)",
-          boxShadow: connected
-            ? `inset 0 1px 2px color-mix(in srgb, ${accentColor} 55%, black)`
-            : "inset 0 1px 2px rgba(0,0,0,0.08)",
-        }}
-      >
-        <span
-          className="inline-block h-5 w-5 rounded-full bg-white shadow-md transition-transform duration-200"
-          style={{
-            transform: connected ? "translateX(24px)" : "translateX(4px)",
-          }}
-        />
-      </button>
-    </div>
-  );
-}
-
-function InboundReplyRow({
-  platform,
-  who,
-  inbound,
-  draft,
-  note,
-  when,
-  color,
-}: {
-  platform: string;
-  who: string;
-  inbound: string;
-  draft: string;
-  note: string;
-  when: string;
-  color: string;
-}) {
-  return (
-    <li className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-0">
-      <div className="flex items-center gap-2 mb-2 flex-wrap">
-        <span
-          className="font-mono text-[9px] uppercase tracking-wider rounded px-1.5 py-0.5"
-          style={{
-            backgroundColor: `color-mix(in srgb, ${color} 14%, white)`,
-            color,
-          }}
-        >
-          {platform}
-        </span>
-        <span className="font-medium text-sm text-[var(--foreground)] truncate">
-          {who}
-        </span>
-        <span className="font-mono text-[10px] text-[var(--muted)] ml-auto">
-          {when}
-        </span>
-      </div>
-
-      {/* Inbound + draft stacked */}
-      <div className="grid grid-cols-1 md:grid-cols-[auto_auto_1fr] md:items-start gap-2 md:gap-3">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--muted)] mt-1">
-          Inbound
-        </span>
-        <blockquote className="text-sm text-[var(--muted-strong)] leading-snug md:col-span-2">
-          &ldquo;{inbound}&rdquo;
-        </blockquote>
-
-        <span
-          className="font-mono text-[10px] uppercase tracking-wider mt-1 flex items-center gap-1"
-          style={{ color }}
-        >
-          <Sparkles className="h-2.5 w-2.5" strokeWidth={2} />
-          Draft
-        </span>
-        <div
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white w-fit h-5"
-          style={{ backgroundColor: color }}
-          title="No preset template — Claude drafted fresh from the inbound content"
-        >
-          <MessageSquareReply className="h-2.5 w-2.5" strokeWidth={2} />
-          Claude · fresh
-        </div>
-        <p
-          className="text-sm leading-snug font-medium"
-          style={{ color: "var(--foreground)" }}
-        >
-          {draft}
-        </p>
-      </div>
-
-      <p className="mt-2 font-mono text-[11px] text-[var(--muted)] leading-relaxed">
-        {note}
-      </p>
-    </li>
   );
 }

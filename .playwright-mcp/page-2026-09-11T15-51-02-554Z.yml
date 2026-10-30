@@ -1,0 +1,79 @@
+- generic [active] [ref=f7e1]:
+  - generic [ref=f7e2]:
+    - complementary [ref=f7e3]:
+      - generic [ref=f7e5]:
+        - img "Threadly" [ref=f7e6]
+        - button [ref=f7e7]
+      - generic [ref=f7e10]:
+        - generic [ref=f7e12]:
+          - button "Personal" [ref=f7e13]
+          - button "Team" [ref=f7e14]
+          - button "Enterprise" [ref=f7e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f7e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f7e18]: Chief
+          - generic [ref=f7e19]: Ask the Graph
+          - generic [ref=f7e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f7e21]:
+          - generic [ref=f7e22]: Workspace
+          - link "Dashboard" [ref=f7e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f7e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f7e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f7e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f7e47]:
+          - generic [ref=f7e48]: Your Crew
+          - link "Snap" [ref=f7e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f7e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f7e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f7e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f7e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f7e81]:
+          - generic [ref=f7e82]: Latest Signal
+          - generic [ref=f7e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f7e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f7e90]:
+        - generic [ref=f7e91]:
+          - generic [ref=f7e92]: A
+          - generic [ref=f7e93]:
+            - generic [ref=f7e94]: Akshat The Second
+            - generic [ref=f7e152]: uniquedimension1@gmail.com
+        - button "Logout" [ref=f7e95]
+    - main [ref=f7e100]:
+      - generic [ref=f7e101]:
+        - generic [ref=f7e102]:
+          - generic [ref=f7e103]: Settings
+          - heading "Settings" [level=1] [ref=f7e104]
+        - generic [ref=f7e105]:
+          - button "Profile" [ref=f7e106]
+          - button "Channels" [ref=f7e108]
+          - button "Autonomy" [ref=f7e109]
+          - button "Privacy" [ref=f7e110]
+          - button "Data" [ref=f7e111]
+        - generic [ref=f7e155]:
+          - generic [ref=f7e156]: Telegram
+          - paragraph [ref=f7e161]: Connect your Telegram account so Chief can pull your contacts into the graph.
+          - generic [ref=f7e162]:
+            - generic [ref=f7e163]: Connected as +918700073372
+            - generic [ref=f7e167]:
+              - button "Sync contacts" [ref=f7e168]
+              - button "Disconnect" [ref=f7e174]
+            - generic [ref=f7e178]: Synced 1 contacts, 1 new.
+  - complementary [aria-hidden] [ref=f7e130]:
+    - generic [ref=f7e131]:
+      - generic [ref=f7e132]:
+        - generic [ref=f7e133]: Genspark · web actions
+        - generic [ref=f7e134]: Crew
+      - button [ref=f7e137]
+    - generic [ref=f7e142]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f7e148] [cursor=pointer]
+  - alert [ref=f7e153]

@@ -11,12 +11,16 @@ The message should:
 - never sound like sales
 - under 40 words
 
-Return JSON only.
+Return JSON only, as an object with a "suggestions" array.
 
-[
-  {
-    "name": "...",
-    "reason": "...",
-    "message": "..."
-  }
-]
+{
+  "suggestions": [
+    {
+      "name": "...",
+      "reason": "...",
+      "message": "..."
+    }
+  ]
+}
+
+If there are no contacts needing follow-up, return {"suggestions": []}.

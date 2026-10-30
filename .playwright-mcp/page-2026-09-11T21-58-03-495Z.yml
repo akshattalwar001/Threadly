@@ -1,0 +1,121 @@
+- generic [active] [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - complementary [ref=f6e3]:
+      - generic [ref=f6e5]:
+        - img "Threadly" [ref=f6e6]
+        - button [ref=f6e7]
+      - generic [ref=f6e10]:
+        - generic [ref=f6e12]:
+          - button "Personal" [ref=f6e13]
+          - button "Team" [ref=f6e14]
+          - button "Enterprise" [ref=f6e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f6e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f6e18]: Chief
+          - generic [ref=f6e19]: Ask the Graph
+          - generic [ref=f6e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f6e21]:
+          - generic [ref=f6e22]: Workspace
+          - link "Dashboard" [ref=f6e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f6e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f6e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f6e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f6e47]:
+          - generic [ref=f6e48]: Your Crew
+          - link "Snap" [ref=f6e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f6e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f6e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f6e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f6e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f6e81]:
+          - generic [ref=f6e82]: Latest Signal
+          - generic [ref=f6e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f6e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f6e90]:
+        - generic [ref=f6e91]:
+          - generic [ref=f6e92]: U
+          - generic [ref=f6e93]: User
+        - button "Logout" [ref=f6e95]
+    - main [ref=f6e100]:
+      - generic [ref=f6e101]:
+        - link "Dashboard" [ref=f6e102] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f6e105]:
+          - generic [ref=f6e106]: Crew · 03 · Gatekeeper · Mailbox
+          - heading "Gatekeeper qualifies cold emails." [level=1] [ref=f6e107]
+          - paragraph [ref=f6e108]: Watches email and LinkedIn — qualifies cold asks, drafts repliesRuns every cold inbound against your ICP rules. Drafts a warm 'yes' for the good ones, a polite 'no' for the mis-matches, auto-dismisses the obvious spam. Never auto-books a meeting — your time stays yours.
+        - generic [ref=f6e109]:
+          - generic [ref=f6e110]:
+            - generic [ref=f6e115]:
+              - generic [ref=f6e116]: Gmail
+              - generic [ref=f6e117]: fred@collecter.club · connected
+            - generic [ref=f6e118]: Live
+          - generic [ref=f6e121]:
+            - generic [ref=f6e122]:
+              - generic [ref=f6e123]: "0"
+              - generic [ref=f6e124]: Qualified
+            - generic [ref=f6e125]:
+              - generic [ref=f6e126]: "0"
+              - generic [ref=f6e127]: Declined
+            - generic [ref=f6e128]:
+              - generic [ref=f6e129]: "0"
+              - generic [ref=f6e130]: Dismissed
+          - generic [ref=f6e131]:
+            - generic [ref=f6e132]: Retro-import
+            - generic [ref=f6e133]: 90 days of Gmail history · 1,247 threads scanned · 34 contacts re-classified · 12 Warmth adjustments
+        - generic [ref=f6e134]:
+          - generic [ref=f6e135]:
+            - generic [ref=f6e136]: Your ICP rules · 6 active
+            - generic [ref=f6e140]: What counts as a good inbound.
+          - list [ref=f6e141]:
+            - listitem [ref=f6e142]:
+              - generic [ref=f6e146]: Operator at a Series A/B tech company
+              - generic [ref=f6e147]: "+6"
+            - listitem [ref=f6e148]:
+              - generic [ref=f6e152]: Journalist or analyst from a known outlet
+              - generic [ref=f6e153]: "+4"
+            - listitem [ref=f6e154]:
+              - generic [ref=f6e158]: Founder-to-founder reach-out with mutual connection
+              - generic [ref=f6e159]: "+5"
+            - listitem [ref=f6e160]:
+              - generic [ref=f6e165]: Recruiter for a role not my function
+              - generic [ref=f6e166]: "-4"
+            - listitem [ref=f6e167]:
+              - generic [ref=f6e172]: Generic sales demo · no personalisation
+              - generic [ref=f6e173]: "-6"
+            - listitem [ref=f6e174]:
+              - generic [ref=f6e178]: Mentions a specific thing I wrote or built
+              - generic [ref=f6e179]: "+5"
+        - generic [ref=f6e180]:
+          - generic [ref=f6e181]:
+            - generic [ref=f6e182]: Demo · Simulate an inbound
+            - heading "Fire a cold inbound → watch Mailbox classify + draft." [level=3] [ref=f6e183]
+            - paragraph [ref=f6e184]:
+              - text: Pick any canned inbound below, or hit
+              - strong [ref=f6e185]: Simulate
+              - text: to cycle to a random example. Mailbox runs it against your ICP rules, renders a verdict + drafted reply.
+            - button "Simulate a random inbound" [ref=f6e187]
+          - paragraph [ref=f6e191]: No inbound drafts in the queue right now.
+        - complementary [ref=f6e192]:
+          - generic [ref=f6e196]:
+            - generic [ref=f6e197]: How this works
+            - paragraph [ref=f6e198]: Mailbox here is wired to your live drafts queue. The full path uses Composio's Gmail API to (1) retro-import the last 90 days of threads and classify against these ICP rules, (2) watch the inbox in real time via webhook and fire a draft into Morning Connect when a good-fit lands. Both are built on the same Composio pipeline Scanner and Scribe already use.
+            - generic [ref=f6e199]: — Freddy
+  - complementary [aria-hidden] [ref=f6e200]:
+    - generic [ref=f6e201]:
+      - generic [ref=f6e202]:
+        - generic [ref=f6e203]: Genspark · web actions
+        - generic [ref=f6e204]: Crew
+      - button [ref=f6e207]
+    - generic [ref=f6e212]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f6e218] [cursor=pointer]

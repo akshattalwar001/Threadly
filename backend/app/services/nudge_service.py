@@ -25,7 +25,7 @@ class NudgeService:
             user_prompt=json.dumps(people),
         )
 
-        return json.loads(response)
+        return json.loads(response).get("suggestions", [])
 
 
 nudge = NudgeService()

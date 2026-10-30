@@ -1,10 +1,53 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { useAuth } from "@/context/AuthContext";
+import { getDashboardAnalytics } from "@/lib/api";
+import type { Analytics } from "@/lib/api";
+
+function getGreeting(hour: number) {
+  if (hour < 5) return "Good Night";
+  if (hour < 12) return "Good Morning";
+  if (hour < 17) return "Good Afternoon";
+  return "Good Evening";
+}
 
 export function ChiefBriefing() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const greetingName = user?.displayName?.split(" ")[0] ?? "there";
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
+  const [greeting, setGreeting] = useState("Good Day");
+
+  useEffect(() => {
+    setGreeting(getGreeting(new Date().getHours()));
+  }, []);
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getDashboardAnalytics()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setAnalytics(data);
+      })
+      .catch(() => {
+        if (active) {
+          setAnalytics(null);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
 
   return (
     <section className="mb-10 rounded-3xl overflow-hidden border border-[var(--border)] shadow-sm">
@@ -29,32 +72,25 @@ export function ChiefBriefing() {
             fontWeight: 700,
           }}
         >
-          Good Evening, {greetingName}.
+          {greeting}, {greetingName}.
         </h1>
 
         <p className="mt-5 max-w-2xl text-[var(--muted-strong)] leading-relaxed text-lg">
-          You're three introductions away from your next major
-          opportunity. Your strongest path currently runs through
-          cloud engineers and startup operators already inside
-          your extended network.
+          {analytics
+            ? `You have ${analytics.summary.total_graph} people in your graph, with ${analytics.summary.active_conversations} active conversations right now.`
+            : "Your Crew is watching your network for the next opportunity to reconnect."}
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
           <div className="rounded-full px-4 py-2 bg-white/80 border border-[var(--border)]">
             <span className="font-mono text-xs uppercase tracking-widest">
-              Goal · AI Cloud Engineer
+              Network Strength · {analytics ? `${Math.round(analytics.summary.avg_warmth)}/100` : "--"}
             </span>
           </div>
 
           <div className="rounded-full px-4 py-2 bg-white/80 border border-[var(--border)]">
             <span className="font-mono text-xs uppercase tracking-widest">
-              Network Strength · 67/100
-            </span>
-          </div>
-
-          <div className="rounded-full px-4 py-2 bg-white/80 border border-[var(--border)]">
-            <span className="font-mono text-xs uppercase tracking-widest">
-              Top Gap · Cloud Mentors
+              Dormant · {analytics ? analytics.summary.dormant : "--"}
             </span>
           </div>
         </div>

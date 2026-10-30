@@ -36,6 +36,9 @@ yarn-error.log*
 .env.development.local
 .env.production.local
 
+# downloaded OAuth client secrets (contain live credentials)
+client_secret_*.json
+
 # vercel
 .vercel
 

@@ -11,6 +11,9 @@ import {
   Bot,
 } from "lucide-react";
 
+import { askChief as askChiefApi } from "@/lib/api";
+import type { ChiefAnswer } from "@/lib/api";
+
 const suggestedPrompts = [
   "Who should I reconnect with this week?",
   "Who can help me become an AI Security Engineer?",
@@ -78,17 +81,25 @@ export default function ConnectPage() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [answer, setAnswer] = useState<ChiefAnswer | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const askChief = async () => {
     if (!query.trim()) return;
 
     setLoading(true);
     setAnswer(null);
+    setError(null);
 
-    setTimeout(() => {
-      setAnswer(buildChiefAnswer(query));
+    try {
+      const result = await askChiefApi(query);
+      setAnswer(result);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Chief couldn't reach the graph.",
+      );
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   };
 
   return (
@@ -173,6 +184,12 @@ export default function ConnectPage() {
                 )}
               </button>
             </div>
+
+            {error ? (
+              <div className="mt-6 rounded-2xl bg-white/10 border border-white/10 p-4 text-white/90">
+                {error}
+              </div>
+            ) : null}
 
             {answer ? (
               <div className="mt-6 rounded-2xl bg-white/10 border border-white/10 p-4 text-white/90">
@@ -354,29 +371,12 @@ export default function ConnectPage() {
   );
 }
 
-type ChiefAnswer =
-  | {
-      kind: "text";
-      text: string;
-    }
-  | {
-      kind: "cards";
-      text: string;
-      cards: Array<{
-        name: string;
-        role: string;
-        company: string;
-        reason: string;
-        potential: string;
-      }>;
-    };
-
 function ChiefAnswerView({ answer }: { answer: ChiefAnswer }) {
   return (
     <div className="space-y-4 text-sm md:text-base leading-relaxed whitespace-pre-wrap">
       <div>{answer.text}</div>
 
-      {answer.kind === "cards" ? (
+      {answer.cards && answer.cards.length > 0 ? (
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3 pt-1">
           {answer.cards.map((card) => (
             <div
@@ -410,130 +410,4 @@ function ChiefAnswerView({ answer }: { answer: ChiefAnswer }) {
       ) : null}
     </div>
   );
-}
-
-function buildChiefAnswer(query: string): ChiefAnswer {
-  const q = query.toLowerCase().trim();
-
-  if (q.includes("what does my network say about me")) {
-    return {
-      kind: "text",
-      text:
-        "Your network suggests you're intentionally positioning yourself at the intersection of AI, cloud, and startups. Rather than collecting random connections, you've consistently invested in founders, developer communities, and technical builders. Your next opportunity isn't expanding your network, it's activating the one you've already built.",
-    };
-  }
-
-  if (q.includes("where should i invest my networking efforts next")) {
-    return {
-      kind: "text",
-      text:
-        "Your strongest clusters are AI communities, hackathons, and early-stage founders. The biggest gap is relationships with senior engineering leaders and product decision-makers. Building a handful of deeper relationships in those groups will likely create more opportunities than adding another hundred connections.",
-    };
-  }
-
-  if (q.includes("career advisor")) {
-    return {
-      kind: "text",
-      text:
-        "Given your network, I wouldn't recommend spending time collecting more connections. You're already connected to founders, AI builders, Microsoft, AWS, and developer communities. Your highest ROI comes from turning existing relationships into collaborations, mentorships, and referrals. Your network has reached the stage where depth matters more than breadth.",
-    };
-  }
-
-  if (q.includes("five people") && q.includes("reconnect")) {
-    return {
-      kind: "cards",
-      text: "The five people you should reconnect with this month are:",
-      cards: [
-        {
-          name: "Adam Zhou",
-          role: "Founder",
-          company: "WaveSpeedAI",
-          reason: "Last interaction 184 days ago",
-          potential: "AI Infrastructure",
-        },
-        {
-          name: "Maya Okonkwo",
-          role: "Founder",
-          company: "Polygon Labs",
-          reason: "Last interaction 147 days ago",
-          potential: "Asia GTM and partnerships",
-        },
-        {
-          name: "Rahul Sharma",
-          role: "AI Recruiter",
-          company: "Google",
-          reason: "Last interaction 73 days ago",
-          potential: "Senior engineering roles",
-        },
-        {
-          name: "Aditi Verma",
-          role: "Security Engineer",
-          company: "OpenAI",
-          reason: "Last interaction 42 days ago",
-          potential: "AI security collaborations",
-        },
-        {
-          name: "Vikram Patel",
-          role: "Founder",
-          company: "Stealth AI",
-          reason: "Last interaction 91 days ago",
-          potential: "Startup partnerships",
-        },
-      ],
-    };
-  }
-
-  if (q.includes("biggest opportunity hidden in my network")) {
-    return {
-      kind: "text",
-      text:
-        "Your network connects multiple communities that rarely overlap. You know founders building AI products, student developer communities, and engineers from major technology companies. You are well positioned to become a bridge between these ecosystems. That combination is uncommon and creates opportunities beyond traditional job referrals.",
-    };
-  }
-
-  if (q.includes("ai internship") && q.includes("six months")) {
-    return {
-      kind: "text",
-      text:
-        "Your graph already contains many of the people who can accelerate that goal. Focus on founders building AI products, developer advocates, and engineers working in cloud infrastructure. Reconnect with existing contacts before seeking new introductions. Consistent follow-ups with a small group will likely outperform expanding your network further.",
-    };
-  }
-
-  if (q.includes("am i networking efficiently")) {
-    return {
-      kind: "text",
-      text:
-        "You're meeting the right people but not extracting the full value from those relationships. Your graph shows strong discovery but limited follow-up. Consistent re-engagement is the single change that would increase your network's long-term value.",
-    };
-  }
-
-  if (q.includes("google")) {
-    return {
-      kind: "text",
-      text:
-        "Your graph points to a warm path through existing engineering and recruiting contacts. The best move is to ask for a short, specific intro from the strongest mutual connection you already have.",
-    };
-  }
-
-  if (q.includes("going cold") || q.includes("cold") || q.includes("reconnect")) {
-    return {
-      kind: "text",
-      text:
-        "The relationships cooling fastest are the people you have not touched in 30+ days. Keep the message short and specific: one reason to reach out, one clear ask.",
-    };
-  }
-
-  if (q.includes("ai security") || q.includes("ai engineer") || q.includes("ai")) {
-    return {
-      kind: "text",
-      text:
-        "Fastest route: lean on your existing warm operators, then target AI builders and recruiters already connected to your graph. The strongest opportunities here are AI Research Mentor, Google STEP Recruiter, and Cybersecurity Founder.",
-    };
-  }
-
-  return {
-    kind: "text",
-    text:
-      "Chief suggests a warm intro path first, then a direct follow-up if needed. Use one sentence that names the goal, one sentence that names the person, and one sentence that asks for the intro or next step.",
-  };
 }

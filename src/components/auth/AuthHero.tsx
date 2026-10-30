@@ -30,7 +30,7 @@ return (
 
     <p className="mt-6 text-base leading-relaxed text-[var(--muted-strong)] max-w-md">
       Threadly keeps your relationships alive across
-      email, WhatsApp, Telegram, meetings,
+      email, Telegram, meetings,
       introductions, and events.
     </p>
 

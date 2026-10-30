@@ -7,7 +7,7 @@ type Props = {
   title: string;
   lede: string;
   crewKey?: CrewKey;
-  /** where to bounce the user back to (default /app/morning-connect) */
+  /** where to bounce the user back to (default /dashboard) */
   fallbackHref?: string;
   fallbackLabel?: string;
   children?: React.ReactNode;
@@ -22,8 +22,8 @@ export function ComingSoonShell({
   title,
   lede,
   crewKey,
-  fallbackHref = "/app/morning-connect",
-  fallbackLabel = "Open Morning Connect",
+  fallbackHref = "/dashboard",
+  fallbackLabel = "Open Dashboard",
   children,
 }: Props) {
   const accent = crewKey ? CREW[crewKey].color : "var(--ink)";
@@ -77,7 +77,7 @@ export function ComingSoonShell({
           This screen ships with the hackathon build.
         </h2>
         <p className="text-sm text-[var(--muted-strong)] leading-relaxed max-w-lg mx-auto">
-          The Crew is already working in the background — you can see the
+          The Crew is already working in the background, you can see the
           latest items in Morning Connect or on the Dashboard.
         </p>
 

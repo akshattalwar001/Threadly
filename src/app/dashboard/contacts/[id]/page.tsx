@@ -1,5 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   Send,
@@ -13,14 +16,10 @@ import {
   Link2,
   AtSign,
 } from "lucide-react";
-import {
-  contactById,
-  enrichmentFor,
-  interactionsFor,
-  warmthTimelineFor,
-  CREW,
-  type Channel,
-} from "@/lib/fixtures";
+import { CREW, type Channel, type WarmthPoint } from "@/lib/fixtures";
+import { useAuth } from "@/context/AuthContext";
+import { getContact } from "@/lib/api";
+import type { ContactDetail } from "@/lib/api";
 import { warmthTier } from "@/lib/utils";
 import { WarmthTimelineChart } from "@/components/warmth-timeline-chart";
 
@@ -35,7 +34,6 @@ const CHANNEL_ICON: Record<Channel, typeof Mail> = {
   email: Mail,
   telegram: MessageCircle,
   linkedin: Link2,
-  whatsapp: MessageCircle,
   card: Link2,
   social: AtSign,
 };
@@ -44,24 +42,82 @@ const CHANNEL_LABEL: Record<Channel, string> = {
   email: "Gmail",
   telegram: "Telegram",
   linkedin: "LinkedIn",
-  whatsapp: "WhatsApp",
   card: "Card scan",
   social: "Social DM",
 };
 
-export default async function ContactDetailPage(props: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await props.params;
-  const contact = contactById(id);
-  if (!contact) notFound();
+type Enrichment = {
+  linkedin_summary?: string;
+  company_summary?: string;
+  mutual_connections: Array<{ name: string; contact_id?: string }>;
+  recent_news: Array<{ title: string; date: string }>;
+  sourced_from: string[];
+  last_refreshed: string;
+};
+
+export default function ContactDetailPage() {
+  const params = useParams<{ id: string }>();
+  const id = params.id;
+  const { user, loading } = useAuth();
+  const [contact, setContact] = useState<ContactDetail | null>(null);
+  const [notFoundState, setNotFoundState] = useState(false);
+
+  useEffect(() => {
+    if (loading || !user || !id) {
+      return;
+    }
+
+    let active = true;
+
+    getContact(id)
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setContact(data);
+      })
+      .catch(() => {
+        if (active) {
+          setNotFoundState(true);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user, id]);
+
+  if (notFoundState) {
+    return (
+      <div className="max-w-2xl mx-auto text-center py-24">
+        <p className="text-[var(--muted-strong)]">
+          We couldn&apos;t find that contact.
+        </p>
+        <Link
+          href="/dashboard/contacts"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm text-[var(--foreground)] underline"
+        >
+          <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+          Back to contacts
+        </Link>
+      </div>
+    );
+  }
+
+  if (!contact) {
+    return null;
+  }
 
   const tier = warmthTier(contact.warmth);
   const tierColor = WARMTH_HEX[tier];
-  const enrichment = enrichmentFor(contact.id);
-  const interactions = interactionsFor(contact.id);
-  const timeline = warmthTimelineFor(contact.id);
-  const crew = CREW[contact.last_crew];
+  const enrichment = contact.enrichment as Enrichment | null;
+  const interactions = contact.interactions;
+  const timeline = contact.warmth_timeline;
+  const crew = CREW[contact.last_crew as keyof typeof CREW] ?? {
+    name: contact.last_crew,
+    color: "var(--muted-strong)",
+  };
 
   const autonomyLabel: Record<string, string> = {
     green: "Green · auto-send",
@@ -78,7 +134,7 @@ export default async function ContactDetailPage(props: {
     <div className="max-w-6xl mx-auto">
       {/* Back link */}
       <Link
-        href="/app/contacts"
+        href="/dashboard/contacts"
         className="inline-flex items-center gap-1.5 text-sm text-[var(--muted-strong)] hover:text-[var(--foreground)] transition-colors mb-8"
       >
         <ArrowLeft className="h-4 w-4" strokeWidth={2} />
@@ -157,7 +213,10 @@ export default async function ContactDetailPage(props: {
                 </div>
               ) : null}
             </div>
-            <WarmthTimelineChart points={timeline} height={240} />
+            <WarmthTimelineChart
+              points={timeline as unknown as WarmthPoint[]}
+              height={240}
+            />
           </section>
 
           {/* Enrichment */}
@@ -206,7 +265,7 @@ export default async function ContactDetailPage(props: {
                       {enrichment.mutual_connections.map((m) => (
                         <Link
                           key={m.name}
-                          href={m.contact_id ? `/app/contacts/${m.contact_id}` : "#"}
+                          href={m.contact_id ? `/dashboard/contacts/${m.contact_id}` : "#"}
                           className="inline-flex items-center gap-1.5 rounded-full bg-[var(--paper)] border border-[var(--hairline)] px-3 py-1 text-sm hover:bg-white transition-colors"
                         >
                           {m.name}
@@ -275,7 +334,7 @@ export default async function ContactDetailPage(props: {
                         }}
                       >
                         {(() => {
-                          const Icon = CHANNEL_ICON[it.channel];
+                          const Icon = CHANNEL_ICON[it.channel as Channel] ?? Mail;
                           return <Icon className="h-4 w-4" strokeWidth={1.75} />;
                         })()}
                       </div>
@@ -283,14 +342,14 @@ export default async function ContactDetailPage(props: {
                     <div className="min-w-0">
                       <div className="flex items-center justify-between gap-3 mb-1 flex-wrap">
                         <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-                          {it.day_label} · {CHANNEL_LABEL[it.channel]} · {it.direction}
+                          {it.day_label} · {CHANNEL_LABEL[it.channel as Channel] ?? it.channel} · {it.direction}
                         </span>
                         {it.crew ? (
                           <span
                             className="font-mono text-[10px] uppercase tracking-widest"
-                            style={{ color: CREW[it.crew].color }}
+                            style={{ color: (CREW[it.crew as keyof typeof CREW]?.color) ?? "var(--muted-strong)" }}
                           >
-                            [{CREW[it.crew].name}]
+                            [{CREW[it.crew as keyof typeof CREW]?.name ?? it.crew}]
                           </span>
                         ) : null}
                       </div>

@@ -84,7 +84,7 @@ export function CueBranching() {
           <span className="font-mono" style={{ color: "var(--warmth-hot)" }}>
             actions
           </span>{" "}
-          in your Telegram / WhatsApp.
+          in your Telegram.
         </h2>
         <p className="mt-6 text-base md:text-lg text-[var(--muted-strong)] leading-relaxed max-w-2xl">
           The person who wrote{" "}

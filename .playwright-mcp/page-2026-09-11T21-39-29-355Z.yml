@@ -1,0 +1,36 @@
+- generic [active] [ref=f2e1]:
+  - main [ref=f2e2]:
+    - generic [ref=f2e6]:
+      - generic [ref=f2e8]:
+        - img "Threadly" [ref=f2e9]
+        - heading "Never lose someone important again." [level=1] [ref=f2e10]: Never losesomeone importantagain.
+        - paragraph [ref=f2e11]: Threadly keeps your relationships alive across email, Telegram, meetings, introductions, and events.
+        - generic [ref=f2e12]:
+          - generic [ref=f2e13]: Chief
+          - generic [ref=f2e14]: Snap
+          - generic [ref=f2e15]: Nudge
+          - generic [ref=f2e16]: Gatekeeper
+          - generic [ref=f2e17]: Pulse
+          - generic [ref=f2e18]: Recall
+      - generic [ref=f2e20]:
+        - generic [ref=f2e21]:
+          - heading "Welcome to Threadly" [level=2] [ref=f2e22]
+          - paragraph [ref=f2e23]: Continue with Google, GitHub, or Email.
+        - generic [ref=f2e24]:
+          - button "Continue with Google" [ref=f2e25]
+          - button "Continue with GitHub" [ref=f2e31]
+        - generic [ref=f2e34]: OR
+        - generic [ref=f2e38]:
+          - generic [ref=f2e39]:
+            - button "Login" [ref=f2e40]
+            - button "Sign Up" [ref=f2e41]
+          - generic [ref=f2e42]:
+            - generic [ref=f2e43]:
+              - generic [ref=f2e44]: Email
+              - textbox "you@example.com" [ref=f2e45]
+            - generic [ref=f2e46]:
+              - generic [ref=f2e47]: Password
+              - textbox "••••••••" [ref=f2e48]
+            - button "Login" [ref=f2e49]
+        - paragraph [ref=f2e50]: By continuing you agree to our Terms and Privacy Policy.
+  - button "Open Next.js Dev Tools" [ref=f2e57] [cursor=pointer]

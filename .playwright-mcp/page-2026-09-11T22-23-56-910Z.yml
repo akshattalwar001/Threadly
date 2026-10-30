@@ -1,0 +1,76 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e2]:
+    - complementary [ref=f11e3]:
+      - generic [ref=f11e5]:
+        - img "Threadly" [ref=f11e6]
+        - button [ref=f11e7]
+      - generic [ref=f11e10]:
+        - generic [ref=f11e12]:
+          - button "Personal" [ref=f11e13]
+          - button "Team" [ref=f11e14]
+          - button "Enterprise" [ref=f11e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f11e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f11e18]: Chief
+          - generic [ref=f11e19]: Ask the Graph
+          - generic [ref=f11e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f11e21]:
+          - generic [ref=f11e22]: Workspace
+          - link "Dashboard" [ref=f11e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f11e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f11e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f11e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f11e47]:
+          - generic [ref=f11e48]: Your Crew
+          - link "Snap" [ref=f11e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f11e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f11e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f11e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f11e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f11e81]:
+          - generic [ref=f11e82]: Latest Signal
+          - generic [ref=f11e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f11e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f11e90]:
+        - generic [ref=f11e91]:
+          - generic [ref=f11e92]: U
+          - generic [ref=f11e93]: User
+        - button "Logout" [ref=f11e95]
+    - main [ref=f11e100]:
+      - generic [ref=f11e101]:
+        - link "Dashboard" [ref=f11e102] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f11e105]:
+          - generic [ref=f11e106]: Crew · 04 · Pulse
+          - heading "Pulse tracks who's really in touch." [level=1] [ref=f11e107]
+          - paragraph [ref=f11e108]: Real signal, not vanity connections — recency of contact, message volume, and your network's live health score. Everything here is computed from your actual graph, no fake integrations.
+        - generic [ref=f11e109]:
+          - generic [ref=f11e114]:
+            - generic [ref=f11e115]: Recently active
+            - heading "Who's actually talking to you right now." [level=2] [ref=f11e116]
+            - paragraph [ref=f11e117]: Sorted by real last-contact recency — not warmth score, not who's cooling off. Just who you've actually been in touch with lately.
+          - paragraph [ref=f11e118]: No recent contact activity yet.
+        - generic [ref=f11e119]:
+          - generic [ref=f11e127]:
+            - generic [ref=f11e128]: Full activity log
+            - heading "Every logged Crew action, unfiltered." [level=2] [ref=f11e129]
+            - paragraph [ref=f11e130]: The Dashboard home page only shows a short preview — this is the full feed behind it.
+          - paragraph [ref=f11e131]: No activity logged yet.
+  - complementary [aria-hidden] [ref=f11e132]:
+    - generic [ref=f11e133]:
+      - generic [ref=f11e134]:
+        - generic [ref=f11e135]: Genspark · web actions
+        - generic [ref=f11e136]: Crew
+      - button [ref=f11e139]
+    - generic [ref=f11e144]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f11e150] [cursor=pointer]

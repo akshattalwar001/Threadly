@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -21,22 +21,16 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import {
-  CREW,
-  fixtureAnalyticsSummary,
-  fixtureGrowth,
-  fixtureCrewActivity,
-  fixtureChannelShare,
-  fixtureAllActive,
-  type Channel,
-} from "@/lib/fixtures";
+import { CREW, type Channel } from "@/lib/fixtures";
+import { useAuth } from "@/context/AuthContext";
+import { getDashboardAnalytics } from "@/lib/api";
+import type { Analytics } from "@/lib/api";
 import { WarmthBar } from "@/components/warmth-bar";
 
 const CHANNEL_ICON: Record<Channel, typeof Mail> = {
   email: Mail,
   telegram: MessageCircle,
   linkedin: ScanLine,
-  whatsapp: MessageCircle,
   card: ScanLine,
   social: AtSign,
 };
@@ -45,24 +39,91 @@ const CHANNEL_LABEL: Record<Channel, string> = {
   email: "Gmail",
   telegram: "Telegram",
   linkedin: "LinkedIn",
-  whatsapp: "WhatsApp",
   card: "Card",
   social: "Social",
 };
 
 const PAGE_SIZE = 12;
 
+const MONTH_FORMATTER = new Intl.DateTimeFormat("en-US", { month: "short" });
+
+function monthLabel(ym: string) {
+  // ym is "YYYY-MM"
+  const [year, month] = ym.split("-").map(Number);
+  if (!year || !month) return ym;
+  const date = new Date(year, month - 1, 1);
+  return MONTH_FORMATTER.format(date);
+}
+
+const CHANNEL_COLOR: Record<Channel, string> = {
+  email: "var(--coral)",
+  telegram: "var(--teal)",
+  linkedin: "var(--indigo)",
+  card: "var(--copper)",
+  social: "var(--plum)",
+};
+
 export default function AnalyticsContactsPage() {
-  const s = fixtureAnalyticsSummary;
-  const monthDelta = s.new_this_month - s.new_last_month;
-  const deltaPct = Math.round((monthDelta / s.new_last_month) * 100);
-  const maxCrew = Math.max(...fixtureCrewActivity.map((c) => c.count));
-  const totalChannel = fixtureChannelShare.reduce((a, c) => a + c.count, 0);
+  const { user, loading } = useAuth();
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
+
+  useEffect(() => {
+    if (loading || !user) {
+      return;
+    }
+
+    let active = true;
+
+    getDashboardAnalytics()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+
+        setAnalytics(data);
+      })
+      .catch(() => {
+        if (active) {
+          setAnalytics(null);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loading, user]);
+
+  const s = analytics?.summary;
+  const growth = useMemo(() => analytics?.growth ?? [], [analytics]);
+  const channelShare = useMemo(() => analytics?.channel_share ?? [], [analytics]);
+  const topActive = useMemo(() => analytics?.top_active ?? [], [analytics]);
+
+  const newThisMonth = growth.length > 0 ? growth[growth.length - 1].new_contacts : 0;
+  const newLastMonth = growth.length > 1 ? growth[growth.length - 2].new_contacts : 0;
+  const deltaPct = newLastMonth > 0
+    ? Math.round(((newThisMonth - newLastMonth) / newLastMonth) * 100)
+    : undefined;
+
+  const chartData = useMemo(
+    () => growth.map((g) => ({ ...g, month: monthLabel(g.month) })),
+    [growth],
+  );
+
+  const crewBreakdown = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const c of topActive) {
+      counts.set(c.last_crew, (counts.get(c.last_crew) ?? 0) + 1);
+    }
+    return Array.from(counts.entries()).map(([crew, count]) => ({ crew, count }));
+  }, [topActive]);
+  const maxCrew = Math.max(1, ...crewBreakdown.map((c) => c.count));
+
+  const totalChannel = channelShare.reduce((a, c) => a + c.count, 0);
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const visibleContacts = fixtureAllActive.slice(0, visibleCount);
-  const hasMore = visibleCount < fixtureAllActive.length;
-  const remaining = fixtureAllActive.length - visibleCount;
+  const visibleContacts = topActive.slice(0, visibleCount);
+  const hasMore = visibleCount < topActive.length;
+  const remaining = topActive.length - visibleCount;
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
@@ -88,22 +149,22 @@ export default function AnalyticsContactsPage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
         <HeroStat
           label="New this month"
-          value={s.new_this_month}
+          value={newThisMonth}
           suffix="contacts"
           delta={deltaPct}
-          sub={`vs ${s.new_last_month} last month`}
+          sub={`vs ${newLastMonth} last month`}
           color="var(--coral)"
         />
         <HeroStat
           label="Active conversations"
-          value={s.active_conversations}
+          value={s?.active_conversations ?? 0}
           suffix="people"
-          sub={`${s.dormant} in cold / dormant tier`}
+          sub={`${s?.dormant ?? 0} in cold / dormant tier`}
           color="var(--warmth-warm)"
         />
         <HeroStat
           label="Total in your graph"
-          value={s.total_graph}
+          value={s?.total_graph ?? 0}
           suffix="contacts"
           sub="since you started Connect Crew"
           color="var(--indigo)"
@@ -138,7 +199,7 @@ export default function AnalyticsContactsPage() {
         <div style={{ width: "100%", height: 280 }}>
           <ResponsiveContainer>
             <ComposedChart
-              data={fixtureGrowth}
+              data={chartData}
               margin={{ top: 12, right: 16, left: 0, bottom: 8 }}
             >
               <defs>
@@ -214,42 +275,48 @@ export default function AnalyticsContactsPage() {
               Who did the work.
             </h2>
           </div>
-          <ul className="space-y-4">
-            {fixtureCrewActivity.map((c) => {
-              const crew = CREW[c.crew];
-              const pct = (c.count / maxCrew) * 100;
-              return (
-                <li key={c.crew}>
-                  <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                    <div className="flex items-center gap-2 min-w-0">
+          {crewBreakdown.length > 0 ? (
+            <ul className="space-y-4">
+              {crewBreakdown.map((c) => {
+                const crew = CREW[c.crew as keyof typeof CREW] ?? {
+                  name: c.crew,
+                  color: "var(--muted-strong)",
+                };
+                const pct = (c.count / maxCrew) * 100;
+                return (
+                  <li key={c.crew}>
+                    <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span
+                          className="h-2 w-2 rounded-full shrink-0"
+                          style={{ backgroundColor: crew.color }}
+                        />
+                        <span className="font-medium text-[var(--foreground)] truncate capitalize">
+                          {crew.name}
+                        </span>
+                      </div>
                       <span
-                        className="h-2 w-2 rounded-full shrink-0"
-                        style={{ backgroundColor: crew.color }}
-                      />
-                      <span className="font-medium text-[var(--foreground)] truncate">
-                        {crew.name}
-                      </span>
-                      <span className="font-mono text-[10px] text-[var(--muted)] truncate">
-                        · {c.caption}
+                        className="font-editorial text-lg tabular-nums shrink-0"
+                        style={{ color: crew.color, fontWeight: 700 }}
+                      >
+                        {c.count}
                       </span>
                     </div>
-                    <span
-                      className="font-editorial text-lg tabular-nums shrink-0"
-                      style={{ color: crew.color, fontWeight: 700 }}
-                    >
-                      {c.count}
-                    </span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-[var(--hairline)] overflow-hidden">
-                    <div
-                      className="h-full transition-all"
-                      style={{ width: `${pct}%`, backgroundColor: crew.color }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                    <div className="h-1.5 rounded-full bg-[var(--hairline)] overflow-hidden">
+                      <div
+                        className="h-full transition-all"
+                        style={{ width: `${pct}%`, backgroundColor: crew.color }}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="text-sm text-[var(--muted-strong)]">
+              No crew activity to break down yet.
+            </p>
+          )}
         </div>
 
         <div className="rounded-2xl border border-[var(--border)] bg-white p-6 md:p-8">
@@ -264,59 +331,67 @@ export default function AnalyticsContactsPage() {
               Channel mix.
             </h2>
           </div>
-          <ul className="space-y-4">
-            {fixtureChannelShare.map((c) => {
-              const pct = Math.round((c.count / totalChannel) * 100);
-              const Icon = CHANNEL_ICON[c.channel];
-              return (
-                <li key={c.channel}>
-                  <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Icon
-                        className="h-3.5 w-3.5 shrink-0"
-                        style={{ color: c.color }}
-                        strokeWidth={2}
+          {channelShare.length > 0 ? (
+            <ul className="space-y-4">
+              {channelShare.map((c) => {
+                const pct = totalChannel > 0 ? Math.round((c.count / totalChannel) * 100) : 0;
+                const channel = c.channel as Channel;
+                const Icon = CHANNEL_ICON[channel] ?? Mail;
+                const color = CHANNEL_COLOR[channel] ?? "var(--muted-strong)";
+                return (
+                  <li key={c.channel}>
+                    <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Icon
+                          className="h-3.5 w-3.5 shrink-0"
+                          style={{ color }}
+                          strokeWidth={2}
+                        />
+                        <span className="font-medium text-[var(--foreground)] truncate">
+                          {CHANNEL_LABEL[channel] ?? c.channel}
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-2 shrink-0">
+                        <span className="font-mono text-xs text-[var(--muted)] tabular-nums">
+                          {c.count}
+                        </span>
+                        <span
+                          className="font-editorial text-lg tabular-nums"
+                          style={{ color, fontWeight: 700 }}
+                        >
+                          {pct}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-[var(--hairline)] overflow-hidden">
+                      <div
+                        className="h-full transition-all"
+                        style={{ width: `${pct}%`, backgroundColor: color }}
                       />
-                      <span className="font-medium text-[var(--foreground)] truncate">
-                        {c.label}
-                      </span>
                     </div>
-                    <div className="flex items-baseline gap-2 shrink-0">
-                      <span className="font-mono text-xs text-[var(--muted)] tabular-nums">
-                        {c.count}
-                      </span>
-                      <span
-                        className="font-editorial text-lg tabular-nums"
-                        style={{ color: c.color, fontWeight: 700 }}
-                      >
-                        {pct}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-[var(--hairline)] overflow-hidden">
-                    <div
-                      className="h-full transition-all"
-                      style={{ width: `${pct}%`, backgroundColor: c.color }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="text-sm text-[var(--muted-strong)]">
+              No channel activity yet.
+            </p>
+          )}
           <div className="mt-6 pt-4 border-t border-[var(--hairline)] grid grid-cols-3 gap-3">
             <MiniStat
               label="Drafts sent"
-              value={s.drafts_sent_this_month}
+              value={s?.drafts_sent_this_month ?? 0}
               color="var(--sage)"
             />
             <MiniStat
               label="Drafts staged"
-              value={s.drafts_staged_this_month}
+              value={s?.drafts_staged_this_month ?? 0}
               color="var(--gold)"
             />
             <MiniStat
-              label="Events attended"
-              value={s.events_this_month}
+              label="Avg warmth"
+              value={s ? Math.round(s.avg_warmth) : 0}
               color="var(--terracotta)"
             />
           </div>
@@ -339,19 +414,23 @@ export default function AnalyticsContactsPage() {
               </h2>
             </div>
             <div className="font-mono text-[11px] text-[var(--muted)] tabular-nums">
-              Showing {visibleContacts.length} of {fixtureAllActive.length}
+              Showing {visibleContacts.length} of {topActive.length}
             </div>
           </div>
         </div>
         <ul className="divide-y divide-[var(--hairline)]">
           {visibleContacts.map((c, i) => {
-            const crew = CREW[c.last_crew];
-            const ChannelIcon = CHANNEL_ICON[c.channel];
+            const crew = CREW[c.last_crew as keyof typeof CREW] ?? {
+              name: c.last_crew,
+              color: "var(--muted-strong)",
+            };
+            const channel = c.channel as Channel;
+            const ChannelIcon = CHANNEL_ICON[channel] ?? Mail;
             return (
               <li key={c.contact_id}>
                 <Link
-                  href={`/app/contacts/${c.contact_id}`}
-                  className="grid grid-cols-[auto_auto_1fr_auto_auto] md:grid-cols-[auto_auto_1fr_180px_90px_60px] gap-3 md:gap-5 px-6 md:px-8 py-4 items-center hover:bg-[var(--paper)]/40 transition-colors"
+                  href={`/dashboard/contacts/${c.contact_id}`}
+                  className="grid grid-cols-[auto_auto_1fr_auto] md:grid-cols-[auto_auto_1fr_180px_120px] gap-3 md:gap-5 px-6 md:px-8 py-4 items-center hover:bg-[var(--paper)]/40 transition-colors"
                 >
                   <span className="font-mono text-xs text-[var(--muted)] w-6 tabular-nums text-right">
                     {i + 1}
@@ -376,18 +455,7 @@ export default function AnalyticsContactsPage() {
                   </div>
                   <div className="font-mono text-xs text-[var(--muted-strong)] tabular-nums hidden md:flex items-center gap-1.5 justify-end">
                     <ChannelIcon className="h-3 w-3" strokeWidth={2} />
-                    <span>{CHANNEL_LABEL[c.channel]}</span>
-                  </div>
-                  <div className="text-right">
-                    <div
-                      className="font-editorial text-lg tabular-nums"
-                      style={{ fontWeight: 700, color: crew.color }}
-                    >
-                      {c.interactions_this_month}
-                    </div>
-                    <div className="font-mono text-[9px] uppercase tracking-wider text-[var(--muted)]">
-                      msgs
-                    </div>
+                    <span>{CHANNEL_LABEL[channel] ?? c.channel}</span>
                   </div>
                 </Link>
               </li>
@@ -412,7 +480,7 @@ export default function AnalyticsContactsPage() {
           <div className="p-5 text-center border-t border-[var(--hairline)] bg-[var(--paper)]/30">
             <div className="inline-flex items-center gap-1.5 text-sm text-[var(--muted)]">
               <Link
-                href="/app/lead-o-meter"
+                href="/dashboard/lead-o-meter"
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
                 Open Lead-O-Meter
@@ -424,7 +492,7 @@ export default function AnalyticsContactsPage() {
       </section>
 
       <p className="mt-10 mb-6 text-center font-mono text-[11px] text-[var(--muted)]">
-        Analytics · fixture data · live Supabase queries wire in on hackathon day.
+        Analytics · live from your graph.
       </p>
     </div>
   );

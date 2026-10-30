@@ -1,0 +1,160 @@
+- generic [active] [ref=f2e1]:
+  - button "Open Next.js Dev Tools" [ref=f2e57] [cursor=pointer]
+  - alert [ref=f2e61]
+  - generic [ref=f2e63]:
+    - complementary [ref=f2e64]:
+      - generic [ref=f2e66]:
+        - img "Threadly" [ref=f2e67]
+        - button [ref=f2e68]
+      - generic [ref=f2e71]:
+        - generic [ref=f2e73]:
+          - button "Personal" [ref=f2e74]
+          - button "Team" [ref=f2e75]
+          - button "Enterprise" [ref=f2e76]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f2e78] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f2e79]: Chief
+          - generic [ref=f2e80]: Ask the Graph
+          - generic [ref=f2e81]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f2e82]:
+          - generic [ref=f2e83]: Workspace
+          - link "Dashboard" [ref=f2e84] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f2e91] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f2e96] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f2e103] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f2e108]:
+          - generic [ref=f2e109]: Your Crew
+          - link "Snap" [ref=f2e110] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f2e117] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f2e123] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f2e128] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f2e136] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f2e142]:
+          - generic [ref=f2e143]: Latest Signal
+          - generic [ref=f2e144]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f2e146] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f2e151]:
+        - generic [ref=f2e152]:
+          - generic [ref=f2e153]: A
+          - generic [ref=f2e154]:
+            - generic [ref=f2e155]: Akshat The Second
+            - generic [ref=f2e156]: uniquedimension1@gmail.com
+        - button "Logout" [ref=f2e157]
+    - main [ref=f2e162]:
+      - generic [ref=f2e163]:
+        - generic [ref=f2e165]:
+          - generic [ref=f2e166]: Chief's Briefing
+          - heading "Good Evening, Akshat." [level=1] [ref=f2e167]
+          - paragraph [ref=f2e168]: You have 3 people in your graph, with 0 active conversations right now.
+          - generic [ref=f2e169]:
+            - generic [ref=f2e170]: Network Strength · 50/100
+            - generic [ref=f2e172]: Dormant · 0
+        - generic [ref=f2e174]:
+          - generic [ref=f2e175]:
+            - generic [ref=f2e176]: Live Crew Console
+            - heading "Dispatch one of the seven MVP actions." [level=2] [ref=f2e177]
+            - paragraph [ref=f2e178]: Every request goes through Firebase auth, then POST /crew/action, then Neo4j. No extra orchestration layer.
+          - generic [ref=f2e179]:
+            - generic [ref=f2e180]:
+              - generic [ref=f2e181]:
+                - button "microsoft Microsoft Search" [ref=f2e182]:
+                  - generic [ref=f2e183]: microsoft
+                  - generic [ref=f2e184]: Microsoft Search
+                - button "founders Founder Search" [ref=f2e185]:
+                  - generic [ref=f2e186]: founders
+                  - generic [ref=f2e187]: Founder Search
+                - button "ai AI Search" [ref=f2e188]:
+                  - generic [ref=f2e189]: ai
+                  - generic [ref=f2e190]: AI Search
+                - button "reconnect Reconnect" [ref=f2e191]:
+                  - generic [ref=f2e192]: reconnect
+                  - generic [ref=f2e193]: Reconnect
+                - button "health Network Health" [ref=f2e194]:
+                  - generic [ref=f2e195]: health
+                  - generic [ref=f2e196]: Network Health
+                - button "companies Top Companies" [ref=f2e197]:
+                  - generic [ref=f2e198]: companies
+                  - generic [ref=f2e199]: Top Companies
+              - generic [ref=f2e200]:
+                - generic [ref=f2e201]: Scanner note
+                - textbox "Met Maya Okonkwo at TOKEN2049 reception. She is a founder at Polygon Labs and wants coffee next week." [ref=f2e205]
+                - generic [ref=f2e206]:
+                  - button "Run Scanner" [ref=f2e207]
+                  - generic [ref=f2e208]: Scanner saves the contact and returns structured JSON.
+            - generic [ref=f2e209]:
+              - generic [ref=f2e210]: Latest response
+              - generic [ref=f2e211]: Run an action to see the live response from FastAPI and Neo4j.
+        - generic [ref=f2e213]:
+          - generic [ref=f2e214]:
+            - generic [ref=f2e215]: Live from Neo4j
+            - generic [ref=f2e216]: Network Health · 84
+          - generic [ref=f2e217]:
+            - generic [ref=f2e219]:
+              - generic [ref=f2e220]: "3"
+              - generic [ref=f2e221]: Relationships
+            - generic [ref=f2e223]:
+              - generic [ref=f2e224]: "0"
+              - generic [ref=f2e225]: Companies
+            - generic [ref=f2e227]:
+              - generic [ref=f2e228]: "0"
+              - generic [ref=f2e229]: AI Builders
+            - generic [ref=f2e231]:
+              - generic [ref=f2e232]: "0"
+              - generic [ref=f2e233]: Founders
+        - generic [ref=f2e234]:
+          - generic [ref=f2e235]:
+            - generic [ref=f2e236]: Top Opportunities
+            - heading "People worth meeting." [level=2] [ref=f2e237]
+            - generic [ref=f2e238]:
+              - generic [ref=f2e239]:
+                - generic [ref=f2e240]:
+                  - generic [ref=f2e241]:
+                    - generic [ref=f2e242]: Drishti Verma
+                    - generic [ref=f2e243]: ·
+                  - generic [ref=f2e244]: 50%
+                - paragraph [ref=f2e245]: Last contact ago
+              - generic [ref=f2e246]:
+                - generic [ref=f2e247]:
+                  - generic [ref=f2e248]:
+                    - generic [ref=f2e249]: Waqar Akhtar
+                    - generic [ref=f2e250]: ·
+                  - generic [ref=f2e251]: 50%
+                - paragraph [ref=f2e252]: Last contact ago
+              - generic [ref=f2e253]:
+                - generic [ref=f2e254]:
+                  - generic [ref=f2e255]:
+                    - generic [ref=f2e256]: Rîy@
+                    - generic [ref=f2e257]: ·
+                  - generic [ref=f2e258]: 50%
+                - paragraph [ref=f2e259]: Last contact ago
+          - generic [ref=f2e260]:
+            - generic [ref=f2e261]: Coverage
+            - heading "Relationship Map" [level=2] [ref=f2e262]
+            - generic [ref=f2e265]:
+              - generic [ref=f2e266]: Untagged
+              - generic [ref=f2e267]: 100%
+        - generic [ref=f2e270]:
+          - generic [ref=f2e271]: Crew Activity
+          - heading "Working behind the scenes." [level=2] [ref=f2e272]
+          - paragraph [ref=f2e273]: No crew activity yet.
+        - generic [ref=f2e274]:
+          - generic [ref=f2e275]: Recent Progress
+          - heading "Momentum." [level=2] [ref=f2e276]
+          - paragraph [ref=f2e277]: No recent progress yet.
+  - complementary [aria-hidden] [ref=f2e278]:
+    - generic [ref=f2e279]:
+      - generic [ref=f2e280]:
+        - generic [ref=f2e281]: Genspark · web actions
+        - generic [ref=f2e282]: Crew
+      - button [ref=f2e285]
+    - generic [ref=f2e290]: Stub for this session · real Genspark Super Agent wires in on hackathon day.

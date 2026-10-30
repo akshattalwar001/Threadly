@@ -1,0 +1,2 @@
+[      28ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://threadly-1e293.firebaseapp.com/favicon.ico:0
+[    1037ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://threadly-1e293.firebaseapp.com/__/firebase/init.json:0

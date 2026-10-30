@@ -14,51 +14,61 @@ PROMPT = (
 
 class RecallService:
 
+    def _classify(self, query: str) -> dict:
+        response = llm.chat(
+            system_prompt=PROMPT,
+            user_prompt=query,
+        )
+
+        try:
+            parsed = json.loads(response)
+        except ValueError:
+            parsed = {}
+
+        return {
+            "intent": parsed.get("intent") or "name",
+            "value": parsed.get("value") or query,
+        }
+
+    def _build_answer(self, value: str, graph: list[dict]) -> str:
+        if not graph:
+            return f'I couldn\'t find anyone matching "{value}" in your network.'
+
+        names = [p.get("name") for p in graph if p.get("name")]
+        preview = ", ".join(names[:5])
+
+        remaining = len(names) - 5
+        if remaining > 0:
+            preview += f", and {remaining} more"
+
+        plural = "es" if len(names) != 1 else ""
+
+        return f"Found {len(names)} match{plural}: {preview}."
+
     def search(
         self,
         uid: str,
         query: str,
     ):
 
-        q = query.lower()
+        classification = self._classify(query)
+        intent = classification["intent"]
+        value = classification["value"]
 
-        if "event" in q or "met" in q:
-
-            words = query.split()
-
-            event = words[-1]
-
-            graph = graph_service.get_people_by_event(
-                uid,
-                event,
-            )
-
-        elif "company" in q or "work" in q:
-
-            company = query.split()[-1]
-
-            graph = graph_service.get_people_by_company(
-                uid,
-                company,
-            )
-
+        if intent == "company":
+            graph = graph_service.get_people_by_company(uid, value)
+        elif intent == "topic":
+            graph = graph_service.get_people_by_topic(uid, value)
+        elif intent == "founder":
+            graph = graph_service.get_founders(uid)
+        elif intent == "ai_people":
+            graph = graph_service.get_ai_people(uid)
         else:
-
-            topic = query.split()[-1]
-
-            graph = graph_service.get_people_by_topic(
-                uid,
-                topic,
-            )
-
-        response = llm.chat(
-            system_prompt=PROMPT,
-            user_prompt=json.dumps(graph),
-        )
+            graph = graph_service.get_people_by_name(uid, value)
 
         return {
             "results": graph,
-            "answer": response,
+            "answer": self._build_answer(value, graph),
         }
 
 

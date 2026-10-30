@@ -1,0 +1,119 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e2]:
+    - complementary [ref=f11e3]:
+      - generic [ref=f11e5]:
+        - img "Threadly" [ref=f11e6]
+        - button [ref=f11e7]
+      - generic [ref=f11e10]:
+        - generic [ref=f11e12]:
+          - button "Personal" [ref=f11e13]
+          - button "Team" [ref=f11e14]
+          - button "Enterprise" [ref=f11e15]
+        - link "Chief Ask the Graph Who should I meet? Which connection matters? Who can help me reach my goal?" [ref=f11e17] [cursor=pointer]:
+          - /url: /dashboard/connect
+          - generic [ref=f11e18]: Chief
+          - generic [ref=f11e19]: Ask the Graph
+          - generic [ref=f11e20]: Who should I meet?Which connection matters?Who can help me reach my goal?
+        - navigation [ref=f11e21]:
+          - generic [ref=f11e22]: Workspace
+          - link "Dashboard" [ref=f11e23] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Connect" [ref=f11e30] [cursor=pointer]:
+            - /url: /dashboard/connect
+          - link "Contacts" [ref=f11e35] [cursor=pointer]:
+            - /url: /dashboard/contacts
+          - link "Lead-O-Meter" [ref=f11e42] [cursor=pointer]:
+            - /url: /dashboard/lead-o-meter
+        - navigation [ref=f11e47]:
+          - generic [ref=f11e48]: Your Crew
+          - link "Snap" [ref=f11e49] [cursor=pointer]:
+            - /url: /dashboard/crew/snap
+          - link "Nudge" [ref=f11e56] [cursor=pointer]:
+            - /url: /dashboard/crew/nudge
+          - link "Gatekeeper" [ref=f11e62] [cursor=pointer]:
+            - /url: /dashboard/crew/gatekeeper
+          - link "Pulse" [ref=f11e67] [cursor=pointer]:
+            - /url: /dashboard/crew/pulse
+          - link "Recall" [ref=f11e75] [cursor=pointer]:
+            - /url: /dashboard/crew/recall
+        - generic [ref=f11e81]:
+          - generic [ref=f11e82]: Latest Signal
+          - generic [ref=f11e83]: A recruiter in your extended network viewed your profile.
+      - link "Settings" [ref=f11e85] [cursor=pointer]:
+        - /url: /dashboard/settings
+      - generic [ref=f11e90]:
+        - generic [ref=f11e91]:
+          - generic [ref=f11e92]: A
+          - generic [ref=f11e93]:
+            - generic [ref=f11e94]: Akshat The Second
+            - generic [ref=f11e154]: uniquedimension1@gmail.com
+        - button "Logout" [ref=f11e95]
+    - main [ref=f11e100]:
+      - generic [ref=f11e101]:
+        - link "Dashboard" [ref=f11e102] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f11e105]:
+          - generic [ref=f11e106]: Crew · 04 · Pulse
+          - heading "Pulse tracks who's really in touch." [level=1] [ref=f11e107]
+          - paragraph [ref=f11e108]: Real signal, not vanity connections — recency of contact, message volume, and your network's live health score. Everything here is computed from your actual graph, no fake integrations.
+        - generic [ref=f11e155]:
+          - generic [ref=f11e156]: Network pulse · 68/100
+          - generic [ref=f11e157]:
+            - generic [ref=f11e158]:
+              - generic [ref=f11e159]: "4"
+              - generic [ref=f11e160]: Relationships
+            - generic [ref=f11e161]:
+              - generic [ref=f11e162]: "0"
+              - generic [ref=f11e163]: Companies
+            - generic [ref=f11e164]:
+              - generic [ref=f11e165]: "0"
+              - generic [ref=f11e166]: AI Builders
+            - generic [ref=f11e167]:
+              - generic [ref=f11e168]: "0"
+              - generic [ref=f11e169]: Founders
+        - generic [ref=f11e109]:
+          - generic [ref=f11e114]:
+            - generic [ref=f11e115]: Recently active
+            - heading "Who's actually talking to you right now." [level=2] [ref=f11e116]
+            - paragraph [ref=f11e117]: Sorted by real last-contact recency — not warmth score, not who's cooling off. Just who you've actually been in touch with lately.
+          - generic [ref=f11e170]:
+            - generic [ref=f11e171]:
+              - generic [ref=f11e172]: RM
+              - generic [ref=f11e173]:
+                - generic [ref=f11e174]: Rohan Mehta
+                - generic [ref=f11e175]: Byteforge
+              - generic [ref=f11e176]: Card
+              - generic [ref=f11e182]: moments ago
+            - generic [ref=f11e183]:
+              - generic [ref=f11e184]: DV
+              - generic [ref=f11e185]: Drishti Verma
+              - generic [ref=f11e187]: Telegram
+              - generic [ref=f11e190]: 8 messages
+              - generic [ref=f11e191]: 3h ago
+            - generic [ref=f11e192]:
+              - generic [ref=f11e193]: R
+              - generic [ref=f11e194]: Rîy@
+              - generic [ref=f11e196]: Telegram
+              - generic [ref=f11e199]: 3 messages
+              - generic [ref=f11e200]: 4h ago
+            - generic [ref=f11e201]:
+              - generic [ref=f11e202]: WA
+              - generic [ref=f11e203]: Waqar Akhtar
+              - generic [ref=f11e205]: Telegram
+              - generic [ref=f11e208]: 9 messages
+              - generic [ref=f11e209]: 7h ago
+        - generic [ref=f11e119]:
+          - generic [ref=f11e127]:
+            - generic [ref=f11e128]: Full activity log
+            - heading "Every logged Crew action, unfiltered." [level=2] [ref=f11e129]
+            - paragraph [ref=f11e130]: The Dashboard home page only shows a short preview — this is the full feed behind it.
+          - paragraph [ref=f11e131]: No activity logged yet.
+  - complementary [aria-hidden] [ref=f11e132]:
+    - generic [ref=f11e133]:
+      - generic [ref=f11e134]:
+        - generic [ref=f11e135]: Genspark · web actions
+        - generic [ref=f11e136]: Crew
+      - button [ref=f11e139]
+    - generic [ref=f11e144]: Stub for this session · real Genspark Super Agent wires in on hackathon day.
+  - button "Open Next.js Dev Tools" [ref=f11e150] [cursor=pointer]
+  - alert [ref=f11e210]

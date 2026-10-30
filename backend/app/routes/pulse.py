@@ -12,3 +12,11 @@ def dashboard(user=Depends(get_current_user)):
     return pulse_service.dashboard(
         user["uid"]
     )
+
+
+@router.get("/recently-active")
+def recently_active(user=Depends(get_current_user)):
+
+    return pulse_service.recently_active(
+        user["uid"]
+    )
